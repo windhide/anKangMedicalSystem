@@ -2,14 +2,14 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ankang.warehouse.mapper.WarehousetypeMapper">
+<mapper namespace="com.ankang.warehouse.mapper.WarehouseTypeMapper">
 
-    <resultMap id="BaseResultMap" type="com.ankang.warehouse.pojo.Warehousetype">
-            <id property="warehousetypeid" column="warehouseTypeId" jdbcType="INTEGER"/>
-            <result property="warehousetypename" column="warehouseTypeName" jdbcType="VARCHAR"/>
+    <resultMap id="BaseResultMap" type="com.ankang.warehouse.pojo.WarehouseType">
+            <id property="warehouseTypeId" column="warehouse_type_id" jdbcType="INTEGER"/>
+            <result property="warehouseTypeName" column="warehouse_type_name" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        warehouseTypeId,warehouseTypeName
+        warehouse_type_id,warehouse_type_name
     </sql>
 </mapper>

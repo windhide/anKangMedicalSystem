@@ -5,11 +5,11 @@
 <mapper namespace="com.ankang.staff.mapper.AuthorityMapper">
 
     <resultMap id="BaseResultMap" type="com.ankang.staff.pojo.Authority">
-            <id property="authorityid" column="authorityId" jdbcType="INTEGER"/>
-            <result property="authorityname" column="authorityName" jdbcType="VARCHAR"/>
+            <id property="authorityId" column="authority_id" jdbcType="INTEGER"/>
+            <result property="authorityName" column="authority_name" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        authorityId,authorityName
+        authority_id,authority_name
     </sql>
 </mapper>

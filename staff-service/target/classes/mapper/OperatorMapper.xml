@@ -5,15 +5,15 @@
 <mapper namespace="com.ankang.staff.mapper.OperatorMapper">
 
     <resultMap id="BaseResultMap" type="com.ankang.staff.pojo.Operator">
-            <id property="operatorid" column="operatorId" jdbcType="INTEGER"/>
-            <result property="staffid" column="staffId" jdbcType="INTEGER"/>
-            <result property="drugsid" column="drugsId" jdbcType="INTEGER"/>
-            <result property="operatortypeid" column="operatorTypeId" jdbcType="INTEGER"/>
-            <result property="operatorcreattime" column="operatorCreatTime" jdbcType="VARCHAR"/>
+            <id property="operatorId" column="operator_id" jdbcType="INTEGER"/>
+            <result property="staffId" column="staff_id" jdbcType="INTEGER"/>
+            <result property="drugsId" column="drugs_id" jdbcType="INTEGER"/>
+            <result property="operatorTypeId" column="operator_type_id" jdbcType="INTEGER"/>
+            <result property="operatorCreatTime" column="operator_creat_time" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        operatorId,staffId,drugsId,
-        operatorTypeId,operatorCreatTime
+        operator_id,staff_id,drugs_id,
+        operator_type_id,operator_creat_time
     </sql>
 </mapper>
