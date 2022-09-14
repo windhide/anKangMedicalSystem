@@ -1,44 +1,43 @@
 package com.ankang.user.pojo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
- * 
  * @TableName symptom
  */
-@TableName(value ="symptom")
+@TableName(value = "symptom")
 @Data
 public class Symptom implements Serializable {
     /**
-     * 
+     *
      */
     @TableId
-    private Integer symptomid;
+    private Integer symptomId;
 
     /**
-     * 
+     *
      */
-    private String symptomcontext;
+    private String symptomContext;
 
     /**
-     * 
+     *
      */
-    private Integer userid;
+    private Integer userId;
 
     /**
-     * 
+     *
      */
-    private Integer staffid;
+    private Integer staffId;
 
     /**
-     * 
+     *
      */
-    private String createtime;
+    private String createTime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -55,22 +54,22 @@ public class Symptom implements Serializable {
             return false;
         }
         Symptom other = (Symptom) that;
-        return (this.getSymptomid() == null ? other.getSymptomid() == null : this.getSymptomid().equals(other.getSymptomid()))
-            && (this.getSymptomcontext() == null ? other.getSymptomcontext() == null : this.getSymptomcontext().equals(other.getSymptomcontext()))
-            && (this.getUserid() == null ? other.getUserid() == null : this.getUserid().equals(other.getUserid()))
-            && (this.getStaffid() == null ? other.getStaffid() == null : this.getStaffid().equals(other.getStaffid()))
-            && (this.getCreatetime() == null ? other.getCreatetime() == null : this.getCreatetime().equals(other.getCreatetime()));
+        return (this.getSymptomId() == null ? other.getSymptomId() == null : this.getSymptomId().equals(other.getSymptomId()))
+                && (this.getSymptomContext() == null ? other.getSymptomContext() == null : this.getSymptomContext().equals(other.getSymptomContext()))
+                && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+                && (this.getStaffId() == null ? other.getStaffId() == null : this.getStaffId().equals(other.getStaffId()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getSymptomid() == null) ? 0 : getSymptomid().hashCode());
-        result = prime * result + ((getSymptomcontext() == null) ? 0 : getSymptomcontext().hashCode());
-        result = prime * result + ((getUserid() == null) ? 0 : getUserid().hashCode());
-        result = prime * result + ((getStaffid() == null) ? 0 : getStaffid().hashCode());
-        result = prime * result + ((getCreatetime() == null) ? 0 : getCreatetime().hashCode());
+        result = prime * result + ((getSymptomId() == null) ? 0 : getSymptomId().hashCode());
+        result = prime * result + ((getSymptomContext() == null) ? 0 : getSymptomContext().hashCode());
+        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getStaffId() == null) ? 0 : getStaffId().hashCode());
+        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         return result;
     }
 
@@ -80,11 +79,11 @@ public class Symptom implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", symptomid=").append(symptomid);
-        sb.append(", symptomcontext=").append(symptomcontext);
-        sb.append(", userid=").append(userid);
-        sb.append(", staffid=").append(staffid);
-        sb.append(", createtime=").append(createtime);
+        sb.append(", symptomId=").append(symptomId);
+        sb.append(", symptomContext=").append(symptomContext);
+        sb.append(", userId=").append(userId);
+        sb.append(", staffId=").append(staffId);
+        sb.append(", createTime=").append(createTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

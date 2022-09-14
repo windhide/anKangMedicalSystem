@@ -68,12 +68,12 @@
                   <option name="tableName" value="warehouse" />
                 </TableUIInfo>
                 <TableUIInfo>
-                  <option name="className" value="Warehousestaffrecord" />
-                  <option name="tableName" value="warehouseStaffRecord" />
+                  <option name="className" value="WarehouseStaffRecord" />
+                  <option name="tableName" value="warehouse_staff_record" />
                 </TableUIInfo>
                 <TableUIInfo>
-                  <option name="className" value="Warehousetype" />
-                  <option name="tableName" value="warehouseType" />
+                  <option name="className" value="WarehouseType" />
+                  <option name="tableName" value="warehouse_type" />
                 </TableUIInfo>
               </list>
             </option>

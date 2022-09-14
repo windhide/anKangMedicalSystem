@@ -1,49 +1,48 @@
 package com.ankang.user.pojo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
- * 
  * @TableName user
  */
-@TableName(value ="user")
+@TableName(value = "user")
 @Data
 public class User implements Serializable {
     /**
-     * 
+     *
      */
     @TableId
-    private Integer userid;
+    private Integer userId;
 
     /**
-     * 
+     *
      */
-    private String username;
+    private String userName;
 
     /**
-     * 
+     *
      */
-    private String usersex;
+    private String userSex;
 
     /**
-     * 
+     *
      */
-    private String userphone;
+    private String userPhone;
 
     /**
-     * 
+     *
      */
-    private Integer userleveltypeid;
+    private Integer userLevelTypeId;
 
     /**
-     * 
+     *
      */
-    private String createtime;
+    private String createTime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -60,24 +59,24 @@ public class User implements Serializable {
             return false;
         }
         User other = (User) that;
-        return (this.getUserid() == null ? other.getUserid() == null : this.getUserid().equals(other.getUserid()))
-            && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
-            && (this.getUsersex() == null ? other.getUsersex() == null : this.getUsersex().equals(other.getUsersex()))
-            && (this.getUserphone() == null ? other.getUserphone() == null : this.getUserphone().equals(other.getUserphone()))
-            && (this.getUserleveltypeid() == null ? other.getUserleveltypeid() == null : this.getUserleveltypeid().equals(other.getUserleveltypeid()))
-            && (this.getCreatetime() == null ? other.getCreatetime() == null : this.getCreatetime().equals(other.getCreatetime()));
+        return (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+                && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
+                && (this.getUserSex() == null ? other.getUserSex() == null : this.getUserSex().equals(other.getUserSex()))
+                && (this.getUserPhone() == null ? other.getUserPhone() == null : this.getUserPhone().equals(other.getUserPhone()))
+                && (this.getUserLevelTypeId() == null ? other.getUserLevelTypeId() == null : this.getUserLevelTypeId().equals(other.getUserLevelTypeId()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getUserid() == null) ? 0 : getUserid().hashCode());
-        result = prime * result + ((getUsername() == null) ? 0 : getUsername().hashCode());
-        result = prime * result + ((getUsersex() == null) ? 0 : getUsersex().hashCode());
-        result = prime * result + ((getUserphone() == null) ? 0 : getUserphone().hashCode());
-        result = prime * result + ((getUserleveltypeid() == null) ? 0 : getUserleveltypeid().hashCode());
-        result = prime * result + ((getCreatetime() == null) ? 0 : getCreatetime().hashCode());
+        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getUserName() == null) ? 0 : getUserName().hashCode());
+        result = prime * result + ((getUserSex() == null) ? 0 : getUserSex().hashCode());
+        result = prime * result + ((getUserPhone() == null) ? 0 : getUserPhone().hashCode());
+        result = prime * result + ((getUserLevelTypeId() == null) ? 0 : getUserLevelTypeId().hashCode());
+        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         return result;
     }
 
@@ -87,12 +86,12 @@ public class User implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", userid=").append(userid);
-        sb.append(", username=").append(username);
-        sb.append(", usersex=").append(usersex);
-        sb.append(", userphone=").append(userphone);
-        sb.append(", userleveltypeid=").append(userleveltypeid);
-        sb.append(", createtime=").append(createtime);
+        sb.append(", userId=").append(userId);
+        sb.append(", userName=").append(userName);
+        sb.append(", userSex=").append(userSex);
+        sb.append(", userPhone=").append(userPhone);
+        sb.append(", userLevelTypeId=").append(userLevelTypeId);
+        sb.append(", createTime=").append(createTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

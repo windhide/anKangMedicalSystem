@@ -5,16 +5,17 @@
 <mapper namespace="com.ankang.staff.mapper.StaffMapper">
 
     <resultMap id="BaseResultMap" type="com.ankang.staff.pojo.Staff">
-            <id property="staffid" column="staffId" jdbcType="INTEGER"/>
-            <result property="staffname" column="staffName" jdbcType="VARCHAR"/>
-            <result property="staffsex" column="staffSex" jdbcType="VARCHAR"/>
-            <result property="staffphone" column="staffPhone" jdbcType="VARCHAR"/>
-            <result property="pharmacyid" column="pharmacyId" jdbcType="INTEGER"/>
-            <result property="authorityid" column="authorityId" jdbcType="INTEGER"/>
+        <id property="staffId" column="staff_id" jdbcType="INTEGER"/>
+        <result property="staffName" column="staff_name" jdbcType="VARCHAR"/>
+        <result property="staffSex" column="staff_sex" jdbcType="VARCHAR"/>
+        <result property="staffPhone" column="staff_phone" jdbcType="VARCHAR"/>
+        <result property="pharmacyId" column="pharmacy_id" jdbcType="INTEGER"/>
+        <result property="authorityId" column="authority_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        staffId,staffName,staffSex,
-        staffPhone,pharmacyId,authorityId
+        staff_id
+        ,staff_name,staff_sex,
+        staff_phone,pharmacy_id,authority_id
     </sql>
 </mapper>

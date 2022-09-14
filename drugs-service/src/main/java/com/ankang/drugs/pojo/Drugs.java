@@ -4,8 +4,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * 
@@ -15,50 +16,50 @@ import lombok.Data;
 @Data
 public class Drugs implements Serializable {
     /**
-     * 
+     *
      */
     @TableId(type = IdType.AUTO)
-    private Integer drugsid;
+    private Integer drugsId;
 
     /**
-     * 
+     *
      */
-    private String drugsname;
+    private String drugsName;
 
     /**
-     * 
+     *
      */
-    private Integer drugstypeid;
+    private Integer drugsTypeId;
 
     /**
-     * 
+     *
      */
-    private String drugsspecifications;
+    private String drugsSpecifications;
 
     /**
-     * 
+     *
      */
-    private Integer drugsunitid;
+    private Integer drugsUnitid;
 
     /**
-     * 
+     *
      */
-    private String drugsplace;
+    private String drugsPlace;
 
     /**
-     * 
+     *
      */
-    private String drugsoriginprice;
+    private String drugsOriginPrice;
 
     /**
-     * 
+     *
      */
-    private String drugsretailprice;
+    private String drugsRetailPrice;
 
     /**
-     * 
+     *
      */
-    private String drugscreattime;
+    private String drugsCreatTime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -75,30 +76,30 @@ public class Drugs implements Serializable {
             return false;
         }
         Drugs other = (Drugs) that;
-        return (this.getDrugsid() == null ? other.getDrugsid() == null : this.getDrugsid().equals(other.getDrugsid()))
-            && (this.getDrugsname() == null ? other.getDrugsname() == null : this.getDrugsname().equals(other.getDrugsname()))
-            && (this.getDrugstypeid() == null ? other.getDrugstypeid() == null : this.getDrugstypeid().equals(other.getDrugstypeid()))
-            && (this.getDrugsspecifications() == null ? other.getDrugsspecifications() == null : this.getDrugsspecifications().equals(other.getDrugsspecifications()))
-            && (this.getDrugsunitid() == null ? other.getDrugsunitid() == null : this.getDrugsunitid().equals(other.getDrugsunitid()))
-            && (this.getDrugsplace() == null ? other.getDrugsplace() == null : this.getDrugsplace().equals(other.getDrugsplace()))
-            && (this.getDrugsoriginprice() == null ? other.getDrugsoriginprice() == null : this.getDrugsoriginprice().equals(other.getDrugsoriginprice()))
-            && (this.getDrugsretailprice() == null ? other.getDrugsretailprice() == null : this.getDrugsretailprice().equals(other.getDrugsretailprice()))
-            && (this.getDrugscreattime() == null ? other.getDrugscreattime() == null : this.getDrugscreattime().equals(other.getDrugscreattime()));
+        return (this.getDrugsId() == null ? other.getDrugsId() == null : this.getDrugsId().equals(other.getDrugsId()))
+                && (this.getDrugsName() == null ? other.getDrugsName() == null : this.getDrugsName().equals(other.getDrugsName()))
+                && (this.getDrugsTypeId() == null ? other.getDrugsTypeId() == null : this.getDrugsTypeId().equals(other.getDrugsTypeId()))
+                && (this.getDrugsSpecifications() == null ? other.getDrugsSpecifications() == null : this.getDrugsSpecifications().equals(other.getDrugsSpecifications()))
+                && (this.getDrugsUnitid() == null ? other.getDrugsUnitid() == null : this.getDrugsUnitid().equals(other.getDrugsUnitid()))
+                && (this.getDrugsPlace() == null ? other.getDrugsPlace() == null : this.getDrugsPlace().equals(other.getDrugsPlace()))
+                && (this.getDrugsOriginPrice() == null ? other.getDrugsOriginPrice() == null : this.getDrugsOriginPrice().equals(other.getDrugsOriginPrice()))
+                && (this.getDrugsRetailPrice() == null ? other.getDrugsRetailPrice() == null : this.getDrugsRetailPrice().equals(other.getDrugsRetailPrice()))
+                && (this.getDrugsCreatTime() == null ? other.getDrugsCreatTime() == null : this.getDrugsCreatTime().equals(other.getDrugsCreatTime()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getDrugsid() == null) ? 0 : getDrugsid().hashCode());
-        result = prime * result + ((getDrugsname() == null) ? 0 : getDrugsname().hashCode());
-        result = prime * result + ((getDrugstypeid() == null) ? 0 : getDrugstypeid().hashCode());
-        result = prime * result + ((getDrugsspecifications() == null) ? 0 : getDrugsspecifications().hashCode());
-        result = prime * result + ((getDrugsunitid() == null) ? 0 : getDrugsunitid().hashCode());
-        result = prime * result + ((getDrugsplace() == null) ? 0 : getDrugsplace().hashCode());
-        result = prime * result + ((getDrugsoriginprice() == null) ? 0 : getDrugsoriginprice().hashCode());
-        result = prime * result + ((getDrugsretailprice() == null) ? 0 : getDrugsretailprice().hashCode());
-        result = prime * result + ((getDrugscreattime() == null) ? 0 : getDrugscreattime().hashCode());
+        result = prime * result + ((getDrugsId() == null) ? 0 : getDrugsId().hashCode());
+        result = prime * result + ((getDrugsName() == null) ? 0 : getDrugsName().hashCode());
+        result = prime * result + ((getDrugsTypeId() == null) ? 0 : getDrugsTypeId().hashCode());
+        result = prime * result + ((getDrugsSpecifications() == null) ? 0 : getDrugsSpecifications().hashCode());
+        result = prime * result + ((getDrugsUnitid() == null) ? 0 : getDrugsUnitid().hashCode());
+        result = prime * result + ((getDrugsPlace() == null) ? 0 : getDrugsPlace().hashCode());
+        result = prime * result + ((getDrugsOriginPrice() == null) ? 0 : getDrugsOriginPrice().hashCode());
+        result = prime * result + ((getDrugsRetailPrice() == null) ? 0 : getDrugsRetailPrice().hashCode());
+        result = prime * result + ((getDrugsCreatTime() == null) ? 0 : getDrugsCreatTime().hashCode());
         return result;
     }
 
@@ -108,15 +109,15 @@ public class Drugs implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", drugsid=").append(drugsid);
-        sb.append(", drugsname=").append(drugsname);
-        sb.append(", drugstypeid=").append(drugstypeid);
-        sb.append(", drugsspecifications=").append(drugsspecifications);
-        sb.append(", drugsunitid=").append(drugsunitid);
-        sb.append(", drugsplace=").append(drugsplace);
-        sb.append(", drugsoriginprice=").append(drugsoriginprice);
-        sb.append(", drugsretailprice=").append(drugsretailprice);
-        sb.append(", drugscreattime=").append(drugscreattime);
+        sb.append(", drugsId=").append(drugsId);
+        sb.append(", drugsName=").append(drugsName);
+        sb.append(", drugsTypeId=").append(drugsTypeId);
+        sb.append(", drugsSpecifications=").append(drugsSpecifications);
+        sb.append(", drugsUnitid=").append(drugsUnitid);
+        sb.append(", drugsPlace=").append(drugsPlace);
+        sb.append(", drugsOriginPrice=").append(drugsOriginPrice);
+        sb.append(", drugsRetailPrice=").append(drugsRetailPrice);
+        sb.append(", drugsCreatTime=").append(drugsCreatTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

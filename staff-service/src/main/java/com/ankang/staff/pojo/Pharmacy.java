@@ -4,36 +4,36 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
- * 
  * @TableName pharmacy
  */
-@TableName(value ="pharmacy")
+@TableName(value = "pharmacy")
 @Data
 public class Pharmacy implements Serializable {
     /**
-     * 
+     *
      */
     @TableId(type = IdType.AUTO)
-    private Integer pharmacyid;
+    private Integer pharmacyId;
 
     /**
-     * 
+     *
      */
-    private String pharmacyname;
+    private String pharmacyName;
 
     /**
-     * 
+     *
      */
-    private String pharmacyphone;
+    private String pharmacyPhone;
 
     /**
-     * 
+     *
      */
-    private String pharmacyaddress;
+    private String pharmacyAddress;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -50,20 +50,20 @@ public class Pharmacy implements Serializable {
             return false;
         }
         Pharmacy other = (Pharmacy) that;
-        return (this.getPharmacyid() == null ? other.getPharmacyid() == null : this.getPharmacyid().equals(other.getPharmacyid()))
-            && (this.getPharmacyname() == null ? other.getPharmacyname() == null : this.getPharmacyname().equals(other.getPharmacyname()))
-            && (this.getPharmacyphone() == null ? other.getPharmacyphone() == null : this.getPharmacyphone().equals(other.getPharmacyphone()))
-            && (this.getPharmacyaddress() == null ? other.getPharmacyaddress() == null : this.getPharmacyaddress().equals(other.getPharmacyaddress()));
+        return (this.getPharmacyId() == null ? other.getPharmacyId() == null : this.getPharmacyId().equals(other.getPharmacyId()))
+                && (this.getPharmacyName() == null ? other.getPharmacyName() == null : this.getPharmacyName().equals(other.getPharmacyName()))
+                && (this.getPharmacyPhone() == null ? other.getPharmacyPhone() == null : this.getPharmacyPhone().equals(other.getPharmacyPhone()))
+                && (this.getPharmacyAddress() == null ? other.getPharmacyAddress() == null : this.getPharmacyAddress().equals(other.getPharmacyAddress()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getPharmacyid() == null) ? 0 : getPharmacyid().hashCode());
-        result = prime * result + ((getPharmacyname() == null) ? 0 : getPharmacyname().hashCode());
-        result = prime * result + ((getPharmacyphone() == null) ? 0 : getPharmacyphone().hashCode());
-        result = prime * result + ((getPharmacyaddress() == null) ? 0 : getPharmacyaddress().hashCode());
+        result = prime * result + ((getPharmacyId() == null) ? 0 : getPharmacyId().hashCode());
+        result = prime * result + ((getPharmacyName() == null) ? 0 : getPharmacyName().hashCode());
+        result = prime * result + ((getPharmacyPhone() == null) ? 0 : getPharmacyPhone().hashCode());
+        result = prime * result + ((getPharmacyAddress() == null) ? 0 : getPharmacyAddress().hashCode());
         return result;
     }
 
@@ -73,10 +73,10 @@ public class Pharmacy implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", pharmacyid=").append(pharmacyid);
-        sb.append(", pharmacyname=").append(pharmacyname);
-        sb.append(", pharmacyphone=").append(pharmacyphone);
-        sb.append(", pharmacyaddress=").append(pharmacyaddress);
+        sb.append(", pharmacyId=").append(pharmacyId);
+        sb.append(", pharmacyName=").append(pharmacyName);
+        sb.append(", pharmacyPhone=").append(pharmacyPhone);
+        sb.append(", pharmacyAddress=").append(pharmacyAddress);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

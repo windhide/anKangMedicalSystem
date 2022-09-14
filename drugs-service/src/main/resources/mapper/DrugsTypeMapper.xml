@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ankang.drugs.mapper.DrugsTypeMapper">
+
+    <resultMap id="BaseResultMap" type="com.ankang.drugs.pojo.DrugsType">
+        <id property="drugsTypeId" column="drugs_type_id" jdbcType="INTEGER"/>
+        <result property="drugsTypeName" column="drugs_type_name" jdbcType="VARCHAR"/>
+        <result property="drugsTypeCreatTime" column="drugs_type_creat_time" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        drugs_type_id
+        ,drugs_type_name,drugs_type_creat_time
+    </sql>
+</mapper>

@@ -4,41 +4,41 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
- * 
  * @TableName operator
  */
-@TableName(value ="operator")
+@TableName(value = "operator")
 @Data
 public class Operator implements Serializable {
     /**
-     * 
+     *
      */
     @TableId(type = IdType.AUTO)
-    private Integer operatorid;
+    private Integer operatorId;
 
     /**
-     * 
+     *
      */
-    private Integer staffid;
+    private Integer staffId;
 
     /**
-     * 
+     *
      */
-    private Integer drugsid;
+    private Integer drugsId;
 
     /**
-     * 
+     *
      */
-    private Integer operatortypeid;
+    private Integer operatorTypeId;
 
     /**
-     * 
+     *
      */
-    private String operatorcreattime;
+    private String operatorCreatTime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -55,22 +55,22 @@ public class Operator implements Serializable {
             return false;
         }
         Operator other = (Operator) that;
-        return (this.getOperatorid() == null ? other.getOperatorid() == null : this.getOperatorid().equals(other.getOperatorid()))
-            && (this.getStaffid() == null ? other.getStaffid() == null : this.getStaffid().equals(other.getStaffid()))
-            && (this.getDrugsid() == null ? other.getDrugsid() == null : this.getDrugsid().equals(other.getDrugsid()))
-            && (this.getOperatortypeid() == null ? other.getOperatortypeid() == null : this.getOperatortypeid().equals(other.getOperatortypeid()))
-            && (this.getOperatorcreattime() == null ? other.getOperatorcreattime() == null : this.getOperatorcreattime().equals(other.getOperatorcreattime()));
+        return (this.getOperatorId() == null ? other.getOperatorId() == null : this.getOperatorId().equals(other.getOperatorId()))
+                && (this.getStaffId() == null ? other.getStaffId() == null : this.getStaffId().equals(other.getStaffId()))
+                && (this.getDrugsId() == null ? other.getDrugsId() == null : this.getDrugsId().equals(other.getDrugsId()))
+                && (this.getOperatorTypeId() == null ? other.getOperatorTypeId() == null : this.getOperatorTypeId().equals(other.getOperatorTypeId()))
+                && (this.getOperatorCreatTime() == null ? other.getOperatorCreatTime() == null : this.getOperatorCreatTime().equals(other.getOperatorCreatTime()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getOperatorid() == null) ? 0 : getOperatorid().hashCode());
-        result = prime * result + ((getStaffid() == null) ? 0 : getStaffid().hashCode());
-        result = prime * result + ((getDrugsid() == null) ? 0 : getDrugsid().hashCode());
-        result = prime * result + ((getOperatortypeid() == null) ? 0 : getOperatortypeid().hashCode());
-        result = prime * result + ((getOperatorcreattime() == null) ? 0 : getOperatorcreattime().hashCode());
+        result = prime * result + ((getOperatorId() == null) ? 0 : getOperatorId().hashCode());
+        result = prime * result + ((getStaffId() == null) ? 0 : getStaffId().hashCode());
+        result = prime * result + ((getDrugsId() == null) ? 0 : getDrugsId().hashCode());
+        result = prime * result + ((getOperatorTypeId() == null) ? 0 : getOperatorTypeId().hashCode());
+        result = prime * result + ((getOperatorCreatTime() == null) ? 0 : getOperatorCreatTime().hashCode());
         return result;
     }
 
@@ -80,11 +80,11 @@ public class Operator implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", operatorid=").append(operatorid);
-        sb.append(", staffid=").append(staffid);
-        sb.append(", drugsid=").append(drugsid);
-        sb.append(", operatortypeid=").append(operatortypeid);
-        sb.append(", operatorcreattime=").append(operatorcreattime);
+        sb.append(", operatorId=").append(operatorId);
+        sb.append(", staffId=").append(staffId);
+        sb.append(", drugsId=").append(drugsId);
+        sb.append(", operatorTypeId=").append(operatorTypeId);
+        sb.append(", operatorCreatTime=").append(operatorCreatTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
