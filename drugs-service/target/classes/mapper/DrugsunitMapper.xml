@@ -5,11 +5,12 @@
 <mapper namespace="com.ankang.drugs.mapper.DrugsUnitMapper">
 
     <resultMap id="BaseResultMap" type="com.ankang.drugs.pojo.DrugsUnit">
-            <id property="drugsUnitId" column="drugs_unit_id" jdbcType="INTEGER"/>
-            <result property="drugsUnitName" column="drugs_unit_name" jdbcType="VARCHAR"/>
+        <id property="drugsUnitId" column="drugs_unit_id" jdbcType="INTEGER"/>
+        <result property="drugsUnitName" column="drugs_unit_name" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        drugs_unit_id,drugs_unit_name
+        drugs_unit_id
+        ,drugs_unit_name
     </sql>
 </mapper>

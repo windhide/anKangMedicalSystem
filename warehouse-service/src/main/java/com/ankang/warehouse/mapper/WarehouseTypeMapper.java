@@ -1,6 +1,6 @@
 package com.ankang.warehouse.mapper;
 
-import com.ankang.warehouse.pojo.WarehouseType;
+import com.ankang.pojo.warehouseService.WarehouseType;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

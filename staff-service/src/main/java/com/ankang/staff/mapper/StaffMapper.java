@@ -1,6 +1,6 @@
 package com.ankang.staff.mapper;
 
-import com.ankang.staff.pojo.Staff;
+import com.ankang.pojo.staffService.Staff;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

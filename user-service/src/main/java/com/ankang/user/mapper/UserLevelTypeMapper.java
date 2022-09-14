@@ -1,6 +1,6 @@
 package com.ankang.user.mapper;
 
-import com.ankang.user.pojo.UserLevelType;
+import com.ankang.pojo.userService.UserLevelType;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

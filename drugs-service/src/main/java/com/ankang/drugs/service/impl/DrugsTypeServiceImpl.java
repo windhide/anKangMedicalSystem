@@ -1,8 +1,8 @@
 package com.ankang.drugs.service.impl;
 
 import com.ankang.drugs.mapper.DrugsTypeMapper;
-import com.ankang.drugs.pojo.DrugsType;
 import com.ankang.drugs.service.DrugsTypeService;
+import com.ankang.pojo.drugsService.DrugsType;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 

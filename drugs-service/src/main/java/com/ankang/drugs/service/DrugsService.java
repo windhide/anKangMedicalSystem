@@ -1,6 +1,6 @@
 package com.ankang.drugs.service;
 
-import com.ankang.drugs.pojo.Drugs;
+import com.ankang.pojo.drugsService.Drugs;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

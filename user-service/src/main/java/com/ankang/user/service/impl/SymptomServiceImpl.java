@@ -1,7 +1,7 @@
 package com.ankang.user.service.impl;
 
+import com.ankang.pojo.userService.Symptom;
 import com.ankang.user.mapper.SymptomMapper;
-import com.ankang.user.pojo.Symptom;
 import com.ankang.user.service.SymptomService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

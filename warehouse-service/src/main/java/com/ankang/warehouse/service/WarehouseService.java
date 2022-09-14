@@ -1,6 +1,6 @@
 package com.ankang.warehouse.service;
 
-import com.ankang.warehouse.pojo.Warehouse;
+import com.ankang.pojo.warehouseService.Warehouse;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

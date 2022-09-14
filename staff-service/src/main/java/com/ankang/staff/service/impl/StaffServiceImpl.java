@@ -1,7 +1,7 @@
 package com.ankang.staff.service.impl;
 
+import com.ankang.pojo.staffService.Staff;
 import com.ankang.staff.mapper.StaffMapper;
-import com.ankang.staff.pojo.Staff;
 import com.ankang.staff.service.StaffService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

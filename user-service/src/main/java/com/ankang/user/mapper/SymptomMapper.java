@@ -1,6 +1,6 @@
 package com.ankang.user.mapper;
 
-import com.ankang.user.pojo.Symptom;
+import com.ankang.pojo.userService.Symptom;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

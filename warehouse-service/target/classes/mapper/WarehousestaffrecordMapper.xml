@@ -5,17 +5,18 @@
 <mapper namespace="com.ankang.warehouse.mapper.WarehouseStaffRecordMapper">
 
     <resultMap id="BaseResultMap" type="com.ankang.warehouse.pojo.WarehouseStaffRecord">
-            <id property="warehouseStaffRecordId" column="warehouse_staff_record_id" jdbcType="INTEGER"/>
-            <result property="warehouseId" column="warehouse_id" jdbcType="INTEGER"/>
-            <result property="staffId" column="staff_id" jdbcType="INTEGER"/>
-            <result property="drugsId" column="drugs_id" jdbcType="INTEGER"/>
-            <result property="warehouseTypeId" column="warehouse_type_id" jdbcType="INTEGER"/>
-            <result property="drugsCount" column="drugs_count" jdbcType="BIGINT"/>
-            <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+        <id property="warehouseStaffRecordId" column="warehouse_staff_record_id" jdbcType="INTEGER"/>
+        <result property="warehouseId" column="warehouse_id" jdbcType="INTEGER"/>
+        <result property="staffId" column="staff_id" jdbcType="INTEGER"/>
+        <result property="drugsId" column="drugs_id" jdbcType="INTEGER"/>
+        <result property="warehouseTypeId" column="warehouse_type_id" jdbcType="INTEGER"/>
+        <result property="drugsCount" column="drugs_count" jdbcType="BIGINT"/>
+        <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        warehouse_staff_record_id,warehouse_id,staff_id,
+        warehouse_staff_record_id
+        ,warehouse_id,staff_id,
         drugs_id,warehouse_type_id,drugs_count,
         create_time
     </sql>

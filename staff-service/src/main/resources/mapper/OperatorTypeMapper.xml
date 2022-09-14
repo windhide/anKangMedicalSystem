@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ankang.staff.mapper.OperatorTypeMapper">
 
-    <resultMap id="BaseResultMap" type="com.ankang.staff.pojo.OperatorType">
+    <resultMap id="BaseResultMap" type="com.ankang.pojo.staffService.OperatorType">
         <id property="operatorTypeId" column="operator_type_id" jdbcType="INTEGER"/>
         <result property="operatorTypeName" column="operator_type_name" jdbcType="VARCHAR"/>
     </resultMap>

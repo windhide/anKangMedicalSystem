@@ -5,15 +5,16 @@
 <mapper namespace="com.ankang.user.mapper.SymptomMapper">
 
     <resultMap id="BaseResultMap" type="com.ankang.user.pojo.Symptom">
-            <id property="symptomId" column="symptom_id" jdbcType="INTEGER"/>
-            <result property="symptomContext" column="symptom_context" jdbcType="VARCHAR"/>
-            <result property="userId" column="user_id" jdbcType="INTEGER"/>
-            <result property="staffId" column="staff_id" jdbcType="INTEGER"/>
-            <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+        <id property="symptomId" column="symptom_id" jdbcType="INTEGER"/>
+        <result property="symptomContext" column="symptom_context" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="staffId" column="staff_id" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        symptom_id,symptom_context,user_id,
+        symptom_id
+        ,symptom_context,user_id,
         staff_id,create_time
     </sql>
 </mapper>

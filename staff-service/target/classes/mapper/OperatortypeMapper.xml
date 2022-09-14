@@ -5,11 +5,12 @@
 <mapper namespace="com.ankang.staff.mapper.OperatorTypeMapper">
 
     <resultMap id="BaseResultMap" type="com.ankang.staff.pojo.OperatorType">
-            <id property="operatorTypeId" column="operator_type_id" jdbcType="INTEGER"/>
-            <result property="operatorTypeName" column="operator_type_name" jdbcType="VARCHAR"/>
+        <id property="operatorTypeId" column="operator_type_id" jdbcType="INTEGER"/>
+        <result property="operatorTypeName" column="operator_type_name" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        operator_type_id,operator_type_name
+        operator_type_id
+        ,operator_type_name
     </sql>
 </mapper>

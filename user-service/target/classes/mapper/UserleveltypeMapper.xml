@@ -5,11 +5,12 @@
 <mapper namespace="com.ankang.user.mapper.UserLevelTypeMapper">
 
     <resultMap id="BaseResultMap" type="com.ankang.user.pojo.UserLevelType">
-            <id property="userLevelTypeId" column="user_level_type_id" jdbcType="INTEGER"/>
-            <result property="userLevelTypeName" column="user_level_type_name" jdbcType="VARCHAR"/>
+        <id property="userLevelTypeId" column="user_level_type_id" jdbcType="INTEGER"/>
+        <result property="userLevelTypeName" column="user_level_type_name" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        user_level_type_id,user_level_type_name
+        user_level_type_id
+        ,user_level_type_name
     </sql>
 </mapper>
