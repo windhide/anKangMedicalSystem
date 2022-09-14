@@ -1,5 +1,7 @@
 package com.ankang.pojo.userService;
 
+import com.ankang.pojo.staffService.Staff;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -31,6 +33,7 @@ public class Symptom implements Serializable {
     /**
      *
      */
+    @TableField(exist = false)
     private User user;
 
     /**
@@ -41,6 +44,7 @@ public class Symptom implements Serializable {
     /**
      *
      */
+    @TableField(exist = false)
     private Staff staff;
 
     /**

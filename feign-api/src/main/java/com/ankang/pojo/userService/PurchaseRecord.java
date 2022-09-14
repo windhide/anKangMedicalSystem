@@ -1,6 +1,8 @@
 package com.ankang.pojo.userService;
 
 import com.ankang.pojo.drugsService.Drugs;
+import com.ankang.pojo.staffService.Staff;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -27,6 +29,7 @@ public class PurchaseRecord implements Serializable {
     /**
      *
      */
+    @TableField(exist = false)
     private User user;
 
     /**
@@ -37,6 +40,7 @@ public class PurchaseRecord implements Serializable {
     /**
      *
      */
+    @TableField(exist = false)
     private Drugs drugs;
 
     /**
@@ -47,6 +51,7 @@ public class PurchaseRecord implements Serializable {
     /**
      *
      */
+    @TableField(exist = false)
     private Staff staff;
 
     /**

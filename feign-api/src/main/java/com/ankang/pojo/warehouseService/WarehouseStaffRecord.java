@@ -1,7 +1,9 @@
 package com.ankang.pojo.warehouseService;
 
 import com.ankang.pojo.drugsService.Drugs;
+import com.ankang.pojo.staffService.Staff;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -33,6 +35,7 @@ public class WarehouseStaffRecord implements Serializable {
     /**
      *
      */
+    @TableField(exist = false)
     private Staff staff;
 
     /**
@@ -43,6 +46,7 @@ public class WarehouseStaffRecord implements Serializable {
     /**
      *
      */
+    @TableField(exist = false)
     private Drugs drugs;
 
     /**
@@ -53,6 +57,7 @@ public class WarehouseStaffRecord implements Serializable {
     /**
      *
      */
+    @TableField(exist = false)
     private WarehouseType warehouseType;
 
     /**
