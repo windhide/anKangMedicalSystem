@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ankang.warehouse.mapper.WarehousestaffrecordMapper">
+
+    <resultMap id="BaseResultMap" type="com.ankang.warehouse.pojo.Warehousestaffrecord">
+            <id property="warehousestaffrecordid" column="warehouseStaffRecordId" jdbcType="INTEGER"/>
+            <result property="warehouseid" column="warehouseId" jdbcType="INTEGER"/>
+            <result property="staffid" column="staffId" jdbcType="INTEGER"/>
+            <result property="drugsid" column="drugsId" jdbcType="INTEGER"/>
+            <result property="warehousetypeid" column="warehouseTypeId" jdbcType="INTEGER"/>
+            <result property="drugscount" column="drugsCount" jdbcType="BIGINT"/>
+            <result property="createtime" column="createTime" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        warehouseStaffRecordId,warehouseId,staffId,
+        drugsId,warehouseTypeId,drugsCount,
+        createTime
+    </sql>
+</mapper>

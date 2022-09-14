@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ankang.staff.mapper.PharmacyMapper">
+
+    <resultMap id="BaseResultMap" type="com.ankang.staff.pojo.Pharmacy">
+            <id property="pharmacyid" column="pharmacyId" jdbcType="INTEGER"/>
+            <result property="pharmacyname" column="pharmacyName" jdbcType="VARCHAR"/>
+            <result property="pharmacyphone" column="pharmacyPhone" jdbcType="VARCHAR"/>
+            <result property="pharmacyaddress" column="pharmacyAddress" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        pharmacyId,pharmacyName,pharmacyPhone,
+        pharmacyAddress
+    </sql>
+</mapper>

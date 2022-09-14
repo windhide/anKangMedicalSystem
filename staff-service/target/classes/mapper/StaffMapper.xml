@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ankang.staff.mapper.StaffMapper">
+
+    <resultMap id="BaseResultMap" type="com.ankang.staff.pojo.Staff">
+            <id property="staffid" column="staffId" jdbcType="INTEGER"/>
+            <result property="staffname" column="staffName" jdbcType="VARCHAR"/>
+            <result property="staffsex" column="staffSex" jdbcType="VARCHAR"/>
+            <result property="staffphone" column="staffPhone" jdbcType="VARCHAR"/>
+            <result property="pharmacyid" column="pharmacyId" jdbcType="INTEGER"/>
+            <result property="authorityid" column="authorityId" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        staffId,staffName,staffSex,
+        staffPhone,pharmacyId,authorityId
+    </sql>
+</mapper>

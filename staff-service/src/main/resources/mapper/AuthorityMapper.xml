@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ankang.staff.mapper.AuthorityMapper">
+
+    <resultMap id="BaseResultMap" type="com.ankang.staff.pojo.Authority">
+            <id property="authorityid" column="authorityId" jdbcType="INTEGER"/>
+            <result property="authorityname" column="authorityName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        authorityId,authorityName
+    </sql>
+</mapper>

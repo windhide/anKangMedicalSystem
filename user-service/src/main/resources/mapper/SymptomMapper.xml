@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ankang.user.mapper.SymptomMapper">
+
+    <resultMap id="BaseResultMap" type="com.ankang.user.pojo.Symptom">
+            <id property="symptomid" column="symptomId" jdbcType="INTEGER"/>
+            <result property="symptomcontext" column="symptomContext" jdbcType="VARCHAR"/>
+            <result property="userid" column="userId" jdbcType="INTEGER"/>
+            <result property="staffid" column="staffId" jdbcType="INTEGER"/>
+            <result property="createtime" column="createTime" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        symptomId,symptomContext,userId,
+        staffId,createTime
+    </sql>
+</mapper>

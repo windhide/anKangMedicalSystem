@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ankang.staff.mapper.OperatorMapper">
+
+    <resultMap id="BaseResultMap" type="com.ankang.staff.pojo.Operator">
+            <id property="operatorid" column="operatorId" jdbcType="INTEGER"/>
+            <result property="staffid" column="staffId" jdbcType="INTEGER"/>
+            <result property="drugsid" column="drugsId" jdbcType="INTEGER"/>
+            <result property="operatortypeid" column="operatorTypeId" jdbcType="INTEGER"/>
+            <result property="operatorcreattime" column="operatorCreatTime" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        operatorId,staffId,drugsId,
+        operatorTypeId,operatorCreatTime
+    </sql>
+</mapper>

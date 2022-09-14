@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ankang.warehouse.mapper.WarehouseMapper">
+
+    <resultMap id="BaseResultMap" type="com.ankang.warehouse.pojo.Warehouse">
+            <id property="warehouseid" column="warehouseId" jdbcType="INTEGER"/>
+            <result property="staffid" column="staffId" jdbcType="INTEGER"/>
+            <result property="drugsid" column="drugsId" jdbcType="INTEGER"/>
+            <result property="pharmacyid" column="pharmacyId" jdbcType="INTEGER"/>
+            <result property="drugscount" column="drugsCount" jdbcType="BIGINT"/>
+            <result property="warehousetypeid" column="warehouseTypeId" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        warehouseId,staffId,drugsId,
+        pharmacyId,drugsCount,warehouseTypeId
+    </sql>
+</mapper>

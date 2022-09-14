@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ankang.user.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.ankang.user.pojo.User">
+            <id property="userid" column="userId" jdbcType="INTEGER"/>
+            <result property="username" column="userName" jdbcType="VARCHAR"/>
+            <result property="usersex" column="userSex" jdbcType="VARCHAR"/>
+            <result property="userphone" column="userPhone" jdbcType="VARCHAR"/>
+            <result property="userleveltypeid" column="userLevelTypeId" jdbcType="INTEGER"/>
+            <result property="createtime" column="createTime" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        userId,userName,userSex,
+        userPhone,userLevelTypeId,createTime
+    </sql>
+</mapper>

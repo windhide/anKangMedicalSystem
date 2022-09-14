@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ankang.user.mapper.UserleveltypeMapper">
+
+    <resultMap id="BaseResultMap" type="com.ankang.user.pojo.Userleveltype">
+            <id property="userleveltypeid" column="userLevelTypeId" jdbcType="INTEGER"/>
+            <result property="userleveltypename" column="userLevelTypeName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        userLevelTypeId,userLevelTypeName
+    </sql>
+</mapper>
