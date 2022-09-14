@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * @author WindHide
  * @description 针对表【warehouse】的数据库操作Service实现
- * @createDate 2022-09-14 20:09:12
+ * @createDate 2022-09-14 20:34:24
  */
 @Service
 public class WarehouseServiceImpl extends ServiceImpl<WarehouseMapper, Warehouse>

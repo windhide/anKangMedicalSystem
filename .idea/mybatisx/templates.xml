@@ -67,14 +67,6 @@
                   <option name="className" value="Warehouse" />
                   <option name="tableName" value="warehouse" />
                 </TableUIInfo>
-                <TableUIInfo>
-                  <option name="className" value="WarehouseStaffRecord" />
-                  <option name="tableName" value="warehouse_staff_record" />
-                </TableUIInfo>
-                <TableUIInfo>
-                  <option name="className" value="WarehouseType" />
-                  <option name="tableName" value="warehouse_type" />
-                </TableUIInfo>
               </list>
             </option>
             <option name="templatesName" value="mybatis-plus3" />

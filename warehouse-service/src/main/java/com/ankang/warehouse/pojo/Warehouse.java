@@ -4,8 +4,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * 
@@ -15,35 +16,35 @@ import lombok.Data;
 @Data
 public class Warehouse implements Serializable {
     /**
-     * 
+     *
      */
     @TableId(type = IdType.AUTO)
-    private Integer warehouseid;
+    private Integer warehouseId;
 
     /**
-     * 
+     *
      */
-    private Integer staffid;
+    private Integer staffId;
 
     /**
-     * 
+     *
      */
-    private Integer drugsid;
+    private Integer drugsId;
 
     /**
-     * 
+     *
      */
-    private Integer pharmacyid;
+    private Integer pharmacyId;
 
     /**
-     * 
+     *
      */
-    private Long drugscount;
+    private Long drugsCount;
 
     /**
-     * 
+     *
      */
-    private Integer warehousetypeid;
+    private Integer warehouseTypeId;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -60,24 +61,24 @@ public class Warehouse implements Serializable {
             return false;
         }
         Warehouse other = (Warehouse) that;
-        return (this.getWarehouseid() == null ? other.getWarehouseid() == null : this.getWarehouseid().equals(other.getWarehouseid()))
-            && (this.getStaffid() == null ? other.getStaffid() == null : this.getStaffid().equals(other.getStaffid()))
-            && (this.getDrugsid() == null ? other.getDrugsid() == null : this.getDrugsid().equals(other.getDrugsid()))
-            && (this.getPharmacyid() == null ? other.getPharmacyid() == null : this.getPharmacyid().equals(other.getPharmacyid()))
-            && (this.getDrugscount() == null ? other.getDrugscount() == null : this.getDrugscount().equals(other.getDrugscount()))
-            && (this.getWarehousetypeid() == null ? other.getWarehousetypeid() == null : this.getWarehousetypeid().equals(other.getWarehousetypeid()));
+        return (this.getWarehouseId() == null ? other.getWarehouseId() == null : this.getWarehouseId().equals(other.getWarehouseId()))
+                && (this.getStaffId() == null ? other.getStaffId() == null : this.getStaffId().equals(other.getStaffId()))
+                && (this.getDrugsId() == null ? other.getDrugsId() == null : this.getDrugsId().equals(other.getDrugsId()))
+                && (this.getPharmacyId() == null ? other.getPharmacyId() == null : this.getPharmacyId().equals(other.getPharmacyId()))
+                && (this.getDrugsCount() == null ? other.getDrugsCount() == null : this.getDrugsCount().equals(other.getDrugsCount()))
+                && (this.getWarehouseTypeId() == null ? other.getWarehouseTypeId() == null : this.getWarehouseTypeId().equals(other.getWarehouseTypeId()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getWarehouseid() == null) ? 0 : getWarehouseid().hashCode());
-        result = prime * result + ((getStaffid() == null) ? 0 : getStaffid().hashCode());
-        result = prime * result + ((getDrugsid() == null) ? 0 : getDrugsid().hashCode());
-        result = prime * result + ((getPharmacyid() == null) ? 0 : getPharmacyid().hashCode());
-        result = prime * result + ((getDrugscount() == null) ? 0 : getDrugscount().hashCode());
-        result = prime * result + ((getWarehousetypeid() == null) ? 0 : getWarehousetypeid().hashCode());
+        result = prime * result + ((getWarehouseId() == null) ? 0 : getWarehouseId().hashCode());
+        result = prime * result + ((getStaffId() == null) ? 0 : getStaffId().hashCode());
+        result = prime * result + ((getDrugsId() == null) ? 0 : getDrugsId().hashCode());
+        result = prime * result + ((getPharmacyId() == null) ? 0 : getPharmacyId().hashCode());
+        result = prime * result + ((getDrugsCount() == null) ? 0 : getDrugsCount().hashCode());
+        result = prime * result + ((getWarehouseTypeId() == null) ? 0 : getWarehouseTypeId().hashCode());
         return result;
     }
 
@@ -87,12 +88,12 @@ public class Warehouse implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", warehouseid=").append(warehouseid);
-        sb.append(", staffid=").append(staffid);
-        sb.append(", drugsid=").append(drugsid);
-        sb.append(", pharmacyid=").append(pharmacyid);
-        sb.append(", drugscount=").append(drugscount);
-        sb.append(", warehousetypeid=").append(warehousetypeid);
+        sb.append(", warehouseId=").append(warehouseId);
+        sb.append(", staffId=").append(staffId);
+        sb.append(", drugsId=").append(drugsId);
+        sb.append(", pharmacyId=").append(pharmacyId);
+        sb.append(", drugsCount=").append(drugsCount);
+        sb.append(", warehouseTypeId=").append(warehouseTypeId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
