@@ -2,6 +2,8 @@ package com.ankang.drugs.controller;
 
 
 import com.ankang.drugs.service.DrugsService;
+import com.ankang.drugs.service.DrugsTypeService;
+import com.ankang.drugs.service.DrugsUnitService;
 import com.ankang.pojo.drugsService.Drugs;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,20 @@ public class DrugsController {
     @Autowired
     DrugsService drugsService;
 
+    @Autowired
+    DrugsTypeService drugsTypeService;
+
+    @Autowired
+    DrugsUnitService drugsUnitService;
+
     @RequestMapping("list")
     public List<Drugs> queryDrugsForList() {
-        return drugsService.list();
+        List<Drugs> list = drugsService.list();
+        for (int i = 0; i < list.size(); i++) {
+            // 代码待优化
+            list.get(i).setDrugsType(drugsTypeService.getById(list.get(i).getDrugsTypeId()));
+            list.get(i).setDrugsUnit(drugsUnitService.getById(list.get(i).getDrugsUnitid()));
+        }
+        return list;
     }
 }
