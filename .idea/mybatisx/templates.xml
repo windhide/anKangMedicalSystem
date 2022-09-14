@@ -6,8 +6,8 @@
         <option name="generateConfig">
           <GenerateConfig>
             <option name="annotationType" value="MYBATIS_PLUS3" />
-            <option name="basePackage" value="com.ankang.warehouse" />
-            <option name="basePath" value="warehouse-service/src/main/java" />
+            <option name="basePackage" value="com.ankang.staff" />
+            <option name="basePath" value="staff-service/src/main/java" />
             <option name="classNameStrategy" value="camel" />
             <option name="encoding" value="UTF-8" />
             <option name="extraClassSuffix" value="" />
@@ -64,8 +64,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="Warehouse" />
-                  <option name="tableName" value="warehouse" />
+                  <option name="className" value="Staff" />
+                  <option name="tableName" value="staff" />
                 </TableUIInfo>
               </list>
             </option>

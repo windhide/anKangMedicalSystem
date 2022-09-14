@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ankang.warehouse.mapper.WarehouseTypeMapper">
 
-    <resultMap id="BaseResultMap" type="com.ankang.warehouse.pojo.WarehouseType">
+    <resultMap id="BaseResultMap" type="com.ankang.pojo.warehouseService.WarehouseType">
         <id property="warehouseTypeId" column="warehouse_type_id" jdbcType="INTEGER"/>
         <result property="warehouseTypeName" column="warehouse_type_name" jdbcType="VARCHAR"/>
     </resultMap>

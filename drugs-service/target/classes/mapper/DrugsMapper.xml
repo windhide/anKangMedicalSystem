@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ankang.drugs.mapper.DrugsMapper">
 
-    <resultMap id="BaseResultMap" type="com.ankang.drugs.pojo.Drugs">
+    <resultMap id="BaseResultMap" type="com.ankang.pojo.drugsService.Drugs">
         <id property="drugsId" column="drugs_id" jdbcType="INTEGER"/>
         <result property="drugsName" column="drugs_name" jdbcType="VARCHAR"/>
         <result property="drugsTypeId" column="drugs_type_id" jdbcType="INTEGER"/>

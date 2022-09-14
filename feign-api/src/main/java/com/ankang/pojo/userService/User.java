@@ -26,6 +26,16 @@ public class User implements Serializable {
     /**
      *
      */
+    private String userUserName;
+
+    /**
+     *
+     */
+    private String userPassWord;
+
+    /**
+     *
+     */
     private String userSex;
 
     /**
@@ -47,4 +57,5 @@ public class User implements Serializable {
      *
      */
     private String createTime;
+
 }
