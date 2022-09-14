@@ -1,6 +1,6 @@
 package com.ankang.drugs.mapper;
 
-import com.ankang.drugs.pojo.Drugs;
+import com.ankang.pojo.drugsService.Drugs;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

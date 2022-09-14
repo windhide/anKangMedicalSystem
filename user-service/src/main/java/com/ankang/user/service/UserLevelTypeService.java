@@ -1,6 +1,6 @@
 package com.ankang.user.service;
 
-import com.ankang.user.pojo.UserLevelType;
+import com.ankang.pojo.userService.UserLevelType;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

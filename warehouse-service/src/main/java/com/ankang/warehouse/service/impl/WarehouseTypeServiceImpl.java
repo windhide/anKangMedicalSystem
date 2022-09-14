@@ -1,7 +1,7 @@
 package com.ankang.warehouse.service.impl;
 
+import com.ankang.pojo.warehouseService.WarehouseType;
 import com.ankang.warehouse.mapper.WarehouseTypeMapper;
-import com.ankang.warehouse.pojo.WarehouseType;
 import com.ankang.warehouse.service.WarehouseTypeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

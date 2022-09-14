@@ -1,6 +1,6 @@
 package com.ankang.warehouse.mapper;
 
-import com.ankang.warehouse.pojo.WarehouseStaffRecord;
+import com.ankang.pojo.warehouseService.WarehouseStaffRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

@@ -1,6 +1,6 @@
 package com.ankang.staff.service;
 
-import com.ankang.staff.pojo.Operator;
+import com.ankang.pojo.staffService.Operator;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

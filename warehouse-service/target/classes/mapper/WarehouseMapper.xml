@@ -5,16 +5,16 @@
 <mapper namespace="com.ankang.warehouse.mapper.WarehouseMapper">
 
     <resultMap id="BaseResultMap" type="com.ankang.warehouse.pojo.Warehouse">
-            <id property="warehouseid" column="warehouseId" jdbcType="INTEGER"/>
-            <result property="staffid" column="staffId" jdbcType="INTEGER"/>
-            <result property="drugsid" column="drugsId" jdbcType="INTEGER"/>
-            <result property="pharmacyid" column="pharmacyId" jdbcType="INTEGER"/>
-            <result property="drugscount" column="drugsCount" jdbcType="BIGINT"/>
-            <result property="warehousetypeid" column="warehouseTypeId" jdbcType="INTEGER"/>
+            <id property="warehouseId" column="warehouse_id" jdbcType="INTEGER"/>
+            <result property="staffId" column="staff_id" jdbcType="INTEGER"/>
+            <result property="drugsId" column="drugs_id" jdbcType="INTEGER"/>
+            <result property="pharmacyId" column="pharmacy_id" jdbcType="INTEGER"/>
+            <result property="drugsCount" column="drugs_count" jdbcType="BIGINT"/>
+            <result property="warehouseTypeId" column="warehouse_type_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        warehouseId,staffId,drugsId,
-        pharmacyId,drugsCount,warehouseTypeId
+        warehouse_id,staff_id,drugs_id,
+        pharmacy_id,drugs_count,warehouse_type_id
     </sql>
 </mapper>

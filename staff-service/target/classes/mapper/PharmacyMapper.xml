@@ -5,14 +5,15 @@
 <mapper namespace="com.ankang.staff.mapper.PharmacyMapper">
 
     <resultMap id="BaseResultMap" type="com.ankang.staff.pojo.Pharmacy">
-            <id property="pharmacyId" column="pharmacy_id" jdbcType="INTEGER"/>
-            <result property="pharmacyName" column="pharmacy_name" jdbcType="VARCHAR"/>
-            <result property="pharmacyPhone" column="pharmacy_phone" jdbcType="VARCHAR"/>
-            <result property="pharmacyAddress" column="pharmacy_address" jdbcType="VARCHAR"/>
+        <id property="pharmacyId" column="pharmacy_id" jdbcType="INTEGER"/>
+        <result property="pharmacyName" column="pharmacy_name" jdbcType="VARCHAR"/>
+        <result property="pharmacyPhone" column="pharmacy_phone" jdbcType="VARCHAR"/>
+        <result property="pharmacyAddress" column="pharmacy_address" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        pharmacy_id,pharmacy_name,pharmacy_phone,
+        pharmacy_id
+        ,pharmacy_name,pharmacy_phone,
         pharmacy_address
     </sql>
 </mapper>

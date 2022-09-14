@@ -1,6 +1,6 @@
 package com.ankang.user.service;
 
-import com.ankang.user.pojo.User;
+import com.ankang.pojo.userService.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

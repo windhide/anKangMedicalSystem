@@ -1,6 +1,6 @@
 package com.ankang.user.service;
 
-import com.ankang.user.pojo.PurchaseRecord;
+import com.ankang.pojo.userService.PurchaseRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

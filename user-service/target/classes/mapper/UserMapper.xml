@@ -5,16 +5,17 @@
 <mapper namespace="com.ankang.user.mapper.UserMapper">
 
     <resultMap id="BaseResultMap" type="com.ankang.user.pojo.User">
-            <id property="userId" column="user_id" jdbcType="INTEGER"/>
-            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
-            <result property="userSex" column="user_sex" jdbcType="VARCHAR"/>
-            <result property="userPhone" column="user_phone" jdbcType="VARCHAR"/>
-            <result property="userLevelTypeId" column="user_level_type_id" jdbcType="INTEGER"/>
-            <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+        <id property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="userSex" column="user_sex" jdbcType="VARCHAR"/>
+        <result property="userPhone" column="user_phone" jdbcType="VARCHAR"/>
+        <result property="userLevelTypeId" column="user_level_type_id" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        user_id,user_name,user_sex,
+        user_id
+        ,user_name,user_sex,
         user_phone,user_level_type_id,create_time
     </sql>
 </mapper>
