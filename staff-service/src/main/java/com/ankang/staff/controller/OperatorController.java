@@ -1,6 +1,7 @@
 package com.ankang.staff.controller;
 
 import com.ankang.clients.DrugsClient;
+import com.ankang.pojo.drugsService.Drugs;
 import com.ankang.pojo.staffService.Operator;
 import com.ankang.pojo.staffService.OperatorType;
 import com.ankang.pojo.staffService.Staff;
@@ -33,6 +34,8 @@ public class OperatorController {
 
     Map<Integer, Staff> staffMap;
     Map<Integer, OperatorType> operatorTypeMap;
+
+    Map<Integer, Drugs> drugsMap;
 
     @RequestMapping("select/list")
     public List<Operator> queryOperatorForList() {
@@ -69,6 +72,7 @@ public class OperatorController {
     public void staffAndOperatorTypeInit() {
         staffMap = staffService.list().stream().collect(Collectors.toMap(Staff::getStaffId, staffMap -> staffMap));
         operatorTypeMap = operatorTypeService.list().stream().collect(Collectors.toMap(OperatorType::getOperatorTypeId, operatorTypeMap -> operatorTypeMap));
+        drugsMap = drugsClient.queryDrugsForList().stream().collect(Collectors.toMap(Drugs::getDrugsId, drugs -> drugs));
     }
 
     /**
@@ -84,7 +88,9 @@ public class OperatorController {
 
         OperatorType tempOperatorType = operatorTypeMap.get(operator.getOperatorTypeId());
 
-        operator.setDrugs(drugsClient.queryDrugsById(operator.getDrugsId()));
+        Drugs drugsTemp = drugsMap.get(operator.getDrugsId());
+
+        operator.setDrugs(drugsTemp);
         operator.setStaff(tempStaff);
         operator.setOperatorType(tempOperatorType);
 
