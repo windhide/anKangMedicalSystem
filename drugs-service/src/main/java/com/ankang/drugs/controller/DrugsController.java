@@ -36,14 +36,14 @@ public class DrugsController {
     @RequestMapping("select/list")
     public List<Drugs> queryDrugsForList() {
         List<Drugs> list = drugsService.list();
-        typeAndUnitMapInit();
+        drugsTypeAndUnitInit();
         list.replaceAll(this::drugsTypeAndUnitInit);
         return list;
     }
 
     @RequestMapping("select/{drugsId}")
     public Drugs queryDrugsById(@PathVariable("drugsId") Integer drugsId) {
-        typeAndUnitMapInit();
+        drugsTypeAndUnitInit();
         Drugs drugs = drugsService.getById(drugsId);
         return drugsTypeAndUnitInit(drugs);
     }
@@ -66,7 +66,7 @@ public class DrugsController {
     /**
      * 加载药品类型和单位的Map
      */
-    public void typeAndUnitMapInit(){
+    public void drugsTypeAndUnitInit(){
         drugsTypeMap = drugsTypeService.list().stream().collect(Collectors.toMap(DrugsType::getDrugsTypeId,drugsType -> drugsType));
         drugsUnitMap = drugsUnitService.list().stream().collect(Collectors.toMap(DrugsUnit::getDrugsUnitId, drugsUnit -> drugsUnit));
     }
