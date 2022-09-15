@@ -2,6 +2,7 @@ package com.ankang.user.controller;
 
 import com.ankang.clients.DrugsClient;
 import com.ankang.clients.StaffClient;
+import com.ankang.pojo.drugsService.Drugs;
 import com.ankang.pojo.staffService.Staff;
 import com.ankang.pojo.userService.PurchaseRecord;
 import com.ankang.pojo.userService.User;
@@ -34,6 +35,8 @@ public class PurchaseRecordController {
     Map<Integer,User> userMap;
 
     Map<Integer, Staff> staffMap;
+
+    Map<Integer, Drugs> drugsMap;
 
     @RequestMapping("select/list")
     public List<PurchaseRecord> queryPurchaseRecordForList() {
@@ -69,6 +72,7 @@ public class PurchaseRecordController {
     public void userAndDrugsAndStaffInit() {
         userMap = userService.list().stream().collect(Collectors.toMap(User::getUserId, user -> user));
         staffMap = staffClient.queryStaffForList().stream().collect(Collectors.toMap(Staff::getStaffId, staff -> staff));
+        drugsMap = drugsClient.queryDrugsForList().stream().collect(Collectors.toMap(Drugs::getDrugsId, drugs -> drugs));
     }
 
     /**
@@ -86,9 +90,11 @@ public class PurchaseRecordController {
         staffTemp.setStaffUserName(null);
         staffTemp.setStaffPassWord(null);
 
+        Drugs drugsTemp = drugsMap.get(purchaseRecord.getDrugsId());
+
         purchaseRecord.setUser(userTemp);
         purchaseRecord.setStaff(staffTemp);
-        purchaseRecord.setDrugs(drugsClient.queryDrugsById(purchaseRecord.getDrugsId()));
+        purchaseRecord.setDrugs(drugsTemp);
 
         return purchaseRecord;
     }
