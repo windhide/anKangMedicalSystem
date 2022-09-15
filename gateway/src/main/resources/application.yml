@@ -23,4 +23,4 @@ spring:
         - id: staff-service
           uri: lb://staff-service
           predicates:
-            - Path=/staff/**
+            - Path=/staff/**,/operator/**,/operatorType/**,/pharmacy/**,/authority/**

@@ -7,13 +7,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
- * @author WindHide
- * @description 针对表【staff】的数据库操作Service实现
- * @createDate 2022-09-14 22:32:33
- */
+* @author WindHide
+* @description 针对表【staff】的数据库操作Service实现
+* @createDate 2022-09-15 18:57:43
+*/
 @Service
-public class StaffServiceImpl extends ServiceImpl<StaffMapper, Staff>
-    implements StaffService{
+public class StaffServiceImpl extends ServiceImpl<StaffMapper, Staff> implements StaffService{
 
 }
 

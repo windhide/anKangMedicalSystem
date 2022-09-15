@@ -9,34 +9,45 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
+ * 
  * @TableName staff
  */
-@TableName(value = "staff")
+@TableName(value ="staff")
 @Data
 public class Staff implements Serializable {
     /**
-     *
+     * 
      */
     @TableId(type = IdType.AUTO)
     private Integer staffId;
 
     /**
-     *
+     * 
      */
     private String staffName;
 
     /**
-     *
+     * 
+     */
+    private String staffUserName;
+
+    /**
+     * 
+     */
+    private String staffPassWord;
+
+    /**
+     * 
      */
     private String staffSex;
 
     /**
-     *
+     * 
      */
     private String staffPhone;
 
     /**
-     *
+     * 
      */
     private Integer pharmacyId;
 
@@ -47,7 +58,7 @@ public class Staff implements Serializable {
     private Pharmacy pharmacy;
 
     /**
-     *
+     * 
      */
     private Integer authorityId;
 

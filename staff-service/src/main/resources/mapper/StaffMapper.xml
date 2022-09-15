@@ -5,17 +5,19 @@
 <mapper namespace="com.ankang.staff.mapper.StaffMapper">
 
     <resultMap id="BaseResultMap" type="com.ankang.pojo.staffService.Staff">
-        <id property="staffId" column="staff_id" jdbcType="INTEGER"/>
-        <result property="staffName" column="staff_name" jdbcType="VARCHAR"/>
-        <result property="staffSex" column="staff_sex" jdbcType="VARCHAR"/>
-        <result property="staffPhone" column="staff_phone" jdbcType="VARCHAR"/>
-        <result property="pharmacyId" column="pharmacy_id" jdbcType="INTEGER"/>
-        <result property="authorityId" column="authority_id" jdbcType="INTEGER"/>
+            <id property="staffId" column="staff_id" jdbcType="INTEGER"/>
+            <result property="staffName" column="staff_name" jdbcType="VARCHAR"/>
+            <result property="staffUserName" column="staff_user_name" jdbcType="VARCHAR"/>
+            <result property="staffPassWord" column="staff_pass_word" jdbcType="VARCHAR"/>
+            <result property="staffSex" column="staff_sex" jdbcType="VARCHAR"/>
+            <result property="staffPhone" column="staff_phone" jdbcType="VARCHAR"/>
+            <result property="pharmacyId" column="pharmacy_id" jdbcType="INTEGER"/>
+            <result property="authorityId" column="authority_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        staff_id
-        ,staff_name,staff_sex,
-        staff_phone,pharmacy_id,authority_id
+        staff_id,staff_name,staff_user_name,
+        staff_pass_word,staff_sex,staff_phone,
+        pharmacy_id,authority_id
     </sql>
 </mapper>
