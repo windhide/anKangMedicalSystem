@@ -29,7 +29,7 @@ public class DrugsController {
     @Autowired
     DrugsUnitService drugsUnitService;
 
-    @RequestMapping("list")
+    @RequestMapping("select/list")
     public List<Drugs> queryDrugsForList() {
         List<Drugs> list = drugsService.list();
         Map<Integer, String> drugTypeMap = drugsTypeService.list().stream().collect(Collectors.toMap(DrugsType::getDrugsTypeId, DrugsType::getDrugsTypeName));

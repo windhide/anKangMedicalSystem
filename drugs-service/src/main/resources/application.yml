@@ -2,7 +2,7 @@ server:
   port: 8084
 spring:
   datasource:
-    url: jdbc:mysql://192.168.190.130:3306/drugs?useSSL=false
+    url: jdbc:mysql://192.168.190.130:3306/drugs?useSSL=false&serverTimezone=UTC
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
@@ -15,7 +15,7 @@ spring:
 #        namespace: 6e0278bd-a021-46dc-9fa7-2aa98a91c1ba
 #        ephemeral: false
 mybatis:
-  type-aliases-package: com.ankang.drugs.pojo
+  type-aliases-package: com.ankang.pojo.drugsService
   configuration:
     map-underscore-to-camel-case: true
 logging:

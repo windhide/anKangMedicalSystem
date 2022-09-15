@@ -16,12 +16,12 @@ public class DrugsUnitController {
     @Autowired
     DrugsUnitService drugsUnitService;
 
-    @RequestMapping("list")
+    @RequestMapping("select/list")
     public List<DrugsUnit> queryDrugsUnitForList() {
         return drugsUnitService.list();
     }
 
-    @RequestMapping("{drugsUnitId}")
+    @RequestMapping("select/{drugsUnitId}")
     public DrugsUnit queryDrugsUnitById(@PathVariable("drugsUnitId") Integer drugsUnitId) {
         return drugsUnitService.getById(drugsUnitId);
     }

@@ -16,12 +16,12 @@ public class DrugsTypeController {
     @Autowired
     DrugsTypeService drugsTypeService;
 
-    @RequestMapping("list")
+    @RequestMapping("select/list")
     public List<DrugsType> queryDrugsTypeForList() {
         return drugsTypeService.list();
     }
 
-    @RequestMapping("{drugsTypeId}")
+    @RequestMapping("select/{drugsTypeId}")
     public DrugsType queryDrugsTypeById(@PathVariable("drugsTypeId") Integer drugsTypeId) {
         return drugsTypeService.getById(drugsTypeId);
     }
