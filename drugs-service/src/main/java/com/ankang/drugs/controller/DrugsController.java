@@ -37,9 +37,7 @@ public class DrugsController {
     public List<Drugs> queryDrugsForList() {
         List<Drugs> list = drugsService.list();
         typeAndUnitMapInit();
-        for (int i = 0; i < list.size(); i++) {
-            list.set(i,drugsTypeAndUnitInit(list.get(i)));
-        }
+        list.replaceAll(this::drugsTypeAndUnitInit);
         return list;
     }
 
