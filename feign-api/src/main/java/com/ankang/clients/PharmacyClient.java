@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@FeignClient(value = "drugs-service")
+@FeignClient(name = "drugs-service", contextId="pharmacyClient")
 public interface PharmacyClient {
 
     @RequestMapping("pharmacy/select/list")

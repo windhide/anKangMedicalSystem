@@ -11,15 +11,15 @@ spring:
         - id: drugs-service
           uri: lb://drugs-service
           predicates:
-            - Path=/drugs/**
+            - Path=/drugs/**,/drugsType/**,/drugsUnit/**
         - id: wareHouse-service
           uri: lb://warehouse-service
           predicates:
-            - Path=/warehouse/**
+            - Path=/warehouse/**,/warehouseStaffRecord/**,/warehouseType/**
         - id: user-service
           uri: lb://user-service
           predicates:
-            - Path=/user/**
+            - Path=/user/**,/purchaseRecord/**,/symptom/**,/userLevelType/**
         - id: staff-service
           uri: lb://staff-service
           predicates:
