@@ -9,14 +9,18 @@ spring:
     gateway:
       routes: # 网关路由配置
         - id: drugs-service
-          url: lb://drugs-service
+          uri: lb://drugs-service
           predicates:
-        - id: WareHouseService
-          url: lb://warehouseservice
+            - Path=/drugs/**
+        - id: wareHouse-service
+          uri: lb://warehouse-service
           predicates:
-        - id: UserService
-          url: lb://userservice
+            - Path=/warehouse/**
+        - id: user-service
+          uri: lb://user-service
           predicates:
-        - id: StaffService
-          url: lb://staffservice
+            - Path=/user/**
+        - id: staff-service
+          uri: lb://staff-service
           predicates:
+            - Path=/staff/**
