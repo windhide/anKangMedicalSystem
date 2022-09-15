@@ -30,7 +30,7 @@ public class DrugsController {
     @Autowired
     DrugsUnitService drugsUnitService;
 
-    Map<Integer, String> drugTypeMap;
+    Map<Integer, DrugsType> drugTypeMap;
     Map<Integer, String> drugUnitMap;
 
     @RequestMapping("select/list")
@@ -65,15 +65,24 @@ public class DrugsController {
         return drugsService.save(drugs);
     }
 
+    /**
+     * 加载药品类型和单位的Map
+     */
     public void typeAndUnitMapInit(){
-        drugTypeMap = drugsTypeService.list().stream().collect(Collectors.toMap(DrugsType::getDrugsTypeId, DrugsType::getDrugsTypeName));
+        drugTypeMap = drugsTypeService.list().stream().collect(Collectors.toMap(DrugsType::getDrugsTypeId,drugsType -> drugsType));
         drugUnitMap = drugsUnitService.list().stream().collect(Collectors.toMap(DrugsUnit::getDrugsUnitId, DrugsUnit::getDrugsUnitName));
     }
 
+    /**
+     * 植入药品类型和单位
+     * @param drugs
+     * @return
+     */
     public Drugs drugsTypeAndUnitInit(Drugs drugs){
         DrugsType tempDrugsType = new DrugsType();
         tempDrugsType.setDrugsTypeId(drugs.getDrugsTypeId());
-        tempDrugsType.setDrugsTypeName(drugTypeMap.get(drugs.getDrugsTypeId()));
+        tempDrugsType.setDrugsTypeName(drugTypeMap.get(drugs.getDrugsTypeId()).getDrugsTypeName());
+        tempDrugsType.setDrugsTypeCreatTime(drugTypeMap.get(drugs.getDrugsTypeId()).getDrugsTypeCreatTime());
 
         DrugsUnit tempDrugsUnit = new DrugsUnit();
         tempDrugsUnit.setDrugsUnitId(drugs.getDrugsUnitid());
