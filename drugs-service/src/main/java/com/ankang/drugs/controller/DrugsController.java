@@ -77,14 +77,9 @@ public class DrugsController {
      * @return
      */
     public Drugs drugsTypeAndUnitInit(Drugs drugs){
-        DrugsType tempDrugsType = new DrugsType();
-        tempDrugsType.setDrugsTypeId(drugs.getDrugsTypeId());
-        tempDrugsType.setDrugsTypeName(drugsTypeMap.get(drugs.getDrugsTypeId()).getDrugsTypeName());
-        tempDrugsType.setDrugsTypeCreatTime(drugsTypeMap.get(drugs.getDrugsTypeId()).getDrugsTypeCreatTime());
+        DrugsType tempDrugsType = drugsTypeMap.get(drugs.getDrugsTypeId());
 
-        DrugsUnit tempDrugsUnit = new DrugsUnit();
-        tempDrugsUnit.setDrugsUnitId(drugs.getDrugsUnitid());
-        tempDrugsUnit.setDrugsUnitName(drugsUnitMap.get(drugs.getDrugsUnitid()).getDrugsUnitName());
+        DrugsUnit tempDrugsUnit = drugsUnitMap.get(drugs.getDrugsUnitid());
 
         drugs.setDrugsUnit(tempDrugsUnit);
         drugs.setDrugsType(tempDrugsType);
