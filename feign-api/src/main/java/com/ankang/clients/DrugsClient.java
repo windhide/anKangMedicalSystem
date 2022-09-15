@@ -10,10 +10,10 @@ import java.util.List;
 @FeignClient(value = "drugs-service")
 public interface DrugsClient {
 
-    @RequestMapping("/drugs/select/list")
+    @RequestMapping("drugs/select/list")
     List<Drugs> queryDrugsForList();
 
-    @RequestMapping("/drugs/select/{drugsId}")
+    @RequestMapping("drugs/select/{drugsId}")
     Drugs queryDrugsById(@PathVariable("drugsId") Integer drugsId);
 
 }

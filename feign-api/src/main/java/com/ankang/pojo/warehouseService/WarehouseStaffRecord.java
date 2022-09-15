@@ -30,6 +30,12 @@ public class WarehouseStaffRecord implements Serializable {
     /**
      *
      */
+    @TableField(exist = false)
+    private Warehouse warehouse;
+
+    /**
+     *
+     */
     private Integer staffId;
 
     /**
