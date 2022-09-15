@@ -33,14 +33,14 @@ public class StaffController {
     @RequestMapping("select/list")
     public List<Staff> queryStaffForList() {
         List<Staff> staffList = staffService.list();
-        pharmacyAndAuthorityMapInit();
+        pharmacyAndAuthorityInit();
         staffList.replaceAll(this::pharmacyAndAuthorityInit);
         return staffList;
     }
 
     @RequestMapping("select/{staffId}")
     public Staff queryStaffById(@PathVariable("staffId") Integer staffId) {
-        pharmacyAndAuthorityMapInit();
+        pharmacyAndAuthorityInit();
         return pharmacyAndAuthorityInit(staffService.getById(staffId));
     }
 
@@ -62,7 +62,7 @@ public class StaffController {
     /**
      * 加载药店和权限的Map
      */
-    public void pharmacyAndAuthorityMapInit() {
+    public void pharmacyAndAuthorityInit() {
         pharmacyMap = pharmacyService.list().stream().collect(Collectors.toMap(Pharmacy::getPharmacyId, pharmacy -> pharmacy));
         authorityMap = authorityService.list().stream().collect(Collectors.toMap(Authority::getAuthorityId, authority -> authority));
     }

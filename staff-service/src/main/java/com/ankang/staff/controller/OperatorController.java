@@ -37,14 +37,14 @@ public class OperatorController {
     @RequestMapping("select/list")
     public List<Operator> queryOperatorForList() {
         List<Operator> operatorList = operatorService.list();
-        staffAndOperatorTypeMapInit();
+        staffAndOperatorTypeInit();
         operatorList.replaceAll(this::staffAndOperatorTypeInit);
         return operatorList;
     }
 
     @RequestMapping("select/{operatorId}")
     public Operator queryOperatorById(@PathVariable("operatorId") Integer operatorId) {
-        staffAndOperatorTypeMapInit();
+        staffAndOperatorTypeInit();
         return staffAndOperatorTypeInit(operatorService.getById(operatorId));
     }
 
@@ -66,7 +66,7 @@ public class OperatorController {
     /**
      * 员工和药品以及操作记录
      */
-    public void staffAndOperatorTypeMapInit() {
+    public void staffAndOperatorTypeInit() {
         staffMap = staffService.list().stream().collect(Collectors.toMap(Staff::getStaffId, staffMap -> staffMap));
         operatorTypeMap = operatorTypeService.list().stream().collect(Collectors.toMap(OperatorType::getOperatorTypeId, operatorTypeMap -> operatorTypeMap));
     }
