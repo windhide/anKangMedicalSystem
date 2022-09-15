@@ -30,8 +30,8 @@ public class DrugsController {
     @Autowired
     DrugsUnitService drugsUnitService;
 
-    Map<Integer, DrugsType> drugTypeMap;
-    Map<Integer, String> drugUnitMap;
+    Map<Integer, DrugsType> drugsTypeMap;
+    Map<Integer, DrugsUnit> drugsUnitMap;
 
     @RequestMapping("select/list")
     public List<Drugs> queryDrugsForList() {
@@ -69,8 +69,8 @@ public class DrugsController {
      * 加载药品类型和单位的Map
      */
     public void typeAndUnitMapInit(){
-        drugTypeMap = drugsTypeService.list().stream().collect(Collectors.toMap(DrugsType::getDrugsTypeId,drugsType -> drugsType));
-        drugUnitMap = drugsUnitService.list().stream().collect(Collectors.toMap(DrugsUnit::getDrugsUnitId, DrugsUnit::getDrugsUnitName));
+        drugsTypeMap = drugsTypeService.list().stream().collect(Collectors.toMap(DrugsType::getDrugsTypeId,drugsType -> drugsType));
+        drugsUnitMap = drugsUnitService.list().stream().collect(Collectors.toMap(DrugsUnit::getDrugsUnitId, drugsUnit -> drugsUnit));
     }
 
     /**
@@ -81,12 +81,12 @@ public class DrugsController {
     public Drugs drugsTypeAndUnitInit(Drugs drugs){
         DrugsType tempDrugsType = new DrugsType();
         tempDrugsType.setDrugsTypeId(drugs.getDrugsTypeId());
-        tempDrugsType.setDrugsTypeName(drugTypeMap.get(drugs.getDrugsTypeId()).getDrugsTypeName());
-        tempDrugsType.setDrugsTypeCreatTime(drugTypeMap.get(drugs.getDrugsTypeId()).getDrugsTypeCreatTime());
+        tempDrugsType.setDrugsTypeName(drugsTypeMap.get(drugs.getDrugsTypeId()).getDrugsTypeName());
+        tempDrugsType.setDrugsTypeCreatTime(drugsTypeMap.get(drugs.getDrugsTypeId()).getDrugsTypeCreatTime());
 
         DrugsUnit tempDrugsUnit = new DrugsUnit();
         tempDrugsUnit.setDrugsUnitId(drugs.getDrugsUnitid());
-        tempDrugsUnit.setDrugsUnitName(drugUnitMap.get(drugs.getDrugsUnitid()));
+        tempDrugsUnit.setDrugsUnitName(drugsUnitMap.get(drugs.getDrugsUnitid()).getDrugsUnitName());
 
         drugs.setDrugsUnit(tempDrugsUnit);
         drugs.setDrugsType(tempDrugsType);
