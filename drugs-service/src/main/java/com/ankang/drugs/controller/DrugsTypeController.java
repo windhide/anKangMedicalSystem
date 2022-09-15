@@ -26,4 +26,19 @@ public class DrugsTypeController {
         return drugsTypeService.getById(drugsTypeId);
     }
 
+    @RequestMapping("update/{drugsType}")
+    public boolean updateDrugsTypeById(@PathVariable("drugsType") DrugsType drugsType) {
+        return drugsTypeService.updateById(drugsType);
+    }
+
+    @RequestMapping("remove/{drugsTypeId}")
+    public boolean deleteDrugsTypeById(@PathVariable("drugsTypeId") Integer drugsTypeId) {
+        return drugsTypeService.removeById(drugsTypeId);
+    }
+
+    @RequestMapping("insert/{drugsType}")
+    public boolean insertDrugsType(@PathVariable("drugsType") DrugsType drugsType) {
+        return drugsTypeService.save(drugsType);
+    }
+
 }

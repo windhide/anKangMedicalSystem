@@ -9,6 +9,7 @@ import com.ankang.pojo.drugsService.DrugsType;
 import com.ankang.pojo.drugsService.DrugsUnit;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,24 +30,58 @@ public class DrugsController {
     @Autowired
     DrugsUnitService drugsUnitService;
 
+    Map<Integer, String> drugTypeMap;
+    Map<Integer, String> drugUnitMap;
+
     @RequestMapping("select/list")
     public List<Drugs> queryDrugsForList() {
         List<Drugs> list = drugsService.list();
-        Map<Integer, String> drugTypeMap = drugsTypeService.list().stream().collect(Collectors.toMap(DrugsType::getDrugsTypeId, DrugsType::getDrugsTypeName));
-        Map<Integer, String> drugUnitMap = drugsUnitService.list().stream().collect(Collectors.toMap(DrugsUnit::getDrugsUnitId, DrugsUnit::getDrugsUnitName));
+        typeAndUnitMapInit();
         for (int i = 0; i < list.size(); i++) {
-            // 代码待优化
-            DrugsType tempDrugsType = new DrugsType();
-            tempDrugsType.setDrugsTypeId(list.get(i).getDrugsTypeId());
-            tempDrugsType.setDrugsTypeName(drugTypeMap.get(list.get(i).getDrugsTypeId()));
-
-            DrugsUnit tempDrugsUnit = new DrugsUnit();
-            tempDrugsUnit.setDrugsUnitId(list.get(i).getDrugsUnitid());
-            tempDrugsUnit.setDrugsUnitName(drugUnitMap.get(list.get(i).getDrugsUnitid()));
-
-            list.get(i).setDrugsType(tempDrugsType);
-            list.get(i).setDrugsUnit(tempDrugsUnit);
+            list.set(i,drugsTypeAndUnitInit(list.get(i)));
         }
         return list;
     }
+
+    @RequestMapping("select/{drugsId}")
+    public Drugs queryDrugsById(@PathVariable("drugsId") Integer drugsId) {
+        typeAndUnitMapInit();
+        Drugs drugs = drugsService.getById(drugsId);
+        return drugsTypeAndUnitInit(drugs);
+    }
+
+    @RequestMapping("update/{drugs}")
+    public boolean updateDrugsById(@PathVariable("drugs") Drugs drugs) {
+        return drugsService.updateById(drugs);
+    }
+
+    @RequestMapping("remove/{drugsId}")
+    public boolean deleteDrugsById(@PathVariable("drugsId") Integer drugsId) {
+        return drugsService.removeById(drugsId);
+    }
+
+    @RequestMapping("insert/{drugs}")
+    public boolean insertDrugs(@PathVariable("drugs") Drugs drugs) {
+        return drugsService.save(drugs);
+    }
+
+    public void typeAndUnitMapInit(){
+        drugTypeMap = drugsTypeService.list().stream().collect(Collectors.toMap(DrugsType::getDrugsTypeId, DrugsType::getDrugsTypeName));
+        drugUnitMap = drugsUnitService.list().stream().collect(Collectors.toMap(DrugsUnit::getDrugsUnitId, DrugsUnit::getDrugsUnitName));
+    }
+
+    public Drugs drugsTypeAndUnitInit(Drugs drugs){
+        DrugsType tempDrugsType = new DrugsType();
+        tempDrugsType.setDrugsTypeId(drugs.getDrugsTypeId());
+        tempDrugsType.setDrugsTypeName(drugTypeMap.get(drugs.getDrugsTypeId()));
+
+        DrugsUnit tempDrugsUnit = new DrugsUnit();
+        tempDrugsUnit.setDrugsUnitId(drugs.getDrugsUnitid());
+        tempDrugsUnit.setDrugsUnitName(drugUnitMap.get(drugs.getDrugsUnitid()));
+
+        drugs.setDrugsUnit(tempDrugsUnit);
+        drugs.setDrugsType(tempDrugsType);
+        return drugs;
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.ankang.drugs.controller;
 
 import com.ankang.drugs.service.DrugsUnitService;
+import com.ankang.pojo.drugsService.Drugs;
 import com.ankang.pojo.drugsService.DrugsUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,21 @@ public class DrugsUnitController {
     @RequestMapping("select/{drugsUnitId}")
     public DrugsUnit queryDrugsUnitById(@PathVariable("drugsUnitId") Integer drugsUnitId) {
         return drugsUnitService.getById(drugsUnitId);
+    }
+
+    @RequestMapping("update/{drugsUnit}")
+    public boolean updateDrugsById(@PathVariable("drugsUnit") DrugsUnit drugsUnit) {
+        return drugsUnitService.updateById(drugsUnit);
+    }
+
+    @RequestMapping("remove/{drugsUnitId}")
+    public boolean deleteDrugsById(@PathVariable("drugsUnitId") Integer drugsUnitId) {
+        return drugsUnitService.removeById(drugsUnitId);
+    }
+
+    @RequestMapping("insert/{drugsUnit}")
+    public boolean insertDrugs(@PathVariable("drugsUnit") DrugsUnit drugsUnit) {
+        return drugsUnitService.save(drugsUnit);
     }
 
 }
