@@ -74,15 +74,9 @@ public class StaffController {
      * @return
      */
     public Staff pharmacyAndAuthorityInit(Staff staff) {
-        Pharmacy tempPharmacy = new Pharmacy();
-        tempPharmacy.setPharmacyId(staff.getPharmacyId());
-        tempPharmacy.setPharmacyName(pharmacyMap.get(staff.getPharmacyId()).getPharmacyName());
-        tempPharmacy.setPharmacyPhone(pharmacyMap.get(staff.getPharmacyId()).getPharmacyPhone());
-        tempPharmacy.setPharmacyAddress(pharmacyMap.get(staff.getPharmacyId()).getPharmacyAddress());
+        Pharmacy tempPharmacy = pharmacyMap.get(staff.getPharmacyId());
 
-        Authority tempAuthority = new Authority();
-        tempAuthority.setAuthorityId(staff.getAuthorityId());
-        tempAuthority.setAuthorityName(authorityMap.get(staff.getAuthorityId()).getAuthorityName());
+        Authority tempAuthority = authorityMap.get(staff.getAuthorityId());
 
         staff.setPharmacy(tempPharmacy);
         staff.setAuthority(tempAuthority);

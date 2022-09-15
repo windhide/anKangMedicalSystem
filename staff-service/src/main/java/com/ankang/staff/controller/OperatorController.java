@@ -78,17 +78,11 @@ public class OperatorController {
      * @return Operator
      */
     public Operator staffAndOperatorTypeInit(Operator operator) {
-        Staff tempStaff = new Staff();
-        tempStaff.setStaffId(operator.getStaffId());
-        tempStaff.setStaffName(staffMap.get(operator.getStaffId()).getStaffName());
-        tempStaff.setStaffPhone(staffMap.get(operator.getStaffId()).getStaffPhone());
-        tempStaff.setStaffSex(staffMap.get(operator.getStaffId()).getStaffSex());
-        tempStaff.setPharmacy(staffMap.get(operator.getStaffId()).getPharmacy());
-        tempStaff.setAuthority(staffMap.get(operator.getStaffId()).getAuthority());
+        Staff tempStaff = staffMap.get(operator.getStaffId());
+        tempStaff.setStaffUserName(null);
+        tempStaff.setStaffPassWord(null);
 
-        OperatorType tempOperatorType = new OperatorType();
-        tempOperatorType.setOperatorTypeId(operator.getOperatorTypeId());
-        tempOperatorType.setOperatorTypeName(operatorTypeMap.get(operator.getOperatorId()).getOperatorTypeName());
+        OperatorType tempOperatorType = operatorTypeMap.get(operator.getOperatorTypeId());
 
         operator.setDrugs(drugsClient.queryDrugsById(operator.getDrugsId()));
         operator.setStaff(tempStaff);
