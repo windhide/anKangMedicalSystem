@@ -35,7 +35,7 @@ public class PurchaseRecord implements Serializable {
     /**
      *
      */
-    private Integer drugId;
+    private Integer drugsId;
 
     /**
      *
