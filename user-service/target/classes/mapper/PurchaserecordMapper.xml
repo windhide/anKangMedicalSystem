@@ -7,7 +7,7 @@
     <resultMap id="BaseResultMap" type="com.ankang.pojo.userService.PurchaseRecord">
         <id property="purchaseRecordId" column="purchase_record_id" jdbcType="INTEGER"/>
         <result property="userId" column="user_id" jdbcType="INTEGER"/>
-        <result property="drugId" column="drug_id" jdbcType="INTEGER"/>
+        <result property="drugsId" column="drugs_id" jdbcType="INTEGER"/>
         <result property="staffId" column="staff_id" jdbcType="INTEGER"/>
         <result property="purchaseCount" column="purchase_count" jdbcType="BIGINT"/>
         <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
@@ -15,7 +15,7 @@
 
     <sql id="Base_Column_List">
         purchase_record_id
-        ,user_id,drug_id,
+        ,user_id,drugs_id,
         staff_id,purchase_count,create_time
     </sql>
 </mapper>

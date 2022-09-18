@@ -22,7 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
-        <mysql.version>5.1.47</mysql.version>
+        <mysql.version>8.0.30</mysql.version>
         <mybatis.version>2.1.1</mybatis.version>
     </properties>
 

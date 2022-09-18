@@ -5,7 +5,7 @@ spring:
     url: jdbc:mysql://192.168.190.130:3306/drugs?useSSL=false&serverTimezone=UTC
     username: root
     password: root
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   application:
     name: drugs-service
   cloud:
