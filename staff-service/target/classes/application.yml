@@ -2,10 +2,10 @@ server:
   port: 8083
 spring:
   datasource:
-    url: jdbc:mysql://192.168.190.130:3306/staff?useSSL=false
+    url: jdbc:mysql://192.168.190.130:3306/staff?useSSL=false&serverTimezone=UTC
     username: root
     password: root
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   application:
     name: staff-service
   cloud:
