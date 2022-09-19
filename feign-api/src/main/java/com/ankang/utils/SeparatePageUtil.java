@@ -4,12 +4,19 @@ import java.util.List;
 
 public class SeparatePageUtil {
 
-    static Integer dataCount = 20; // 每页显示多少数据
+    public static Integer dataCount = 20; // 每页显示多少数据
 
     public static List<?> getSeparatePageData(List<?> listData, Integer page) {
-        if (listData.size() > dataCount) {
-            return listData.subList(page == 1 ? 0 : page * dataCount, page == 1 ? dataCount : page * dataCount + 20);
+        int start = page * dataCount;
+
+        if(page == 1){
+            return listData.subList(0,dataCount);
         }
-        return listData;
+
+        if(page * dataCount >= listData.size()){
+           return listData.subList((int) Math.floor(listData.size()/dataCount)*dataCount,listData.size());
+        }
+
+        return listData.subList(start - 20 , start);
     }
 }

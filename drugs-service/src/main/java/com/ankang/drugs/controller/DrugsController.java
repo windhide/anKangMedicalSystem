@@ -49,7 +49,9 @@ public class DrugsController {
         }
 
         map.put("data", JSON.toJSON(SeparatePageUtil.getSeparatePageData(ListCache.getListCache("drugs"), page)));
+        map.put("size",SeparatePageUtil.dataCount);
         map.put("total",ListCache.getListCache("drugs").size());
+        map.put("nowSize",SeparatePageUtil.getSeparatePageData(ListCache.getListCache("drugs"), page).size());
 
         return map;
     }
