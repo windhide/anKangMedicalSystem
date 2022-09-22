@@ -83,6 +83,7 @@ public class DrugsController {
 
     @RequestMapping("remove/{drugsId}")
     public boolean deleteDrugsById(@PathVariable("drugsId") Integer drugsId) {
+        ListCache.setListCache("drugs",null);
         return drugsService.removeById(drugsId);
     }
 
