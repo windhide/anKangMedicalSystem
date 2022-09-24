@@ -13,6 +13,7 @@ import com.ankang.utils.SeparatePageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -76,8 +77,9 @@ public class DrugsController {
         return drugsTypeAndUnitInit(drugs);
     }
 
-    @RequestMapping("update/{drugs}")
-    public boolean updateDrugsById(@PathVariable("drugs") Drugs drugs) {
+    @RequestMapping("update")
+    public boolean updateDrugsById(@RequestBody Drugs drugs) {
+        ListCache.setListCache("drugs",null);
         return drugsService.updateById(drugs);
     }
 
