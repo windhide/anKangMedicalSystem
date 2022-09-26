@@ -89,8 +89,9 @@ public class DrugsController {
         return drugsService.removeById(drugsId);
     }
 
-    @RequestMapping("insert/{drugs}")
-    public boolean insertDrugs(@PathVariable("drugs") Drugs drugs) {
+    @RequestMapping("insert")
+    public boolean insertDrugs(@RequestBody Drugs drugs) {
+        ListCache.setListCache("drugs",null);
         return drugsService.save(drugs);
     }
 
