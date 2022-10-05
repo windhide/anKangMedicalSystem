@@ -4,6 +4,7 @@ import com.ankang.drugs.service.DrugsTypeService;
 import com.ankang.pojo.drugsService.DrugsType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,18 +27,18 @@ public class DrugsTypeController {
         return drugsTypeService.getById(drugsTypeId);
     }
 
-    @RequestMapping("update/{drugsType}")
-    public boolean updateDrugsTypeById(@PathVariable("drugsType") DrugsType drugsType) {
+    @RequestMapping("update")
+    public boolean updateDrugsTypeById(@RequestBody DrugsType drugsType) {
         return drugsTypeService.updateById(drugsType);
     }
 
-    @RequestMapping("remove/{drugsTypeId}")
-    public boolean deleteDrugsTypeById(@PathVariable("drugsTypeId") Integer drugsTypeId) {
-        return drugsTypeService.removeById(drugsTypeId);
+    @RequestMapping("remove")
+    public boolean deleteDrugsTypeById(@RequestBody DrugsType drugsType) {
+        return drugsTypeService.removeById(drugsType.getDrugsTypeId());
     }
 
-    @RequestMapping("insert/{drugsType}")
-    public boolean insertDrugsType(@PathVariable("drugsType") DrugsType drugsType) {
+    @RequestMapping("insert")
+    public boolean insertDrugsType(@RequestBody DrugsType drugsType) {
         return drugsTypeService.save(drugsType);
     }
 
