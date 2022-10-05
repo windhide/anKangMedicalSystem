@@ -7,10 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="warehouse-service" />
         <module name="drugs-service" />
         <module name="staff-service" />
         <module name="user-service" />
-        <module name="warehouse-service" />
+        <module name="gateWay" />
         <module name="gateway" />
         <module name="feign-api" />
       </profile>
@@ -20,6 +21,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="drugs-service" options="-parameters" />
       <module name="feign-api" options="-parameters" />
+      <module name="gateWay" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="staff-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
