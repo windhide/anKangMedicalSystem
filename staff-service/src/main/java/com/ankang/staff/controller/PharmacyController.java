@@ -4,6 +4,7 @@ import com.ankang.pojo.staffService.Pharmacy;
 import com.ankang.staff.service.PharmacyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,18 +26,18 @@ public class PharmacyController {
         return pharmacyService.getById(pharmacyId);
     }
 
-    @RequestMapping("update/{pharmacy}")
-    public boolean updatePharmacyById(@PathVariable("pharmacy") Pharmacy pharmacy) {
+    @RequestMapping("update")
+    public boolean updatePharmacyById(@RequestBody Pharmacy pharmacy) {
         return pharmacyService.updateById(pharmacy);
     }
 
-    @RequestMapping("remove/{pharmacyId}")
-    public boolean deletePharmacyById(@PathVariable("pharmacyId") Integer pharmacyId) {
-        return pharmacyService.removeById(pharmacyId);
+    @RequestMapping("remove")
+    public boolean deletePharmacyById(@RequestBody Pharmacy pharmacy) {
+        return pharmacyService.removeById(pharmacy.getPharmacyId());
     }
 
-    @RequestMapping("insert/{pharmacy}")
-    public boolean insertPharmacy(@PathVariable("pharmacy") Pharmacy pharmacy) {
+    @RequestMapping("insert")
+    public boolean insertPharmacy(@RequestBody Pharmacy pharmacy) {
         return pharmacyService.save(pharmacy);
     }
 }
