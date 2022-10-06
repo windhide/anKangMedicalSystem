@@ -4,6 +4,7 @@ import com.ankang.pojo.warehouseService.WarehouseType;
 import com.ankang.warehouse.service.WarehouseTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,18 +27,18 @@ public class WarehouseTypeController {
         return warehouseTypeService.getById(warehouseTypeId);
     }
 
-    @RequestMapping("update/{warehouseType}")
-    public boolean updateWarehouseTypeById(@PathVariable("warehouseType") WarehouseType warehouseType) {
+    @RequestMapping("update")
+    public boolean updateWarehouseTypeById(@RequestBody WarehouseType warehouseType) {
         return warehouseTypeService.updateById(warehouseType);
     }
 
-    @RequestMapping("remove/{warehouseTypeId}")
-    public boolean deleteWarehouseTypeById(@PathVariable("warehouseTypeId") Integer warehouseTypeId) {
-        return warehouseTypeService.removeById(warehouseTypeId);
+    @RequestMapping("remove")
+    public boolean deleteWarehouseTypeById(@RequestBody WarehouseType warehouseType) {
+        return warehouseTypeService.removeById(warehouseType.getWarehouseTypeId());
     }
 
-    @RequestMapping("insert/{warehouseType}")
-    public boolean insertWarehouseType(@PathVariable("warehouseType") WarehouseType warehouseType) {
+    @RequestMapping("insert")
+    public boolean insertWarehouseType(@RequestBody WarehouseType warehouseType) {
         return warehouseTypeService.save(warehouseType);
     }
 }
