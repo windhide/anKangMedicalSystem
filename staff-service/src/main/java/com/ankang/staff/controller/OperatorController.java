@@ -10,6 +10,7 @@ import com.ankang.staff.service.OperatorTypeService;
 import com.ankang.staff.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -51,18 +52,18 @@ public class OperatorController {
         return staffAndOperatorTypeInit(operatorService.getById(operatorId));
     }
 
-    @RequestMapping("update/{operator}")
-    public boolean updateOperatorById(@PathVariable("operator") Operator operator) {
+    @RequestMapping("update")
+    public boolean updateOperatorById(@RequestBody Operator operator) {
         return operatorService.updateById(operator);
     }
 
-    @RequestMapping("remove/{operatorId}")
-    public boolean deleteOperatorById(@PathVariable("operatorId") Integer operatorId) {
-        return operatorService.removeById(operatorId);
+    @RequestMapping("remove")
+    public boolean deleteOperatorById(@RequestBody Operator operator) {
+        return operatorService.removeById(operator.getOperatorId());
     }
 
-    @RequestMapping("insert/{operator}")
-    public boolean insertOperator(@PathVariable("operator") Operator operator) {
+    @RequestMapping("insert")
+    public boolean insertOperator(@RequestBody Operator operator) {
         return operatorService.save(operator);
     }
 
