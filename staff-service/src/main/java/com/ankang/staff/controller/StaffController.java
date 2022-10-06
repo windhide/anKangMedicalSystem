@@ -8,6 +8,7 @@ import com.ankang.staff.service.PharmacyService;
 import com.ankang.staff.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,18 +45,21 @@ public class StaffController {
         return pharmacyAndAuthorityInit(staffService.getById(staffId));
     }
 
-    @RequestMapping("update/{staff}")
-    public boolean updateStaffById(@PathVariable("staff") Staff staff) {
+    @RequestMapping("update")
+    public boolean updateStaffById(@RequestBody Staff staff) {
+        if(staff.getStaffPassWord() == ""){
+            staff.setStaffPassWord(null);
+        }
         return staffService.updateById(staff);
     }
 
-    @RequestMapping("remove/{staffId}")
-    public boolean deleteStaffById(@PathVariable("staffId") Integer staffId) {
-        return staffService.removeById(staffId);
+    @RequestMapping("remove")
+    public boolean deleteStaffById(@RequestBody Staff staff) {
+        return staffService.removeById(staff.getStaffId());
     }
 
-    @RequestMapping("insert/{staff}")
-    public boolean insertStaff(@PathVariable("staff") Staff staff) {
+    @RequestMapping("insert")
+    public boolean insertStaff(@RequestBody Staff staff) {
         return staffService.save(staff);
     }
 
