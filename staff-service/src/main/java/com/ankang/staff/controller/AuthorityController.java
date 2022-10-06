@@ -4,6 +4,7 @@ import com.ankang.pojo.staffService.Authority;
 import com.ankang.staff.service.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,18 +26,18 @@ public class AuthorityController {
         return authorityService.getById(authorityId);
     }
 
-    @RequestMapping("update/{authority}")
-    public boolean updateAuthorityById(@PathVariable("authority") Authority authority) {
+    @RequestMapping("update")
+    public boolean updateAuthorityById(@RequestBody Authority authority) {
         return authorityService.updateById(authority);
     }
 
-    @RequestMapping("remove/{authorityId}")
-    public boolean deleteAuthorityById(@PathVariable("authorityId") Integer authorityId) {
-        return authorityService.removeById(authorityId);
+    @RequestMapping("remove")
+    public boolean deleteAuthorityById(@RequestBody Authority authority) {
+        return authorityService.removeById(authority.getAuthorityId());
     }
 
-    @RequestMapping("insert/{authority}")
-    public boolean insertAuthority(@PathVariable("authority") Authority authority) {
+    @RequestMapping("insert")
+    public boolean insertAuthority(@RequestBody Authority authority) {
         return authorityService.save(authority);
     }
 }
