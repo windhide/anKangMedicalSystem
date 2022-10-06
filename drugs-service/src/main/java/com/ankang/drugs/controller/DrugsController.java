@@ -112,7 +112,7 @@ public class DrugsController {
     public Drugs drugsTypeAndUnitInit(Drugs drugs) {
         DrugsType tempDrugsType = drugsTypeMap.get(drugs.getDrugsTypeId());
 
-        DrugsUnit tempDrugsUnit = drugsUnitMap.get(drugs.getDrugsUnitid());
+        DrugsUnit tempDrugsUnit = drugsUnitMap.get(drugs.getDrugsUnitId());
 
         drugs.setDrugsUnit(tempDrugsUnit);
         drugs.setDrugsType(tempDrugsType);

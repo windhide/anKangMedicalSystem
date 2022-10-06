@@ -44,7 +44,7 @@ public class Drugs implements Serializable {
     /**
      *
      */
-    private Integer drugsUnitid;
+    private Integer drugsUnitId;
 
     /**
      *
