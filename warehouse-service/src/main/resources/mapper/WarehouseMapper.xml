@@ -6,16 +6,15 @@
 
     <resultMap id="BaseResultMap" type="com.ankang.pojo.warehouseService.Warehouse">
         <id property="warehouseId" column="warehouse_id" jdbcType="INTEGER"/>
-        <result property="staffId" column="staff_id" jdbcType="INTEGER"/>
         <result property="drugsId" column="drugs_id" jdbcType="INTEGER"/>
         <result property="pharmacyId" column="pharmacy_id" jdbcType="INTEGER"/>
         <result property="drugsCount" column="drugs_count" jdbcType="BIGINT"/>
-        <result property="warehouseTypeId" column="warehouse_type_id" jdbcType="INTEGER"/>
+        <result property="warehouseLastTime" column="warehouse_last_time" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         warehouse_id
-        ,staff_id,drugs_id,
-        pharmacy_id,drugs_count,warehouse_type_id
+        ,drugs_id,
+        pharmacy_id,drugs_count,warehouse_last_time
     </sql>
 </mapper>

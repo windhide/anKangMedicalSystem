@@ -33,8 +33,6 @@ public class WarehouseController {
     @Autowired
     PharmacyClient pharmacyClient;
 
-    Map<Integer, Staff> staffMap;
-
     Map<Integer, Drugs> drugsMap;
 
     Map<Integer, Pharmacy> pharmacyMap;
@@ -73,7 +71,6 @@ public class WarehouseController {
     public void staffAndDrugsAndPharmacyInit() {
         drugsMap = drugsClient.queryDrugsForList().stream().collect(Collectors.toMap(Drugs::getDrugsId,drugs -> drugs));
         pharmacyMap = pharmacyClient.queryPharmacyForList().stream().collect(Collectors.toMap(Pharmacy::getPharmacyId, pharmacy -> pharmacy));
-        staffMap = staffClient.queryStaffForList().stream().collect(Collectors.toMap(Staff::getStaffId, staff -> staff));
     }
 
     /**
@@ -83,15 +80,11 @@ public class WarehouseController {
      * @return Warehouse
      */
     public Warehouse staffAndDrugsAndPharmacyInit(Warehouse warehouse) {
-        Staff staffTemp = staffMap.get(warehouse.getStaffId());
-        staffTemp.setStaffUserName(null);
-        staffTemp.setStaffPassWord(null);
 
         Pharmacy pharmacyTemp = pharmacyMap.get(warehouse.getPharmacyId());
 
         Drugs drugsTemp = drugsMap.get(warehouse.getDrugsId());
 
-        warehouse.setStaff(staffTemp);
         warehouse.setPharmacy(pharmacyTemp);
         warehouse.setDrugs(drugsTemp);
 

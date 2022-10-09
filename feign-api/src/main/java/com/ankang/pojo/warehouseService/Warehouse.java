@@ -26,17 +26,6 @@ public class Warehouse implements Serializable {
     /**
      *
      */
-    private Integer staffId;
-
-    /**
-     *
-     */
-    @TableField(exist = false)
-    private Staff staff;
-
-    /**
-     *
-     */
     private Integer drugsId;
 
     /**
@@ -44,6 +33,7 @@ public class Warehouse implements Serializable {
      */
     @TableField(exist = false)
     private Drugs drugs;
+
     /**
      *
      */
@@ -63,11 +53,5 @@ public class Warehouse implements Serializable {
     /**
      *
      */
-    private Integer warehouseTypeId;
-
-    /**
-     *
-     */
-    @TableField(exist = false)
-    private WarehouseType warehouseType;
+    private String warehouseLastTime;
 }
