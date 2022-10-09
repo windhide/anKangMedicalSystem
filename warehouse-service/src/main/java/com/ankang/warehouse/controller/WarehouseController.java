@@ -10,6 +10,7 @@ import com.ankang.pojo.warehouseService.Warehouse;
 import com.ankang.warehouse.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -51,18 +52,18 @@ public class WarehouseController {
         return staffAndDrugsAndPharmacyInit(warehouseService.getById(warehouseId));
     }
 
-    @RequestMapping("update/{warehouse}")
-    public boolean updateWarehouseById(@PathVariable("warehouse") Warehouse warehouse) {
+    @RequestMapping("update")
+    public boolean updateWarehouseById(@RequestBody Warehouse warehouse) {
         return warehouseService.updateById(warehouse);
     }
 
-    @RequestMapping("remove/{warehouseId}")
-    public boolean deleteWarehouseById(@PathVariable("warehouseId") Integer warehouseId) {
-        return warehouseService.removeById(warehouseId);
+    @RequestMapping("remove")
+    public boolean deleteWarehouseById(@RequestBody Warehouse warehouse) {
+        return warehouseService.removeById(warehouse.getWarehouseId());
     }
 
-    @RequestMapping("insert/{warehouse}")
-    public boolean insertWarehouse(@PathVariable("warehouse") Warehouse warehouse) {
+    @RequestMapping("insert")
+    public boolean insertWarehouse(@RequestBody Warehouse warehouse) {
         return warehouseService.save(warehouse);
     }
 
