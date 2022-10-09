@@ -26,6 +26,11 @@ public class Warehouse implements Serializable {
     /**
      *
      */
+    private String warehouseName;
+
+    /**
+     *
+     */
     private Integer drugsId;
 
     /**

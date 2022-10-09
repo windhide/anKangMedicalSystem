@@ -6,6 +6,7 @@
 
     <resultMap id="BaseResultMap" type="com.ankang.pojo.warehouseService.Warehouse">
         <id property="warehouseId" column="warehouse_id" jdbcType="INTEGER"/>
+        <id property="warehouseName" column="warehouse_name" jdbcType="VARCHAR"/>
         <result property="drugsId" column="drugs_id" jdbcType="INTEGER"/>
         <result property="pharmacyId" column="pharmacy_id" jdbcType="INTEGER"/>
         <result property="drugsCount" column="drugs_count" jdbcType="BIGINT"/>
