@@ -4,6 +4,7 @@ import com.ankang.pojo.userService.UserLevelType;
 import com.ankang.user.service.UserLevelTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,18 +26,18 @@ public class UserLevelTypeController {
         return userLevelTypeService.getById(userLevelTypeId);
     }
 
-    @RequestMapping("update/{userLevelType}")
-    public boolean updateUserLevelTypeById(@PathVariable("userLevelType") UserLevelType userLevelType) {
+    @RequestMapping("update")
+    public boolean updateUserLevelTypeById(@RequestBody UserLevelType userLevelType) {
         return userLevelTypeService.updateById(userLevelType);
     }
 
-    @RequestMapping("remove/{userLevelTypeId}")
-    public boolean deleteUserLevelTypeById(@PathVariable("userLevelTypeId") Integer userLevelTypeId) {
-        return userLevelTypeService.removeById(userLevelTypeId);
+    @RequestMapping("remove")
+    public boolean deleteUserLevelTypeById(@RequestBody UserLevelType userLevelType) {
+        return userLevelTypeService.removeById(userLevelType.getUserLevelTypeId());
     }
 
-    @RequestMapping("insert/{userLevelType}")
-    public boolean insertUserLevelType(@PathVariable("userLevelType") UserLevelType userLevelType) {
+    @RequestMapping("insert")
+    public boolean insertUserLevelType(@RequestBody UserLevelType userLevelType) {
         return userLevelTypeService.save(userLevelType);
     }
 }
