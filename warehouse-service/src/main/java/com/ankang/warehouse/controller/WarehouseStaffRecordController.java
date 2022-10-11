@@ -13,6 +13,7 @@ import com.ankang.warehouse.service.WarehouseStaffRecordService;
 import com.ankang.warehouse.service.WarehouseTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -62,18 +63,18 @@ public class WarehouseStaffRecordController {
         return staffAndDrugsAndPharmacyInit(warehouseStaffRecordService.getById(warehouseStaffRecordId));
     }
 
-    @RequestMapping("update/{warehouseStaffRecord}")
-    public boolean updateWarehouseStaffRecordById(@PathVariable("warehouseStaffRecord") WarehouseStaffRecord warehouseStaffRecord) {
+    @RequestMapping("update")
+    public boolean updateWarehouseStaffRecordById(@RequestBody WarehouseStaffRecord warehouseStaffRecord) {
         return warehouseStaffRecordService.updateById(warehouseStaffRecord);
     }
 
-    @RequestMapping("remove/{warehouseStaffRecordId}")
-    public boolean deleteWarehouseStaffRecordById(@PathVariable("warehouseStaffRecordId") Integer warehouseStaffRecordId) {
-        return warehouseStaffRecordService.removeById(warehouseStaffRecordId);
+    @RequestMapping("remove")
+    public boolean deleteWarehouseStaffRecordById(@RequestBody WarehouseStaffRecord warehouseStaffRecord) {
+        return warehouseStaffRecordService.removeById(warehouseStaffRecord.getWarehouseStaffRecordId());
     }
 
-    @RequestMapping("insert/{warehouseStaffRecord}")
-    public boolean insertWarehouseStaffRecord(@PathVariable("warehouseStaffRecord") WarehouseStaffRecord warehouseStaffRecord) {
+    @RequestMapping("insert")
+    public boolean insertWarehouseStaffRecord(@RequestBody WarehouseStaffRecord warehouseStaffRecord) {
         return warehouseStaffRecordService.save(warehouseStaffRecord);
     }
 
