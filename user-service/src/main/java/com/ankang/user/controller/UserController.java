@@ -6,6 +6,7 @@ import com.ankang.user.service.UserLevelTypeService;
 import com.ankang.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,18 +38,18 @@ public class UserController {
         return userLevelTypeInit(userService.getById(userId));
     }
 
-    @RequestMapping("update/{user}")
-    public boolean updateUserById(@PathVariable("user") User user) {
+    @RequestMapping("update")
+    public boolean updateUserById(@RequestBody User user) {
         return userService.updateById(user);
     }
 
-    @RequestMapping("remove/{userId}")
-    public boolean deleteUserById(@PathVariable("userId") Integer userId) {
-        return userService.removeById(userId);
+    @RequestMapping("remove")
+    public boolean deleteUserById(@RequestBody User user) {
+        return userService.removeById(user.getUserId());
     }
 
-    @RequestMapping("insert/{user}")
-    public boolean insertUser(@PathVariable("user") User user) {
+    @RequestMapping("insert")
+    public boolean insertUser(@RequestBody User user) {
         return userService.save(user);
     }
 
