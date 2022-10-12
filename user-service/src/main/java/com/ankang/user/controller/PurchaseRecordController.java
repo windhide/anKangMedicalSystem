@@ -10,6 +10,7 @@ import com.ankang.user.service.PurchaseRecordService;
 import com.ankang.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -51,18 +52,18 @@ public class PurchaseRecordController {
         return userAndDrugsAndStaffInit(purchaseRecordService.getById(purchaseRecordId));
     }
 
-    @RequestMapping("update/{purchaseRecord}")
-    public boolean updatePurchaseRecordById(@PathVariable("purchaseRecord") PurchaseRecord purchaseRecord) {
+    @RequestMapping("update")
+    public boolean updatePurchaseRecordById(@RequestBody PurchaseRecord purchaseRecord) {
         return purchaseRecordService.updateById(purchaseRecord);
     }
 
-    @RequestMapping("remove/{purchaseRecordId}")
-    public boolean deletePurchaseRecordById(@PathVariable("purchaseRecordId") Integer purchaseRecordId) {
-        return purchaseRecordService.removeById(purchaseRecordId);
+    @RequestMapping("remove")
+    public boolean deletePurchaseRecordById(@RequestBody PurchaseRecord purchaseRecord) {
+        return purchaseRecordService.removeById(purchaseRecord.getPurchaseRecordId());
     }
 
-    @RequestMapping("insert/{purchaseRecord}")
-    public boolean insertPurchaseRecord(@PathVariable("purchaseRecord") PurchaseRecord purchaseRecord) {
+    @RequestMapping("insert")
+    public boolean insertPurchaseRecord(@RequestBody PurchaseRecord purchaseRecord) {
         return purchaseRecordService.save(purchaseRecord);
     }
 
