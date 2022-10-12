@@ -8,6 +8,7 @@ import com.ankang.user.service.SymptomService;
 import com.ankang.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,18 +46,18 @@ public class SymptomController {
         return userAndStaffInit(symptomService.getById(symptomId));
     }
 
-    @RequestMapping("update/{symptom}")
-    public boolean updateSymptomById(@PathVariable("symptom") Symptom symptom) {
+    @RequestMapping("update")
+    public boolean updateSymptomById(@RequestBody Symptom symptom) {
         return symptomService.updateById(symptom);
     }
 
-    @RequestMapping("remove/{symptomId}")
-    public boolean deleteSymptomById(@PathVariable("symptomId") Integer symptomId) {
-        return symptomService.removeById(symptomId);
+    @RequestMapping("remove")
+    public boolean deleteSymptomById(@RequestBody Symptom symptom) {
+        return symptomService.removeById(symptom.getSymptomId());
     }
 
-    @RequestMapping("insert/{symptom}")
-    public boolean insertSymptom(@PathVariable("symptom") Symptom symptom) {
+    @RequestMapping("insert")
+    public boolean insertSymptom(@RequestBody Symptom symptom) {
         return symptomService.save(symptom);
     }
 
