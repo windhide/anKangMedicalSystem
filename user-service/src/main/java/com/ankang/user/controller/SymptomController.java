@@ -1,5 +1,7 @@
 package com.ankang.user.controller;
 
+import com.alibaba.fastjson2.JSON;
+import com.ankang.cache.FullConfig;
 import com.ankang.clients.StaffClient;
 import com.ankang.pojo.staffService.Staff;
 import com.ankang.pojo.userService.Symptom;
@@ -7,6 +9,7 @@ import com.ankang.pojo.userService.User;
 import com.ankang.user.service.SymptomService;
 import com.ankang.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,14 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("symptom")
 public class SymptomController {
+    String redisKey = "symptom";
     @Autowired
     SymptomService symptomService;
-
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
     @Autowired
     UserService userService;
     @Autowired
@@ -34,11 +41,12 @@ public class SymptomController {
 
     @RequestMapping("select/list")
 
-    public List<Symptom> querySymptomForList() {
-        List<Symptom> symptomList = symptomService.list();
-        userAndStaffInit();
-        symptomList.replaceAll(this::userAndStaffInit);
-        return symptomList;
+    public Object querySymptomForList() {
+        Object cacheData = stringRedisTemplate.opsForValue().get(redisKey);
+        if (Objects.equals(cacheData, "") || cacheData == null) {
+            return cacheReload();
+        }
+        return cacheData;
     }
 
     @RequestMapping("select/{symptomId}")
@@ -48,17 +56,37 @@ public class SymptomController {
 
     @RequestMapping("update")
     public boolean updateSymptomById(@RequestBody Symptom symptom) {
-        return symptomService.updateById(symptom);
+        if (symptomService.updateById(symptom)) {
+            cacheReload();
+            return true;
+        }
+        return false;
     }
 
     @RequestMapping("remove")
     public boolean deleteSymptomById(@RequestBody Symptom symptom) {
-        return symptomService.removeById(symptom.getSymptomId());
+        if (symptomService.removeById(symptom.getSymptomId())) {
+            cacheReload();
+            return true;
+        }
+        return false;
     }
 
     @RequestMapping("insert")
     public boolean insertSymptom(@RequestBody Symptom symptom) {
-        return symptomService.save(symptom);
+        if (symptomService.save(symptom)) {
+            cacheReload();
+            return true;
+        }
+        return false;
+    }
+
+    public Object cacheReload() {
+        List<Symptom> symptomList = symptomService.list();
+        userAndStaffInit();
+        symptomList.replaceAll(this::userAndStaffInit);
+        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(symptomList).toString(), FullConfig.timeout, TimeUnit.SECONDS);
+        return symptomList;
     }
 
     /**

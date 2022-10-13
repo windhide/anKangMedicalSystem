@@ -7,7 +7,7 @@ import com.ankang.pojo.userService.UserLevelType;
 import com.ankang.user.service.UserLevelTypeService;
 import com.ankang.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,20 +26,21 @@ public class UserController {
     String redisKey = "user";
     @Autowired
     UserService userService;
+
     @Autowired
-    RedisTemplate redisTemplate;
+    StringRedisTemplate stringRedisTemplate;
     @Autowired
     UserLevelTypeService userLevelTypeService;
-
 
     Map<Integer, UserLevelType> userLevelTypeMap;
 
     @RequestMapping("select/list")
     public Object queryUserForList() {
-        if (Objects.equals(redisTemplate.opsForValue().get(redisKey), "")) {
-            cacheReload();
+        Object cacheData = stringRedisTemplate.opsForValue().get(redisKey);
+        if (Objects.equals(cacheData, "") || cacheData == null) {
+            return cacheReload();
         }
-        return redisTemplate.opsForValue().get(redisKey);
+        return cacheData;
     }
 
     @RequestMapping("select/{userId}")
@@ -48,24 +50,37 @@ public class UserController {
 
     @RequestMapping("update")
     public boolean updateUserById(@RequestBody User user) {
-        return userService.updateById(user);
+        if (userService.updateById(user)) {
+            cacheReload();
+            return true;
+        }
+        return false;
     }
 
     @RequestMapping("remove")
     public boolean deleteUserById(@RequestBody User user) {
-        return userService.removeById(user.getUserId());
+        if (userService.removeById(user.getUserId())) {
+            cacheReload();
+            return true;
+        }
+        return false;
     }
 
     @RequestMapping("insert")
     public boolean insertUser(@RequestBody User user) {
-        return userService.save(user);
+        if (userService.save(user)) {
+            cacheReload();
+            return true;
+        }
+        return false;
     }
 
-    public void cacheReload() {
+    public Object cacheReload() {
         List<User> userList = userService.list();
         userLevelTypeInit();
         userList.replaceAll(this::userLevelTypeInit);
-        redisTemplate.opsForValue().set(redisKey, JSON.toJSON(userList), FullConfig.timeout);
+        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(userList).toString(), FullConfig.timeout, TimeUnit.SECONDS);
+        return userList;
     }
 
     /**
