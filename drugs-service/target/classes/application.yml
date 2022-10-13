@@ -1,9 +1,0 @@
-server:
-  port: 8084
-spring:
-  datasource:
-    url: jdbc:mysql://47.115.216.208:3306/drugs?useSSL=false&useJDBCCompliantTimezoneShift=true&serverTimezone=UTC&allowPublicKeyRetrieval=true
-  application:
-    name: drugs-service
-mybatis:
-  type-aliases-package: com.ankang.pojo.drugsService
