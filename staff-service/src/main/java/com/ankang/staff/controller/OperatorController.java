@@ -1,5 +1,7 @@
 package com.ankang.staff.controller;
 
+import com.alibaba.fastjson2.JSON;
+import com.ankang.cache.FullConfig;
 import com.ankang.clients.DrugsClient;
 import com.ankang.pojo.drugsService.Drugs;
 import com.ankang.pojo.staffService.Operator;
@@ -9,6 +11,7 @@ import com.ankang.staff.service.OperatorService;
 import com.ankang.staff.service.OperatorTypeService;
 import com.ankang.staff.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,11 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("operator")
 public class OperatorController {
+
+    String redisKey = "operator";
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
     @Autowired
     OperatorService operatorService;
 
@@ -39,11 +48,12 @@ public class OperatorController {
     Map<Integer, Drugs> drugsMap;
 
     @RequestMapping("select/list")
-    public List<Operator> queryOperatorForList() {
-        List<Operator> operatorList = operatorService.list();
-        staffAndOperatorTypeInit();
-        operatorList.replaceAll(this::staffAndOperatorTypeInit);
-        return operatorList;
+    public Object queryOperatorForList() {
+        Object cacheData = stringRedisTemplate.opsForValue().get(redisKey);
+        if (Objects.equals(cacheData, "") || cacheData == null) {
+            return cacheReload();
+        }
+        return cacheData;
     }
 
     @RequestMapping("select/{operatorId}")
@@ -54,17 +64,37 @@ public class OperatorController {
 
     @RequestMapping("update")
     public boolean updateOperatorById(@RequestBody Operator operator) {
-        return operatorService.updateById(operator);
+        if (operatorService.updateById(operator)) {
+            cacheReload();
+            return true;
+        }
+        return false;
     }
 
     @RequestMapping("remove")
     public boolean deleteOperatorById(@RequestBody Operator operator) {
-        return operatorService.removeById(operator.getOperatorId());
+        if (operatorService.removeById(operator.getOperatorId())) {
+            cacheReload();
+            return true;
+        }
+        return false;
     }
 
     @RequestMapping("insert")
     public boolean insertOperator(@RequestBody Operator operator) {
-        return operatorService.save(operator);
+        if (operatorService.save(operator)) {
+            cacheReload();
+            return true;
+        }
+        return false;
+    }
+
+    public Object cacheReload() {
+        List<Operator> operatorList = operatorService.list();
+        staffAndOperatorTypeInit();
+        operatorList.replaceAll(this::staffAndOperatorTypeInit);
+        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(operatorList).toString(), FullConfig.timeout, TimeUnit.SECONDS);
+        return operatorList;
     }
 
     /**
