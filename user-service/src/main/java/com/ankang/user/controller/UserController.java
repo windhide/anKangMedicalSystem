@@ -21,24 +21,19 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("user")
 public class UserController {
-
-    String redisKey = "user";
     @Autowired
     UserService userService;
     @Autowired
-    RedisTemplate redisTemplate;
-    @Autowired
     UserLevelTypeService userLevelTypeService;
-
 
     Map<Integer, UserLevelType> userLevelTypeMap;
 
     @RequestMapping("select/list")
     public Object queryUserForList() {
-        if (Objects.equals(redisTemplate.opsForValue().get(redisKey), "")) {
-            cacheReload();
-        }
-        return redisTemplate.opsForValue().get(redisKey);
+        List<User> userList = userService.list();
+        userLevelTypeInit();
+        userList.replaceAll(this::userLevelTypeInit);
+        return userList;
     }
 
     @RequestMapping("select/{userId}")
@@ -59,13 +54,6 @@ public class UserController {
     @RequestMapping("insert")
     public boolean insertUser(@RequestBody User user) {
         return userService.save(user);
-    }
-
-    public void cacheReload() {
-        List<User> userList = userService.list();
-        userLevelTypeInit();
-        userList.replaceAll(this::userLevelTypeInit);
-        redisTemplate.opsForValue().set(redisKey, JSON.toJSON(userList), FullConfig.timeout);
     }
 
     /**

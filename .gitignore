@@ -1,0 +1,5 @@
+/target/**
+/drugs-service/target/
+/staff-service/target/
+/warehouse-service/target/
+/user-service/target/
