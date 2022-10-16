@@ -1,5 +1,6 @@
 package com.ankang.user.controller;
 
+import com.ankang.annotation.AutowireRedis;
 import com.ankang.pojo.userService.User;
 import com.ankang.pojo.userService.UserLevelType;
 import com.ankang.user.service.UserLevelTypeService;
@@ -25,6 +26,7 @@ public class UserController {
 
     Map<Integer, UserLevelType> userLevelTypeMap;
 
+    @AutowireRedis
     @RequestMapping("select/list")
     public List<User> queryUserForList() {
         List<User> userList = userService.list();
