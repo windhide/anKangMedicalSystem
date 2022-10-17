@@ -2,7 +2,6 @@ package com.ankang.user.controller;
 
 import com.ankang.pojo.userService.User;
 import com.ankang.pojo.userService.UserLevelType;
-import com.ankang.user.annotation.AutowireRedis;
 import com.ankang.user.service.UserLevelTypeService;
 import com.ankang.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +25,10 @@ public class UserController {
 
     Map<Integer, UserLevelType> userLevelTypeMap;
 
-    @AutowireRedis
     @RequestMapping("select/list")
-    public List<User> queryUserForList() {
+    public Object queryUserForList() {
         List<User> userList = userService.list();
+        System.out.println(userList);
         userLevelTypeInit();
         userList.replaceAll(this::userLevelTypeInit);
         return userList;
