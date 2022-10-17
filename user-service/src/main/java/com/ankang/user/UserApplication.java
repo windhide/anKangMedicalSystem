@@ -12,7 +12,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @MapperScan("com.ankang.user.mapper")
 @SpringBootApplication
 @EnableFeignClients(clients = {DrugsClient.class, StaffClient.class})
-@EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
+@EnableAspectJAutoProxy(proxyTargetClass=true)
 public class UserApplication {
     public static void main(String[] args) {
         SpringApplication.run(UserApplication.class,args);

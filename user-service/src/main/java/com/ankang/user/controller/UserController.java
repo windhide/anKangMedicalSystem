@@ -1,8 +1,8 @@
 package com.ankang.user.controller;
 
-import com.ankang.annotation.AutowireRedis;
 import com.ankang.pojo.userService.User;
 import com.ankang.pojo.userService.UserLevelType;
+import com.ankang.user.annotation.AutowireRedis;
 import com.ankang.user.service.UserLevelTypeService;
 import com.ankang.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
