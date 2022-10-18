@@ -1,11 +1,10 @@
 package com.ankang.user.service.impl;
 
 import com.ankang.pojo.userService.PurchaseRecord;
+import com.ankang.user.annotation.AutowireRedis;
 import com.ankang.user.mapper.PurchaseRecordMapper;
 import com.ankang.user.service.PurchaseRecordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +17,30 @@ import java.util.List;
 @Service
 public class PurchaseRecordServiceImpl extends ServiceImpl<PurchaseRecordMapper, PurchaseRecord>
         implements PurchaseRecordService {
+
+    @AutowireRedis(targetClass = PurchaseRecord.class)
+    @Override
+    public List<PurchaseRecord> list() {
+        return super.list();
+    }
+
+    @AutowireRedis
+    @Override
+    public boolean updateById(PurchaseRecord entity) {
+        return super.updateById(entity);
+    }
+
+    @AutowireRedis
+    @Override
+    public boolean removeById(PurchaseRecord entity) {
+        return super.removeById(entity);
+    }
+
+    @AutowireRedis
+    @Override
+    public boolean save(PurchaseRecord entity) {
+        return super.save(entity);
+    }
 
 }
 

@@ -17,13 +17,33 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>
-    implements UserService{
+        implements UserService {
 
-    @AutowireRedis
+    @AutowireRedis(targetClass = User.class)
     @Override
     public List<User> list() {
         return super.list();
     }
+
+    @AutowireRedis
+    @Override
+    public boolean updateById(User entity) {
+        return super.updateById(entity);
+    }
+
+    @AutowireRedis
+    @Override
+    public boolean removeById(User entity) {
+        return super.removeById(entity);
+    }
+
+    @AutowireRedis
+    @Override
+    public boolean save(User entity) {
+        return super.save(entity);
+    }
+
+
 }
 
 
