@@ -24,19 +24,19 @@ public class PurchaseRecordServiceImpl extends ServiceImpl<PurchaseRecordMapper,
         return super.list();
     }
 
-    @AutowireRedis
+    @AutowireRedis(operation = "update")
     @Override
     public boolean updateById(PurchaseRecord entity) {
         return super.updateById(entity);
     }
 
-    @AutowireRedis
+    @AutowireRedis(operation = "remove")
     @Override
     public boolean removeById(PurchaseRecord entity) {
         return super.removeById(entity);
     }
 
-    @AutowireRedis
+    @AutowireRedis(operation = "insert")
     @Override
     public boolean save(PurchaseRecord entity) {
         return super.save(entity);

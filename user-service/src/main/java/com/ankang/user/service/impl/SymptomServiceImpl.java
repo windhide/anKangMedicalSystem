@@ -23,19 +23,19 @@ public class SymptomServiceImpl extends ServiceImpl<SymptomMapper, Symptom>
         return super.list();
     }
 
-    @AutowireRedis
+    @AutowireRedis(operation = "update")
     @Override
     public boolean updateById(Symptom entity) {
         return super.updateById(entity);
     }
 
-    @AutowireRedis
+    @AutowireRedis(operation = "remove")
     @Override
     public boolean removeById(Symptom entity) {
         return super.removeById(entity);
     }
 
-    @AutowireRedis
+    @AutowireRedis(operation = "insert")
     @Override
     public boolean save(Symptom entity) {
         return super.save(entity);
