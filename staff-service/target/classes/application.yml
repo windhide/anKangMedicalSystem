@@ -1,9 +1,0 @@
-server:
-  port: 8083
-spring:
-  datasource:
-    url: jdbc:mysql://47.115.216.208:3306/staff?useSSL=false&useJDBCCompliantTimezoneShift=true&serverTimezone=UTC&allowPublicKeyRetrieval=true
-  application:
-    name: staff-service
-mybatis:
-  type-aliases-package: com.ankang.staff.pojo
