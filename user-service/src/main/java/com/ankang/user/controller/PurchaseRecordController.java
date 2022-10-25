@@ -1,5 +1,7 @@
 package com.ankang.user.controller;
 
+import com.alibaba.fastjson2.JSON;
+import com.ankang.cache.FullConfig;
 import com.ankang.clients.DrugsClient;
 import com.ankang.clients.StaffClient;
 import com.ankang.pojo.drugsService.Drugs;
@@ -9,6 +11,7 @@ import com.ankang.pojo.userService.User;
 import com.ankang.user.service.PurchaseRecordService;
 import com.ankang.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,35 +19,38 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("purchaseRecord")
 public class PurchaseRecordController {
+    String redisKey = "purchaseRecord";
     @Autowired
     PurchaseRecordService purchaseRecordService;
-
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
     @Autowired
     DrugsClient drugsClient;
-
     @Autowired
     StaffClient staffClient;
-
     @Autowired
     UserService userService;
 
-    Map<Integer,User> userMap;
+    Map<Integer, User> userMap;
 
     Map<Integer, Staff> staffMap;
 
     Map<Integer, Drugs> drugsMap;
 
     @RequestMapping("select/list")
-    public List<PurchaseRecord> queryPurchaseRecordForList() {
-        List<PurchaseRecord> recordList = purchaseRecordService.list();
-        userAndDrugsAndStaffInit();
-        recordList.replaceAll(this::userAndDrugsAndStaffInit);
-        return recordList;
+    public Object queryPurchaseRecordForList() {
+        Object cacheData = stringRedisTemplate.opsForValue().get(redisKey);
+        if (Objects.equals(cacheData, "") || cacheData == null) {
+            return cacheReload();
+        }
+        return cacheData;
     }
 
     @RequestMapping("select/{purchaseRecordId}")
@@ -54,17 +60,37 @@ public class PurchaseRecordController {
 
     @RequestMapping("update")
     public boolean updatePurchaseRecordById(@RequestBody PurchaseRecord purchaseRecord) {
-        return purchaseRecordService.updateById(purchaseRecord);
+        if (purchaseRecordService.updateById(purchaseRecord)) {
+            cacheReload();
+            return true;
+        }
+        return false;
     }
 
     @RequestMapping("remove")
     public boolean deletePurchaseRecordById(@RequestBody PurchaseRecord purchaseRecord) {
-        return purchaseRecordService.removeById(purchaseRecord.getPurchaseRecordId());
+        if (purchaseRecordService.removeById(purchaseRecord.getPurchaseRecordId())) {
+            cacheReload();
+            return true;
+        }
+        return false;
     }
 
     @RequestMapping("insert")
     public boolean insertPurchaseRecord(@RequestBody PurchaseRecord purchaseRecord) {
-        return purchaseRecordService.save(purchaseRecord);
+        if (purchaseRecordService.save(purchaseRecord)) {
+            cacheReload();
+            return true;
+        }
+        return false;
+    }
+
+    public Object cacheReload() {
+        List<PurchaseRecord> recordList = purchaseRecordService.list();
+        userAndDrugsAndStaffInit();
+        recordList.replaceAll(this::userAndDrugsAndStaffInit);
+        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(recordList).toString(), FullConfig.timeout, TimeUnit.SECONDS);
+        return recordList;
     }
 
     /**
