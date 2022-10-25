@@ -7,3 +7,4 @@ spring:
         file-extension: yml
         shared-configs:
           - data-id: DB-config.yml
+          - data-id: user-config.yml
