@@ -24,3 +24,7 @@ spring:
           uri: lb://staff-service
           predicates:
             - Path=/staff/**,/operator/**,/operatorType/**,/pharmacy/**,/authority/**
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/**

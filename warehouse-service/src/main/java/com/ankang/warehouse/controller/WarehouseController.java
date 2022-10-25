@@ -5,7 +5,6 @@ import com.ankang.clients.PharmacyClient;
 import com.ankang.clients.StaffClient;
 import com.ankang.pojo.drugsService.Drugs;
 import com.ankang.pojo.staffService.Pharmacy;
-import com.ankang.pojo.staffService.Staff;
 import com.ankang.pojo.warehouseService.Warehouse;
 import com.ankang.warehouse.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;

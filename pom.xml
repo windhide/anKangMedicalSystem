@@ -14,6 +14,7 @@
         <module>staff-service</module>
         <module>gateWay</module>
         <module>feign-api</module>
+        <module>auth-service</module>
     </modules>
 
     <properties>
