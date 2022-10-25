@@ -6,8 +6,6 @@ import com.ankang.drugs.gateway.respone.ResponseCodeEnum;
 import com.ankang.drugs.gateway.respone.ResponseResult;
 import com.ankang.drugs.gateway.respone.TokenAuthenticationException;
 import com.ankang.drugs.gateway.util.JWTUtil;
-import lombok.extern.java.Log;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -24,16 +22,11 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-
 @Component
-@Log4j2
 public class TokenFilter implements GlobalFilter, Ordered {
 
     final static String TOKEN = "token";
-    @Value("${secretKey:TanzeXing}")
+    @Value("${secretKey:123456}")
     private String secretKey;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
@@ -44,20 +37,9 @@ public class TokenFilter implements GlobalFilter, Ordered {
         ServerHttpResponse serverHttpResponse = exchange.getResponse();
         String uri = serverHttpRequest.getURI().getPath();
 
-        HashSet<String> passUri = new HashSet<>();
-        passUri.add("/staff/staffLogin");
-        passUri.add("/user/userLogin");
-        passUri.add("/auth/login");
-        passUri.add("/auth/userLogin");
-
-
-        //  检查白名单
-        if(passUri.contains(uri)){
-            System.out.println("------------放行");
-            log.info("========== 放行 ========== > url -> {}",uri);
+        //  检查白名单（配置）
+        if (uri.contains("/auth/login")) {
             return chain.filter(exchange);
-        }else{
-            log.info("xxxxxxxxxx 拦截 xxxxxxxxxx > url -> {}",uri);
         }
 
         String token = serverHttpRequest.getHeaders().getFirst("Authorization");
