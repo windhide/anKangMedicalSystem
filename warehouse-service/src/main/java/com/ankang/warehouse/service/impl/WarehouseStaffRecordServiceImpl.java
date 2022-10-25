@@ -1,10 +1,13 @@
 package com.ankang.warehouse.service.impl;
 
 import com.ankang.pojo.warehouseService.WarehouseStaffRecord;
+import com.ankang.warehouse.annotation.AutowireRedis;
 import com.ankang.warehouse.mapper.WarehouseStaffRecordMapper;
 import com.ankang.warehouse.service.WarehouseStaffRecordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author WindHide
@@ -14,7 +17,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class WarehouseStaffRecordServiceImpl extends ServiceImpl<WarehouseStaffRecordMapper, WarehouseStaffRecord>
         implements WarehouseStaffRecordService {
+    @AutowireRedis(targetClass = WarehouseStaffRecord.class)
+    @Override
+    public List<WarehouseStaffRecord> list() {
+        return super.list();
+    }
 
+    @AutowireRedis(operation = "update")
+    @Override
+    public boolean updateById(WarehouseStaffRecord entity) {
+        return super.updateById(entity);
+    }
+
+    @AutowireRedis(operation = "remove")
+    @Override
+    public boolean removeById(WarehouseStaffRecord entity) {
+        return super.removeById(entity);
+    }
+
+    @AutowireRedis(operation = "insert")
+    @Override
+    public boolean save(WarehouseStaffRecord entity) {
+        return super.save(entity);
+    }
 }
 
 

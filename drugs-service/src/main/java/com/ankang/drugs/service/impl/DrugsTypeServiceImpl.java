@@ -1,10 +1,13 @@
 package com.ankang.drugs.service.impl;
 
+import com.ankang.drugs.annotation.AutowireRedis;
 import com.ankang.drugs.mapper.DrugsTypeMapper;
 import com.ankang.drugs.service.DrugsTypeService;
 import com.ankang.pojo.drugsService.DrugsType;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author WindHide
@@ -14,7 +17,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class DrugsTypeServiceImpl extends ServiceImpl<DrugsTypeMapper, DrugsType>
         implements DrugsTypeService {
+    @AutowireRedis(targetClass = DrugsType.class)
+    @Override
+    public List<DrugsType> list() {
+        return super.list();
+    }
 
+    @AutowireRedis(operation = "update")
+    @Override
+    public boolean updateById(DrugsType entity) {
+        return super.updateById(entity);
+    }
+
+    @AutowireRedis(operation = "remove")
+    @Override
+    public boolean removeById(DrugsType entity) {
+        return super.removeById(entity);
+    }
+
+    @AutowireRedis(operation = "insert")
+    @Override
+    public boolean save(DrugsType entity) {
+        return super.save(entity);
+    }
 }
 
 
