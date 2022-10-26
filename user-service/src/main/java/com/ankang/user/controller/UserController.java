@@ -6,6 +6,7 @@ import com.ankang.pojo.userService.User;
 import com.ankang.pojo.userService.UserLevelType;
 import com.ankang.user.service.UserLevelTypeService;
 import com.ankang.user.service.UserService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,6 +47,11 @@ public class UserController {
     @RequestMapping("select/{userId}")
     public User queryUserById(@PathVariable("userId") Integer userId) {
         return userLevelTypeInit(userService.getById(userId));
+    }
+
+    @RequestMapping("userLogin")
+    public User queryUserByLogin(@RequestBody User user){
+        return userService.getOne(new QueryWrapper<>(user));
     }
 
     @RequestMapping("update")
