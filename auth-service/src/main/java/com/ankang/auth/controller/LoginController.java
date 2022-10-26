@@ -24,7 +24,7 @@ public class LoginController {
 
     final static String TOKEN = "token";
     final static String REFRESH_TOKEN = "refreshToken";
-    @Value("${secretKey:123456}")
+    @Value("${secretKey:TanzeXing}")
     private String secretKey;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
@@ -39,7 +39,7 @@ public class LoginController {
         String password = request.getPassword();
         //  假设查询到用户ID是1001
         String userId = "1001";
-        if ("alanchen".equals(username) && "admin".equals(password)) {
+        if ("admin".equals(username) && "admin".equals(password)) {
             //  生成Token
             String token = JWTUtil.generateToken(userId, username, secretKey);
 

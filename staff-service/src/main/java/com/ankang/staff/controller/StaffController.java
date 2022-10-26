@@ -6,6 +6,7 @@ import com.ankang.pojo.staffService.Staff;
 import com.ankang.staff.service.AuthorityService;
 import com.ankang.staff.service.PharmacyService;
 import com.ankang.staff.service.StaffService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,6 +44,11 @@ public class StaffController {
     public Staff queryStaffById(@PathVariable("staffId") Integer staffId) {
         pharmacyAndAuthorityInit();
         return pharmacyAndAuthorityInit(staffService.getById(staffId));
+    }
+
+    @RequestMapping("staffLogin")
+    public Staff queryStaffByLogin(@RequestBody Staff staff){
+        return staffService.getOne(new QueryWrapper<>(staff));
     }
 
     @RequestMapping("update")
