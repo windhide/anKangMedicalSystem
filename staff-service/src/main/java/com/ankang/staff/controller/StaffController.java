@@ -48,6 +48,9 @@ public class StaffController {
 
     @RequestMapping("staffLogin")
     public Staff queryStaffByLogin(@RequestBody Staff staff){
+        QueryWrapper<Staff> wrapper = new QueryWrapper<>();
+        wrapper.eq("staffUserName",staff.getStaffUserName());
+        wrapper.eq("staffPassWord",staff.getStaffPassWord());
         return staffService.getOne(new QueryWrapper<>(staff));
     }
 

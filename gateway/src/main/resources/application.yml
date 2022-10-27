@@ -1,6 +1,16 @@
 server:
   port: 10010 # 网关端口
 spring:
+  redis:
+    database: 1
+    host: 47.115.216.208
+    port: 6379
+    password: 3302983
+    jedis:
+      pool:
+        max-wait: 2000ms
+        min-idle: 2
+        max-idle: 8
   application:
     name: gateway # 服务名称
   cloud:
