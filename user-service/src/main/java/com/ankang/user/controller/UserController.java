@@ -40,11 +40,11 @@ public class UserController {
         return userLevelTypeInit(userService.getById(userId));
     }
 
-    @RequestMapping("select/UserData")
+    @RequestMapping("select/userData")
     public User queryUserByUserData(@RequestBody User user){
         QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
-        userQueryWrapper.eq("userUserName",user.getUserUserName());
-        userQueryWrapper.eq("userId",user.getUserId());
+        userQueryWrapper.eq("user_user_name",user.getUserUserName());
+        userQueryWrapper.eq("user_id",user.getUserId());
         return userService.getOne(userQueryWrapper);
     }
 
