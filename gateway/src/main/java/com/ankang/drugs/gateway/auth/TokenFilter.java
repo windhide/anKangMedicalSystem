@@ -48,6 +48,8 @@ public class TokenFilter implements GlobalFilter, Ordered {
         passUri.add("/staff/staffLogin");
         passUri.add("/user/userLogin");
         passUri.add("/auth/login");
+        passUri.add("/auth/userLogin");
+
 
         //  检查白名单
         if(passUri.contains(uri)){

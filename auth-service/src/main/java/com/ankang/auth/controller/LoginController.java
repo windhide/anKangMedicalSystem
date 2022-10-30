@@ -7,6 +7,11 @@ import com.ankang.auth.respone.LoginResponse;
 import com.ankang.auth.respone.ResponseCodeEnum;
 import com.ankang.auth.respone.ResponseResult;
 import com.ankang.auth.util.JWTUtil;
+import com.ankang.clients.StaffClient;
+import com.ankang.clients.UserCilent;
+import com.ankang.pojo.staffService.Staff;
+import com.ankang.pojo.userService.User;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.HashOperations;
@@ -29,19 +34,29 @@ public class LoginController {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    @PostMapping("/login")
-    public ResponseResult login(@RequestBody @Validated LoginRequest request, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return ResponseResult.error(ResponseCodeEnum.PARAMETER_ILLEGAL.getCode(), ResponseCodeEnum.PARAMETER_ILLEGAL.getMessage());
-        }
+    @Autowired
+    StaffClient staffClient;
+
+    @Autowired
+    UserCilent userCilent;
+
+    @RequestMapping("/userLogin")
+    public ResponseResult userLogin(@RequestBody LoginRequest request) {
 
         String username = request.getUsername();
         String password = request.getPassword();
-        //  假设查询到用户ID是1001
-        String userId = "1001";
-        if ("admin".equals(username) && "admin".equals(password)) {
+
+        User requestUser = new User();
+        requestUser.setUserUserName(username);
+        requestUser.setUserPassWord(password);
+        User databaseUser = userCilent.queryUserByLogin(requestUser);
+        if(databaseUser.getUserUserName() == null || databaseUser.getUserPassWord() == null){
+            databaseUser.setUserUserName("");
+            databaseUser.setUserPassWord("");
+        }
+        if (databaseUser.getUserUserName().equals(username) && databaseUser.getUserPassWord().equals(password)) {
             //  生成Token
-            String token = JWTUtil.generateToken(userId, username, secretKey);
+            String token = JWTUtil.generateToken(databaseUser.getUserId()+"", username, secretKey);
 
             //  生成刷新Token
             String refreshToken = UUID.randomUUID().toString().replace("-", "");
@@ -49,7 +64,7 @@ public class LoginController {
             //  放入缓存
             HashOperations<String, String, String> hashOperations = stringRedisTemplate.opsForHash();
 
-            String key = userId;
+            String key = databaseUser.getUserId()+"";
             hashOperations.put(key, TOKEN, token);
             hashOperations.put(key, REFRESH_TOKEN, refreshToken);
             stringRedisTemplate.expire(key, JWTUtil.TOKEN_EXPIRE_TIME, TimeUnit.MILLISECONDS);
@@ -57,7 +72,48 @@ public class LoginController {
             LoginResponse loginResponse = new LoginResponse();
             loginResponse.setToken(token);
             loginResponse.setRefreshToken(refreshToken);
-            loginResponse.setUserId(userId);
+            loginResponse.setUserId(databaseUser.getUserId()+"");
+            loginResponse.setUsername(username);
+
+            return ResponseResult.success(loginResponse);
+        }
+
+        return ResponseResult.error(ResponseCodeEnum.LOGIN_ERROR.getCode(), ResponseCodeEnum.LOGIN_ERROR.getMessage());
+    }
+
+    @RequestMapping("/login")
+    public ResponseResult login(@RequestBody LoginRequest request) {
+
+        String username = request.getUsername();
+        String password = request.getPassword();
+
+        Staff requestStaff = new Staff();
+        requestStaff.setStaffUserName(username);
+        requestStaff.setStaffPassWord(password);
+        Staff databaseStaff = staffClient.queryStaffByLogin(requestStaff);
+        if(databaseStaff.getStaffUserName() == null || databaseStaff.getStaffPassWord() == null){
+            databaseStaff.setStaffUserName("");
+            databaseStaff.setStaffPassWord("");
+        }
+        if (databaseStaff.getStaffUserName().equals(username) && databaseStaff.getStaffPassWord().equals(password)) {
+            //  生成Token
+            String token = JWTUtil.generateToken(databaseStaff.getStaffId()+"", username, secretKey);
+
+            //  生成刷新Token
+            String refreshToken = UUID.randomUUID().toString().replace("-", "");
+
+            //  放入缓存
+            HashOperations<String, String, String> hashOperations = stringRedisTemplate.opsForHash();
+
+            String key = databaseStaff.getStaffId()+"";
+            hashOperations.put(key, TOKEN, token);
+            hashOperations.put(key, REFRESH_TOKEN, refreshToken);
+            stringRedisTemplate.expire(key, JWTUtil.TOKEN_EXPIRE_TIME, TimeUnit.MILLISECONDS);
+
+            LoginResponse loginResponse = new LoginResponse();
+            loginResponse.setToken(token);
+            loginResponse.setRefreshToken(refreshToken);
+            loginResponse.setUserId(databaseStaff.getStaffId()+"");
             loginResponse.setUsername(username);
 
             return ResponseResult.success(loginResponse);
