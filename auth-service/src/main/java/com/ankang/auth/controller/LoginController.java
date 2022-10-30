@@ -10,6 +10,7 @@ import com.ankang.auth.util.JWTUtil;
 import com.ankang.clients.StaffClient;
 import com.ankang.clients.UserCilent;
 import com.ankang.pojo.staffService.Staff;
+import com.ankang.pojo.userService.User;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,6 +39,47 @@ public class LoginController {
 
     @Autowired
     UserCilent userCilent;
+
+    @RequestMapping("/userLogin")
+    public ResponseResult userLogin(@RequestBody LoginRequest request) {
+
+        String username = request.getUsername();
+        String password = request.getPassword();
+
+        User requestUser = new User();
+        requestUser.setUserUserName(username);
+        requestUser.setUserPassWord(password);
+        User databaseUser = userCilent.queryUserByLogin(requestUser);
+        if(databaseUser.getUserUserName() == null || databaseUser.getUserPassWord() == null){
+            databaseUser.setUserUserName("");
+            databaseUser.setUserPassWord("");
+        }
+        if (databaseUser.getUserUserName().equals(username) && databaseUser.getUserPassWord().equals(password)) {
+            //  生成Token
+            String token = JWTUtil.generateToken(databaseUser.getUserId()+"", username, secretKey);
+
+            //  生成刷新Token
+            String refreshToken = UUID.randomUUID().toString().replace("-", "");
+
+            //  放入缓存
+            HashOperations<String, String, String> hashOperations = stringRedisTemplate.opsForHash();
+
+            String key = databaseUser.getUserId()+"";
+            hashOperations.put(key, TOKEN, token);
+            hashOperations.put(key, REFRESH_TOKEN, refreshToken);
+            stringRedisTemplate.expire(key, JWTUtil.TOKEN_EXPIRE_TIME, TimeUnit.MILLISECONDS);
+
+            LoginResponse loginResponse = new LoginResponse();
+            loginResponse.setToken(token);
+            loginResponse.setRefreshToken(refreshToken);
+            loginResponse.setUserId(databaseUser.getUserId()+"");
+            loginResponse.setUsername(username);
+
+            return ResponseResult.success(loginResponse);
+        }
+
+        return ResponseResult.error(ResponseCodeEnum.LOGIN_ERROR.getCode(), ResponseCodeEnum.LOGIN_ERROR.getMessage());
+    }
 
     @RequestMapping("/login")
     public ResponseResult login(@RequestBody LoginRequest request) {

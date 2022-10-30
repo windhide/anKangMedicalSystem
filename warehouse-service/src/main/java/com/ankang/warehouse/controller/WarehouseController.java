@@ -7,6 +7,7 @@ import com.ankang.pojo.drugsService.Drugs;
 import com.ankang.pojo.staffService.Pharmacy;
 import com.ankang.pojo.warehouseService.Warehouse;
 import com.ankang.warehouse.service.WarehouseService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,6 +48,15 @@ public class WarehouseController {
     @RequestMapping("select/{warehouseId}")
     public Warehouse queryWarehouseById(@PathVariable("warehouseId") Integer warehouseId) {
         return staffAndDrugsAndPharmacyInit(warehouseService.getById(warehouseId));
+    }
+
+    @RequestMapping("select/shopingCar")
+    public List<Warehouse> queryWarehouseByWarehouseName(@RequestBody Warehouse warehouse){
+        QueryWrapper<Warehouse> warehouseQueryWrapper = new QueryWrapper<>();
+        warehouseQueryWrapper.eq("warehouseName",warehouse.getWarehouseName());
+        List<Warehouse> list = warehouseService.list(warehouseQueryWrapper);
+        list.replaceAll(this::staffAndDrugsAndPharmacyInit);
+        return list;
     }
 
     @RequestMapping("update")
