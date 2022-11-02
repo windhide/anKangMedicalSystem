@@ -10,6 +10,7 @@ import com.ankang.pojo.drugsService.Drugs;
 import com.ankang.pojo.drugsService.DrugsType;
 import com.ankang.pojo.drugsService.DrugsUnit;
 import com.ankang.utils.SeparatePageUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -68,6 +69,16 @@ public class DrugsController {
         }
 
         return (List<Drugs>) ListCache.getListCache("drugs");
+    }
+
+    @RequestMapping("select/forName")
+    public List<Drugs> queryDrgusForDrugsName(@RequestBody String drugsName){
+        QueryWrapper<Drugs> queryWrapper = new QueryWrapper<>();
+        drugsName = drugsName.replaceAll("\\{\"drugsName\":\"","%").replaceAll("\"\\}","%");
+        queryWrapper.like("drugs_name",drugsName);
+        List<Drugs> drugsList = drugsService.list(queryWrapper);
+        drugsList.replaceAll(this::drugsTypeAndUnitInit);
+        return drugsList;
     }
 
     @RequestMapping("select/{drugsId}")

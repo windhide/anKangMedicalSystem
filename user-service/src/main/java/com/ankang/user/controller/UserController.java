@@ -55,6 +55,9 @@ public class UserController {
 
     @RequestMapping("update")
     public boolean updateUserById(@RequestBody User user) {
+        if(user.getUserPassWord() == "" || user.getUserPassWord() == null){
+            user.setUserPassWord(null);
+        }
         return userService.updateById(user);
     }
 
