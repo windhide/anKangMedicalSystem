@@ -1,14 +1,11 @@
 package com.ankang.user.controller;
 
-import com.alibaba.fastjson2.JSON;
-import com.ankang.cache.FullConfig;
 import com.ankang.pojo.userService.User;
 import com.ankang.pojo.userService.UserLevelType;
 import com.ankang.user.service.UserLevelTypeService;
 import com.ankang.user.service.UserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,20 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("user")
 public class UserController {
-
-    String redisKey = "user";
     @Autowired
     UserService userService;
 
-    @Autowired
-    StringRedisTemplate stringRedisTemplate;
     @Autowired
     UserLevelTypeService userLevelTypeService;
 
@@ -37,11 +28,11 @@ public class UserController {
 
     @RequestMapping("select/list")
     public Object queryUserForList() {
-        Object cacheData = stringRedisTemplate.opsForValue().get(redisKey);
-        if (Objects.equals(cacheData, "") || cacheData == null) {
-            return cacheReload();
-        }
-        return cacheData;
+        List<User> userList = userService.list();
+        System.out.println(userList);
+        userLevelTypeInit();
+        userList.replaceAll(this::userLevelTypeInit);
+        return userList;
     }
 
     @RequestMapping("select/{userId}")
@@ -49,11 +40,11 @@ public class UserController {
         return userLevelTypeInit(userService.getById(userId));
     }
 
-    @RequestMapping("select/UserData")
+    @RequestMapping("select/userData")
     public User queryUserByUserData(@RequestBody User user){
         QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
-        userQueryWrapper.eq("userUserName",user.getUserUserName());
-        userQueryWrapper.eq("userId",user.getUserId());
+        userQueryWrapper.eq("user_user_name",user.getUserUserName());
+        userQueryWrapper.eq("user_id",user.getUserId());
         return userService.getOne(userQueryWrapper);
     }
 
@@ -64,37 +55,20 @@ public class UserController {
 
     @RequestMapping("update")
     public boolean updateUserById(@RequestBody User user) {
-        if (userService.updateById(user)) {
-            cacheReload();
-            return true;
+        if(user.getUserPassWord() == "" || user.getUserPassWord() == null){
+            user.setUserPassWord(null);
         }
-        return false;
+        return userService.updateById(user);
     }
 
     @RequestMapping("remove")
     public boolean deleteUserById(@RequestBody User user) {
-        if (userService.removeById(user.getUserId())) {
-            cacheReload();
-            return true;
-        }
-        return false;
+        return userService.removeById(user.getUserId());
     }
 
     @RequestMapping("insert")
     public boolean insertUser(@RequestBody User user) {
-        if (userService.save(user)) {
-            cacheReload();
-            return true;
-        }
-        return false;
-    }
-
-    public Object cacheReload() {
-        List<User> userList = userService.list();
-        userLevelTypeInit();
-        userList.replaceAll(this::userLevelTypeInit);
-        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(userList).toString(), FullConfig.timeout, TimeUnit.SECONDS);
-        return userList;
+        return userService.save(user);
     }
 
     /**
@@ -112,7 +86,9 @@ public class UserController {
      */
     public User userLevelTypeInit(User user) {
         UserLevelType tempUserLevelType = userLevelTypeMap.get(user.getUserLevelTypeId());
+
         user.setUserLevelType(tempUserLevelType);
+
         return user;
     }
 
