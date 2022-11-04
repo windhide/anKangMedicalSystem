@@ -6,6 +6,7 @@ import com.ankang.pojo.userService.Symptom;
 import com.ankang.pojo.userService.User;
 import com.ankang.user.service.SymptomService;
 import com.ankang.user.service.UserService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,6 +45,18 @@ public class SymptomController {
     @RequestMapping("select/{symptomId}")
     public Symptom querySymptomById(@PathVariable("symptomId") Integer symptomId) {
         return userAndStaffInit(symptomService.getById(symptomId));
+    }
+
+    @RequestMapping("select/condition")
+    public List<Symptom> querySymptomByCondition(@RequestBody String userId) {
+        QueryWrapper<Symptom> symptomQueryWrapper = new QueryWrapper<>();
+        userId = userId.replaceAll("\\{\"userId\":\"","").replaceAll("\"\\}","");
+        symptomQueryWrapper.eq("user_id",userId);
+        System.out.println("userId========>"+userId);
+        List<Symptom> symptomList = symptomService.list(symptomQueryWrapper);
+        userAndStaffInit();
+        symptomList.replaceAll(this::userAndStaffInit);
+        return symptomList;
     }
 
     @RequestMapping("update")
