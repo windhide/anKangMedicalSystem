@@ -29,7 +29,7 @@ spring:
         - id: user-service
           uri: lb://user-service
           predicates:
-            - Path=/user/**,/purchaseRecord/**,/symptom/**,/userLevelType/**
+            - Path=/user/**,/purchaseRecord/**,/symptom/**,/userLevelType/**,/shopingCar/**
         - id: staff-service
           uri: lb://staff-service
           predicates:
