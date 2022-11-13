@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("shopingCar")
@@ -48,27 +49,59 @@ public class ShopingCarController {
         }else{
             try {
                 List<ShopingCar> list = JSON.parseArray(redisData, ShopingCar.class);
-                list.add(inputShopingCar);
-                stringRedisTemplate.opsForValue().set(userKey,JSON.toJSONString(list));
+                List<ShopingCar> collect = null;
+                if(list.stream().anyMatch(shoppingCar -> shoppingCar.getDrugs().getDrugsId() == inputShopingCar.getDrugs().getDrugsId()? true : false)){
+                    collect = list.stream().filter(shoppingCar -> {
+                        if (shoppingCar.getDrugs().getDrugsId() == inputShopingCar.getDrugs().getDrugsId()) {
+                            shoppingCar.setCount(shoppingCar.getCount()+inputShopingCar.getCount());
+                            return true;
+                        }
+                        return true;
+                    }).collect(Collectors.toList());
+                    stringRedisTemplate.opsForValue().set(userKey,JSON.toJSONString(collect));
+                }else{
+                    list.add(inputShopingCar);
+                    stringRedisTemplate.opsForValue().set(userKey,JSON.toJSONString(list));
+                }
                 state = true;
             }catch (Exception e){
                 state = false;
             }
-
         }
         return state;
     }
 
     @RequestMapping("remove")
-    public boolean removeShopingCar(@RequestBody Integer DrgusId){
-        return false;
+    public boolean removeShopingCar(@RequestBody Map<String, Object> dataMap){
+        List<ShopingCar> shopingCarList = JSON.parseArray(stringRedisTemplate.opsForValue().get(dataMap.get("userKey")), ShopingCar.class);
+        List<ShopingCar> afterList = shopingCarList.stream().filter(shopingCar -> shopingCar.getDrugs().getDrugsId() != dataMap.get("drugsId")).collect(Collectors.toList());
+        boolean state = false;
+        try{
+            stringRedisTemplate.opsForValue().set(dataMap.get("userKey").toString(),JSON.toJSONString(afterList));
+            state = true;
+        }catch (Exception e){
+            state = false;
+        }
+        return state;
     }
 
     @RequestMapping("update")
-    public boolean updateShopingCar(@RequestBody String ShopingJson){
-        return false;
+    public boolean updateShopingCar(@RequestBody Map<String, Object> dataMap){
+        ShopingCar inputShopingCar = (ShopingCar) JSON.parseObject(JSON.toJSONString(dataMap.get("shopingCar")), ShopingCar.class);
+        List<ShopingCar> shopingCarList = JSON.parseArray(stringRedisTemplate.opsForValue().get(dataMap.get("userKey")), ShopingCar.class);
+        List<ShopingCar> afterList = shopingCarList.stream().filter(shopingCar -> {
+            if(shopingCar.getDrugs().getDrugsId() == inputShopingCar.getDrugs().getDrugsId()){
+                shopingCar.setCount(inputShopingCar.getCount());
+            }
+            return true;
+        }).collect(Collectors.toList());
+        boolean state = false;
+        try{
+            stringRedisTemplate.opsForValue().set(dataMap.get("userKey").toString(),JSON.toJSONString(afterList));
+            state = true;
+        }catch (Exception e){
+            state = false;
+        }
+        return state;
     }
-
-
-
 }
