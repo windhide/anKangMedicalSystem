@@ -1,7 +1,10 @@
 package com.ankang.user.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.ankang.pojo.staffService.Staff;
+import com.ankang.pojo.userService.PurchaseRecord;
 import com.ankang.pojo.userService.ShopingCar;
+import com.ankang.user.service.PurchaseRecordService;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -10,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,6 +23,9 @@ public class ShopingCarController {
 
     @Autowired
     StringRedisTemplate stringRedisTemplate;
+
+    @Autowired
+    PurchaseRecordService purchaseRecordService;
 
     @RequestMapping("select")
     public String selectShopingCar(@RequestBody String userKey) {
@@ -104,7 +109,7 @@ public class ShopingCarController {
         }
         return state;
     }
-
+// 𝔀ℐ𝓃𝓭ℋℐ𝓭ℯ
 
     @RequestMapping("removeAll")
     public boolean removaAllShopingCar(@RequestBody Map<String, Object> dataMap) {
@@ -113,6 +118,40 @@ public class ShopingCarController {
             stringRedisTemplate.delete(dataMap.get("userKey").toString());
             state = true;
         } catch (Exception e) {
+            state = false;
+        }
+        return state;
+    }
+
+    @RequestMapping("Pay")
+    public boolean PayShopingCar(@RequestBody Map<String,Object> dataMap){
+        boolean state = false;
+        List<ShopingCar> checkList = JSON.parseArray(JSON.toJSONString(dataMap.get("shopingCar")), ShopingCar.class);
+        List<ShopingCar> shopingCarList = JSON.parseArray(stringRedisTemplate.opsForValue().get(dataMap.get("userKey").toString()), ShopingCar.class);
+        List<ShopingCar> cacheCarList = shopingCarList;
+        try {
+            shopingCarList = shopingCarList.stream().filter(shopingCar -> {
+                for (ShopingCar car : checkList) {
+                    if(car.getDrugs().getDrugsId() == shopingCar.getDrugs().getDrugsId()){
+                        return false;
+                    }
+                }
+                return true;
+            }).collect(Collectors.toList());
+            stringRedisTemplate.opsForValue().set(dataMap.get("userKey").toString(), JSON.toJSONString(shopingCarList));
+            PurchaseRecord purchaseRecord = new PurchaseRecord();
+            purchaseRecord.setPurchaseRecordId(null);
+            purchaseRecord.setUserId(Integer.parseInt(dataMap.get("userKey").toString().split("-")[0]));
+            purchaseRecord.setCreateTime(dataMap.get("nowTime").toString());
+            purchaseRecord.setStaffId(9999);
+            if(dataMap.get("staffId") != null){
+                purchaseRecord.setStaffId((Integer) dataMap.get("staffId"));
+            }
+            purchaseRecord.setDrugsJson(JSON.toJSONString(shopingCarList));
+            state = purchaseRecordService.save(purchaseRecord);
+        } catch (Exception e) {
+            System.out.println(e);
+            stringRedisTemplate.opsForValue().set(dataMap.get("userKey").toString(), JSON.toJSONString(cacheCarList));
             state = false;
         }
         return state;

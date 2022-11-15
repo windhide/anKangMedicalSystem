@@ -8,6 +8,7 @@ import com.ankang.pojo.userService.PurchaseRecord;
 import com.ankang.pojo.userService.User;
 import com.ankang.user.service.PurchaseRecordService;
 import com.ankang.user.service.UserService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,6 +46,16 @@ public class PurchaseRecordController {
         userAndDrugsAndStaffInit();
         recordList.replaceAll(this::userAndDrugsAndStaffInit);
         return recordList;
+    }
+
+    @RequestMapping("selectUser")
+    public List<PurchaseRecord> queryPurchaseRecordForUser(@RequestBody Map<String,Object> dataMap){
+        QueryWrapper<PurchaseRecord> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id",dataMap.get("userId").toString());
+        List<PurchaseRecord> purchaseRecordList = purchaseRecordService.list(queryWrapper);
+        userAndDrugsAndStaffInit();
+        purchaseRecordList.replaceAll(this::userAndDrugsAndStaffInit);
+        return purchaseRecordList;
     }
 
     @RequestMapping("select/{purchaseRecordId}")
@@ -91,11 +102,9 @@ public class PurchaseRecordController {
         staffTemp.setStaffUserName(null);
         staffTemp.setStaffPassWord(null);
 
-        Drugs drugsTemp = drugsMap.get(purchaseRecord.getDrugsId());
 
         purchaseRecord.setUser(userTemp);
         purchaseRecord.setStaff(staffTemp);
-        purchaseRecord.setDrugs(drugsTemp);
 
         return purchaseRecord;
     }
