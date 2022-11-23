@@ -1,7 +1,7 @@
 package com.ankang.user.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.ankang.pojo.staffService.Staff;
+import com.ankang.pojo.drugsService.Drugs;
 import com.ankang.pojo.userService.PurchaseRecord;
 import com.ankang.pojo.userService.ShopingCar;
 import com.ankang.user.service.PurchaseRecordService;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -40,8 +41,8 @@ public class ShopingCarController {
     public boolean addShopingCar(@RequestBody Map<String, Object> dataMap) {
         String userKey = StringEscapeUtils.unescapeHtml(dataMap.get("userKey").toString());
         String redisData = stringRedisTemplate.opsForValue().get(userKey);
-        boolean state = false;
-        ShopingCar inputShopingCar = (ShopingCar) JSON.parseObject(JSON.toJSONString(dataMap.get("shopingCar")), ShopingCar.class);
+        boolean state;
+        ShopingCar inputShopingCar = JSON.parseObject(JSON.toJSONString(dataMap.get("shopingCar")), ShopingCar.class);
         if (redisData == null || redisData.equals("")) {
             try {
                 List<ShopingCar> list = new ArrayList<>();
@@ -55,7 +56,7 @@ public class ShopingCarController {
             try {
                 List<ShopingCar> list = JSON.parseArray(redisData, ShopingCar.class);
                 List<ShopingCar> collect = null;
-                if (list.stream().anyMatch(shoppingCar -> shoppingCar.getDrugs().getDrugsId() == inputShopingCar.getDrugs().getDrugsId() ? true : false)) {
+                if (list.stream().anyMatch(shoppingCar -> Objects.equals(shoppingCar.getDrugs().getDrugsId(), inputShopingCar.getDrugs().getDrugsId()))) {
                     collect = list.stream().filter(shoppingCar -> {
                         if (shoppingCar.getDrugs().getDrugsId() == inputShopingCar.getDrugs().getDrugsId()) {
                             shoppingCar.setCount(shoppingCar.getCount() + inputShopingCar.getCount());
@@ -113,7 +114,7 @@ public class ShopingCarController {
 
     @RequestMapping("removeAll")
     public boolean removaAllShopingCar(@RequestBody Map<String, Object> dataMap) {
-        boolean state = false;
+        boolean state;
         try {
             stringRedisTemplate.delete(dataMap.get("userKey").toString());
             state = true;
@@ -124,35 +125,33 @@ public class ShopingCarController {
     }
 
     @RequestMapping("Pay")
-    public boolean PayShopingCar(@RequestBody Map<String,Object> dataMap){
+    public boolean PayShopingCar(@RequestBody Map<String,Object> dataMap) {
         boolean state = false;
+        // 前端给的
         List<ShopingCar> checkList = JSON.parseArray(JSON.toJSONString(dataMap.get("shopingCar")), ShopingCar.class);
+        // redis的购物车
         List<ShopingCar> shopingCarList = JSON.parseArray(stringRedisTemplate.opsForValue().get(dataMap.get("userKey").toString()), ShopingCar.class);
+        // 此处为缓存
         List<ShopingCar> cacheCarList = shopingCarList;
+
+        List<Integer> idsList = checkList.stream().map(ShopingCar::getDrugs).collect(Collectors.toList()).stream().map(Drugs::getDrugsId).collect(Collectors.toList());
+
         try {
-            shopingCarList = shopingCarList.stream().filter(shopingCar -> {
-                for (ShopingCar car : checkList) {
-                    if(car.getDrugs().getDrugsId() == shopingCar.getDrugs().getDrugsId()){
-                        return false;
-                    }
-                }
-                return true;
-            }).collect(Collectors.toList());
+            shopingCarList = shopingCarList.stream().filter(redisShopingCar -> !idsList.contains(redisShopingCar.getDrugs().getDrugsId())).collect(Collectors.toList());
             stringRedisTemplate.opsForValue().set(dataMap.get("userKey").toString(), JSON.toJSONString(shopingCarList));
             PurchaseRecord purchaseRecord = new PurchaseRecord();
             purchaseRecord.setPurchaseRecordId(null);
             purchaseRecord.setUserId(Integer.parseInt(dataMap.get("userKey").toString().split("-")[0]));
             purchaseRecord.setCreateTime(dataMap.get("nowTime").toString());
             purchaseRecord.setStaffId(9999);
-            if(dataMap.get("staffId") != null){
+            if (dataMap.get("staffId") != null) {
                 purchaseRecord.setStaffId((Integer) dataMap.get("staffId"));
             }
-            purchaseRecord.setDrugsJson(JSON.toJSONString(shopingCarList));
+            purchaseRecord.setDrugsJson(JSON.toJSONString(checkList));
             state = purchaseRecordService.save(purchaseRecord);
         } catch (Exception e) {
             System.out.println(e);
             stringRedisTemplate.opsForValue().set(dataMap.get("userKey").toString(), JSON.toJSONString(cacheCarList));
-            state = false;
         }
         return state;
     }
