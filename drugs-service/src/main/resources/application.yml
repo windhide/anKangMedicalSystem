@@ -1,5 +1,5 @@
 server:
-  port: 8084
+  port: 5003
 spring:
   datasource:
     url: jdbc:mysql://8.134.163.127:3306/drugs?useSSL=false&useJDBCCompliantTimezoneShift=true&serverTimezone=UTC&allowPublicKeyRetrieval=true
