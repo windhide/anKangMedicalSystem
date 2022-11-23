@@ -1,7 +1,5 @@
 package com.ankang.warehouse.controller;
 
-import com.alibaba.fastjson2.JSON;
-import com.ankang.cache.FullConfig;
 import com.ankang.clients.DrugsClient;
 import com.ankang.clients.PharmacyClient;
 import com.ankang.clients.StaffClient;
@@ -22,8 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @RestController

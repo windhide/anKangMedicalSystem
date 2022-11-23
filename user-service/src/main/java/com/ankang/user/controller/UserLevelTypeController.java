@@ -1,7 +1,5 @@
 package com.ankang.user.controller;
 
-import com.alibaba.fastjson2.JSON;
-import com.ankang.cache.FullConfig;
 import com.ankang.pojo.userService.UserLevelType;
 import com.ankang.user.service.UserLevelTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("userLevelType")

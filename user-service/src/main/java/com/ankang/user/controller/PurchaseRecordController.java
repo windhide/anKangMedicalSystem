@@ -1,7 +1,5 @@
 package com.ankang.user.controller;
 
-import com.alibaba.fastjson2.JSON;
-import com.ankang.cache.FullConfig;
 import com.ankang.clients.DrugsClient;
 import com.ankang.clients.StaffClient;
 import com.ankang.pojo.drugsService.Drugs;
@@ -20,8 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @RestController
@@ -29,6 +25,7 @@ import java.util.stream.Collectors;
 public class PurchaseRecordController {
     @Autowired
     PurchaseRecordService purchaseRecordService;
+
     @Autowired
     StringRedisTemplate stringRedisTemplate;
     @Autowired

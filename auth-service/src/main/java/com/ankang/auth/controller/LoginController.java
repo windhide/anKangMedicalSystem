@@ -11,7 +11,6 @@ import com.ankang.clients.StaffClient;
 import com.ankang.clients.UserCilent;
 import com.ankang.pojo.staffService.Staff;
 import com.ankang.pojo.userService.User;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.HashOperations;

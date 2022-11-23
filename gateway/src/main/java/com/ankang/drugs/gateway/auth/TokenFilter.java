@@ -6,7 +6,6 @@ import com.ankang.drugs.gateway.respone.ResponseCodeEnum;
 import com.ankang.drugs.gateway.respone.ResponseResult;
 import com.ankang.drugs.gateway.respone.TokenAuthenticationException;
 import com.ankang.drugs.gateway.util.JWTUtil;
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,9 +23,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
 @Component
 @Log4j2
