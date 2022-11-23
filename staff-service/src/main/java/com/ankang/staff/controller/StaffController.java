@@ -92,7 +92,7 @@ public class StaffController {
         List<Staff> staffList = staffService.list();
         pharmacyAndAuthorityInit();
         staffList.replaceAll(this::pharmacyAndAuthorityInit);
-        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(staffList).toString(), FullConfig.timeout, TimeUnit.SECONDS);
+        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(staffList).toString(), FullConfig.timeOut, TimeUnit.SECONDS);
         return staffList;
     }
 

@@ -68,7 +68,7 @@ public class AuthorityController {
 
     public Object cacheReload() {
         List<Authority> authorityList = authorityService.list();
-        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(authorityList).toString(), FullConfig.timeout, TimeUnit.SECONDS);
+        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(authorityList).toString(), FullConfig.timeOut, TimeUnit.SECONDS);
         return authorityList;
     }
 }
