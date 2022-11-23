@@ -18,8 +18,6 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("authority")
 public class AuthorityController {
-
-    String redisKey = "authority";
     @Autowired
     StringRedisTemplate stringRedisTemplate;
     @Autowired
@@ -27,11 +25,7 @@ public class AuthorityController {
 
     @RequestMapping("select/list")
     public Object queryAuthorityForList() {
-        Object cacheData = stringRedisTemplate.opsForValue().get(redisKey);
-        if (Objects.equals(cacheData, "") || cacheData == null) {
-            return cacheReload();
-        }
-        return cacheData;
+        return authorityService.list();
     }
 
     @RequestMapping("select/{authorityId}")
@@ -42,7 +36,6 @@ public class AuthorityController {
     @RequestMapping("update")
     public boolean updateAuthorityById(@RequestBody Authority authority) {
         if (authorityService.updateById(authority)) {
-            cacheReload();
             return true;
         }
         return false;
@@ -51,7 +44,6 @@ public class AuthorityController {
     @RequestMapping("remove")
     public boolean deleteAuthorityById(@RequestBody Authority authority) {
         if (authorityService.removeById(authority.getAuthorityId())) {
-            cacheReload();
             return true;
         }
         return false;
@@ -60,15 +52,9 @@ public class AuthorityController {
     @RequestMapping("insert")
     public boolean insertAuthority(@RequestBody Authority authority) {
         if (authorityService.save(authority)) {
-            cacheReload();
             return true;
         }
         return false;
     }
 
-    public Object cacheReload() {
-        List<Authority> authorityList = authorityService.list();
-        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(authorityList).toString(), FullConfig.timeOut, TimeUnit.SECONDS);
-        return authorityList;
-    }
 }

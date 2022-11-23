@@ -27,7 +27,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("purchaseRecord")
 public class PurchaseRecordController {
-    String redisKey = "purchaseRecord";
     @Autowired
     PurchaseRecordService purchaseRecordService;
     @Autowired
@@ -47,11 +46,10 @@ public class PurchaseRecordController {
 
     @RequestMapping("select/list")
     public Object queryPurchaseRecordForList() {
-        Object cacheData = stringRedisTemplate.opsForValue().get(redisKey);
-        if (Objects.equals(cacheData, "") || cacheData == null) {
-            return cacheReload();
-        }
-        return cacheData;
+        List<PurchaseRecord> purchaseRecordList = purchaseRecordService.list();
+        userAndDrugsAndStaffInit();
+        purchaseRecordList.replaceAll(this::userAndDrugsAndStaffInit);
+        return purchaseRecordList;
     }
 
     @RequestMapping("selectUser")
@@ -72,7 +70,6 @@ public class PurchaseRecordController {
     @RequestMapping("update")
     public boolean updatePurchaseRecordById(@RequestBody PurchaseRecord purchaseRecord) {
         if (purchaseRecordService.updateById(purchaseRecord)) {
-            cacheReload();
             return true;
         }
         return false;
@@ -81,7 +78,6 @@ public class PurchaseRecordController {
     @RequestMapping("remove")
     public boolean deletePurchaseRecordById(@RequestBody PurchaseRecord purchaseRecord) {
         if (purchaseRecordService.removeById(purchaseRecord.getPurchaseRecordId())) {
-            cacheReload();
             return true;
         }
         return false;
@@ -90,19 +86,11 @@ public class PurchaseRecordController {
     @RequestMapping("insert")
     public boolean insertPurchaseRecord(@RequestBody PurchaseRecord purchaseRecord) {
         if (purchaseRecordService.save(purchaseRecord)) {
-            cacheReload();
             return true;
         }
         return false;
     }
 
-    public Object cacheReload() {
-        List<PurchaseRecord> recordList = purchaseRecordService.list();
-        userAndDrugsAndStaffInit();
-        recordList.replaceAll(this::userAndDrugsAndStaffInit);
-        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(recordList).toString(), FullConfig.timeout, TimeUnit.SECONDS);
-        return recordList;
-    }
 
     /**
      * 载入用户，药品，员工信息

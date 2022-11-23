@@ -27,11 +27,7 @@ public class WarehouseTypeController {
 
     @RequestMapping("select/list")
     public Object queryWarehouseTypeForList() {
-        Object cacheData = stringRedisTemplate.opsForValue().get(redisKey);
-        if (Objects.equals(cacheData, "") || cacheData == null) {
-            return cacheReload();
-        }
-        return cacheData;
+        return warehouseTypeService.list();
     }
 
     @RequestMapping("select/{warehouseTypeId}")
@@ -42,7 +38,6 @@ public class WarehouseTypeController {
     @RequestMapping("update")
     public boolean updateWarehouseTypeById(@RequestBody WarehouseType warehouseType) {
         if (warehouseTypeService.updateById(warehouseType)) {
-            cacheReload();
             return true;
         }
         return false;
@@ -51,7 +46,6 @@ public class WarehouseTypeController {
     @RequestMapping("remove")
     public boolean deleteWarehouseTypeById(@RequestBody WarehouseType warehouseType) {
         if (warehouseTypeService.removeById(warehouseType.getWarehouseTypeId())) {
-            cacheReload();
             return true;
         }
         return false;
@@ -60,15 +54,8 @@ public class WarehouseTypeController {
     @RequestMapping("insert")
     public boolean insertWarehouseType(@RequestBody WarehouseType warehouseType) {
         if (warehouseTypeService.save(warehouseType)) {
-            cacheReload();
             return true;
         }
         return false;
-    }
-
-    public Object cacheReload() {
-        List<WarehouseType> warehouseTypeList = warehouseTypeService.list();
-        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(warehouseTypeList).toString(), FullConfig.timeout, TimeUnit.SECONDS);
-        return warehouseTypeList;
     }
 }

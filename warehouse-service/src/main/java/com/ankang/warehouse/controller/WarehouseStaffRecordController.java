@@ -29,8 +29,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("warehouseStaffRecord")
 public class WarehouseStaffRecordController {
-    String redisKey = "warehouseStaffRecord";
-
     @Autowired
     StringRedisTemplate stringRedisTemplate;
     @Autowired
@@ -61,11 +59,10 @@ public class WarehouseStaffRecordController {
 
     @RequestMapping("select/list")
     public Object queryWarehouseStaffRecordForList() {
-        Object cacheData = stringRedisTemplate.opsForValue().get(redisKey);
-        if (Objects.equals(cacheData, "") || cacheData == null) {
-            return cacheReload();
-        }
-        return cacheData;
+        List<WarehouseStaffRecord> warehouseStaffRecordList = warehouseStaffRecordService.list();
+        staffAndDrugsAndPharmacyInit();
+        warehouseStaffRecordList.replaceAll(this::staffAndDrugsAndPharmacyInit);
+        return warehouseStaffRecordList;
     }
 
     @RequestMapping("select/{warehouseStaffRecordId}")
@@ -76,7 +73,6 @@ public class WarehouseStaffRecordController {
     @RequestMapping("update")
     public boolean updateWarehouseStaffRecordById(@RequestBody WarehouseStaffRecord warehouseStaffRecord) {
         if (warehouseStaffRecordService.updateById(warehouseStaffRecord)) {
-            cacheReload();
             return true;
         }
         return false;
@@ -85,7 +81,6 @@ public class WarehouseStaffRecordController {
     @RequestMapping("remove")
     public boolean deleteWarehouseStaffRecordById(@RequestBody WarehouseStaffRecord warehouseStaffRecord) {
         if (warehouseStaffRecordService.removeById(warehouseStaffRecord.getWarehouseStaffRecordId())) {
-            cacheReload();
             return true;
         }
         return false;
@@ -94,18 +89,9 @@ public class WarehouseStaffRecordController {
     @RequestMapping("insert")
     public boolean insertWarehouseStaffRecord(@RequestBody WarehouseStaffRecord warehouseStaffRecord) {
         if (warehouseStaffRecordService.save(warehouseStaffRecord)) {
-            cacheReload();
             return true;
         }
         return false;
-    }
-
-    public Object cacheReload() {
-        List<WarehouseStaffRecord> warehouseStaffRecordList = warehouseStaffRecordService.list();
-        staffAndDrugsAndPharmacyInit();
-        warehouseStaffRecordList.replaceAll(this::staffAndDrugsAndPharmacyInit);
-        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(warehouseStaffRecordList).toString(), FullConfig.timeout, TimeUnit.SECONDS);
-        return warehouseStaffRecordList;
     }
 
     /**

@@ -7,6 +7,7 @@ import com.ankang.staff.service.OperatorTypeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -31,10 +32,10 @@ public class OperatorTypeServiceImpl extends ServiceImpl<OperatorTypeMapper, Ope
 
     @AutowireRedis(operation = "remove")
     @Override
-    public boolean removeById(OperatorType entity) {
-        return super.removeById(entity);
+    public boolean removeById(Serializable id) {
+        return super.removeById(id);
     }
-
+    
     @AutowireRedis(operation = "insert")
     @Override
     public boolean save(OperatorType entity) {

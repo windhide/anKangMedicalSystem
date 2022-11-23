@@ -27,8 +27,6 @@ import java.util.stream.Collectors;
 @RequestMapping("warehouse")
 public class WarehouseController {
 
-    String redisKey = "warehouse";
-
     @Autowired
     StringRedisTemplate stringRedisTemplate;
     @Autowired
@@ -49,11 +47,10 @@ public class WarehouseController {
 
     @RequestMapping("select/list")
     public Object queryWarehouseForList() {
-        Object cacheData = stringRedisTemplate.opsForValue().get(redisKey);
-        if (Objects.equals(cacheData, "") || cacheData == null) {
-            return cacheReload();
-        }
-        return cacheData;
+        List<Warehouse> warehouseList = warehouseService.list();
+        staffAndDrugsAndPharmacyInit();
+        warehouseList.replaceAll(this::staffAndDrugsAndPharmacyInit);
+        return warehouseList;
     }
 
     @RequestMapping("select/{warehouseId}")
@@ -73,7 +70,6 @@ public class WarehouseController {
     @RequestMapping("update")
     public boolean updateWarehouseById(@RequestBody Warehouse warehouse) {
         if (warehouseService.updateById(warehouse)) {
-            cacheReload();
             return true;
         }
         return false;
@@ -82,7 +78,6 @@ public class WarehouseController {
     @RequestMapping("remove")
     public boolean deleteWarehouseById(@RequestBody Warehouse warehouse) {
         if (warehouseService.removeById(warehouse.getWarehouseId())) {
-            cacheReload();
             return true;
         }
         return false;
@@ -91,18 +86,9 @@ public class WarehouseController {
     @RequestMapping("insert")
     public boolean insertWarehouse(@RequestBody Warehouse warehouse) {
         if (warehouseService.save(warehouse)) {
-            cacheReload();
             return true;
         }
         return false;
-    }
-
-    public Object cacheReload() {
-        List<Warehouse> warehouseList = warehouseService.list();
-        staffAndDrugsAndPharmacyInit();
-        warehouseList.replaceAll(this::staffAndDrugsAndPharmacyInit);
-        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(warehouseList).toString(), FullConfig.timeout, TimeUnit.SECONDS);
-        return warehouseList;
     }
 
     /**

@@ -18,9 +18,6 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("drugsUnit")
 public class DrugsUnitController {
-
-    String redisKey = "drugsUnit";
-
     @Autowired
     StringRedisTemplate stringRedisTemplate;
 
@@ -29,11 +26,7 @@ public class DrugsUnitController {
 
     @RequestMapping("select/list")
     public Object queryDrugsUnitForList() {
-        Object cacheData = stringRedisTemplate.opsForValue().get(redisKey);
-        if (Objects.equals(cacheData, "") || cacheData == null) {
-            return cacheReload();
-        }
-        return cacheData;
+        return drugsUnitService.list();
     }
 
     @RequestMapping("select/{drugsUnitId}")
@@ -44,7 +37,6 @@ public class DrugsUnitController {
     @RequestMapping("update")
     public boolean updateDrugsById(@RequestBody DrugsUnit drugsUnit) {
         if (drugsUnitService.updateById(drugsUnit)) {
-            cacheReload();
             return true;
         }
         return false;
@@ -53,7 +45,6 @@ public class DrugsUnitController {
     @RequestMapping("remove")
     public boolean deleteDrugsById(@RequestBody DrugsUnit drugsUnit) {
         if (drugsUnitService.removeById(drugsUnit.getDrugsUnitId())) {
-            cacheReload();
             return true;
         }
         return false;
@@ -62,17 +53,8 @@ public class DrugsUnitController {
     @RequestMapping("insert")
     public boolean insertDrugs(@RequestBody DrugsUnit drugsUnit) {
         if (drugsUnitService.save(drugsUnit)) {
-            cacheReload();
             return true;
         }
         return false;
     }
-
-
-    public Object cacheReload() {
-        List<DrugsUnit> drugsUnitList = drugsUnitService.list();
-        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(drugsUnitList).toString(), FullConfig.timeout, TimeUnit.SECONDS);
-        return drugsUnitList;
-    }
-
 }

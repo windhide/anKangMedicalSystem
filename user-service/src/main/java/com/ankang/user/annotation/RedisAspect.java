@@ -51,7 +51,7 @@ public class RedisAspect {
                 if (Boolean.FALSE.equals(stringRedisTemplate.hasKey(useFunctionKey))) {
                     log.info("redis中没有Key是 -----> [{}]的数据", useFunctionKey);
                     proceed = JSON.toJSONString(proceedingJoinPoint.proceed());
-                    stringRedisTemplate.opsForValue().set(useFunctionKey, String.valueOf(proceed), FullConfig.timeOut, FullConfig.timeUnit);
+                    stringRedisTemplate.opsForValue().set(useFunctionKey, String.valueOf(proceed), FullConfig.timeout, FullConfig.timeUnit);
                     return JSON.parseArray(proceed, targetClass);
                 }
                 break;

@@ -18,7 +18,6 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("drugsType")
 public class DrugsTypeController {
-    String redisKey = "drugsType";
     @Autowired
     StringRedisTemplate stringRedisTemplate;
     @Autowired
@@ -26,11 +25,7 @@ public class DrugsTypeController {
 
     @RequestMapping("select/list")
     public Object queryDrugsTypeForList() {
-        Object cacheData = stringRedisTemplate.opsForValue().get(redisKey);
-        if (Objects.equals(cacheData, "") || cacheData == null) {
-            return cacheReload();
-        }
-        return cacheData;
+        return drugsTypeService.list();
     }
 
     @RequestMapping("select/{drugsTypeId}")
@@ -41,7 +36,6 @@ public class DrugsTypeController {
     @RequestMapping("update")
     public boolean updateDrugsTypeById(@RequestBody DrugsType drugsType) {
         if (drugsTypeService.updateById(drugsType)) {
-            cacheReload();
             return true;
         }
         return false;
@@ -50,7 +44,6 @@ public class DrugsTypeController {
     @RequestMapping("remove")
     public boolean deleteDrugsTypeById(@RequestBody DrugsType drugsType) {
         if (drugsTypeService.removeById(drugsType.getDrugsTypeId())) {
-            cacheReload();
             return true;
         }
         return false;
@@ -59,17 +52,8 @@ public class DrugsTypeController {
     @RequestMapping("insert")
     public boolean insertDrugsType(@RequestBody DrugsType drugsType) {
         if (drugsTypeService.save(drugsType)) {
-            cacheReload();
             return true;
         }
         return false;
     }
-
-
-    public Object cacheReload() {
-        List<DrugsType> drugsTypeList = drugsTypeService.list();
-        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(drugsTypeList).toString(), FullConfig.timeout, TimeUnit.SECONDS);
-        return drugsTypeList;
-    }
-
 }

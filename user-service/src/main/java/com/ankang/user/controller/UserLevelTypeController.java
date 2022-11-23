@@ -18,7 +18,6 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("userLevelType")
 public class UserLevelTypeController {
-    String redisKey = "userLevelType";
     @Autowired
     UserLevelTypeService userLevelTypeService;
     @Autowired
@@ -26,11 +25,7 @@ public class UserLevelTypeController {
 
     @RequestMapping("select/list")
     public Object queryUserLevelTypeForList() {
-        Object cacheData = stringRedisTemplate.opsForValue().get(redisKey);
-        if (Objects.equals(cacheData, "") || cacheData == null) {
-            return cacheReload();
-        }
-        return cacheData;
+        return userLevelTypeService.list();
     }
 
     @RequestMapping("select/{userLevelTypeId}")
@@ -41,7 +36,6 @@ public class UserLevelTypeController {
     @RequestMapping("update")
     public boolean updateUserLevelTypeById(@RequestBody UserLevelType userLevelType) {
         if (userLevelTypeService.updateById(userLevelType)) {
-            cacheReload();
             return true;
         }
         return false;
@@ -50,7 +44,6 @@ public class UserLevelTypeController {
     @RequestMapping("remove")
     public boolean deleteUserLevelTypeById(@RequestBody UserLevelType userLevelType) {
         if (userLevelTypeService.removeById(userLevelType.getUserLevelTypeId())) {
-            cacheReload();
             return true;
         }
         return false;
@@ -59,16 +52,8 @@ public class UserLevelTypeController {
     @RequestMapping("insert")
     public boolean insertUserLevelType(@RequestBody UserLevelType userLevelType) {
         if (userLevelTypeService.save(userLevelType)) {
-            cacheReload();
             return true;
         }
         return false;
     }
-
-    public Object cacheReload() {
-        List<UserLevelType> userLevelTypeList = userLevelTypeService.list();
-        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(userLevelTypeList).toString(), FullConfig.timeout, TimeUnit.SECONDS);
-        return userLevelTypeList;
-    }
-
 }

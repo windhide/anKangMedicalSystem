@@ -26,8 +26,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("operator")
 public class OperatorController {
-
-    String redisKey = "operator";
     @Autowired
     StringRedisTemplate stringRedisTemplate;
     @Autowired
@@ -49,11 +47,10 @@ public class OperatorController {
 
     @RequestMapping("select/list")
     public Object queryOperatorForList() {
-        Object cacheData = stringRedisTemplate.opsForValue().get(redisKey);
-        if (Objects.equals(cacheData, "") || cacheData == null) {
-            return cacheReload();
-        }
-        return cacheData;
+        List<Operator> operatorList = operatorService.list();
+        staffAndOperatorTypeInit();
+        operatorList.replaceAll(this::staffAndOperatorTypeInit);
+        return operatorList;
     }
 
     @RequestMapping("select/{operatorId}")
@@ -65,7 +62,6 @@ public class OperatorController {
     @RequestMapping("update")
     public boolean updateOperatorById(@RequestBody Operator operator) {
         if (operatorService.updateById(operator)) {
-            cacheReload();
             return true;
         }
         return false;
@@ -74,7 +70,6 @@ public class OperatorController {
     @RequestMapping("remove")
     public boolean deleteOperatorById(@RequestBody Operator operator) {
         if (operatorService.removeById(operator.getOperatorId())) {
-            cacheReload();
             return true;
         }
         return false;
@@ -83,18 +78,9 @@ public class OperatorController {
     @RequestMapping("insert")
     public boolean insertOperator(@RequestBody Operator operator) {
         if (operatorService.save(operator)) {
-            cacheReload();
             return true;
         }
         return false;
-    }
-
-    public Object cacheReload() {
-        List<Operator> operatorList = operatorService.list();
-        staffAndOperatorTypeInit();
-        operatorList.replaceAll(this::staffAndOperatorTypeInit);
-        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(operatorList).toString(), FullConfig.timeout, TimeUnit.SECONDS);
-        return operatorList;
     }
 
     /**

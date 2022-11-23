@@ -7,6 +7,7 @@ import com.ankang.warehouse.service.WarehouseStaffRecordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -31,8 +32,8 @@ public class WarehouseStaffRecordServiceImpl extends ServiceImpl<WarehouseStaffR
 
     @AutowireRedis(operation = "remove")
     @Override
-    public boolean removeById(WarehouseStaffRecord entity) {
-        return super.removeById(entity);
+    public boolean removeById(Serializable id) {
+        return super.removeById(id);
     }
 
     @AutowireRedis(operation = "insert")

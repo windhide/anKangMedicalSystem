@@ -7,6 +7,7 @@ import com.ankang.user.service.SymptomService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -31,8 +32,8 @@ public class SymptomServiceImpl extends ServiceImpl<SymptomMapper, Symptom>
 
     @AutowireRedis(operation = "remove")
     @Override
-    public boolean removeById(Symptom entity) {
-        return super.removeById(entity);
+    public boolean removeById(Serializable id) {
+        return super.removeById(id);
     }
 
     @AutowireRedis(operation = "insert")

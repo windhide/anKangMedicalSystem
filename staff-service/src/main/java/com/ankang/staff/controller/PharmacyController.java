@@ -19,7 +19,6 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("pharmacy")
 
 public class PharmacyController {
-    String redisKey = "pharmacy";
     @Autowired
     StringRedisTemplate stringRedisTemplate;
     @Autowired
@@ -27,11 +26,7 @@ public class PharmacyController {
 
     @RequestMapping("select/list")
     public Object queryPharmacyForList() {
-        Object cacheData = stringRedisTemplate.opsForValue().get(redisKey);
-        if (Objects.equals(cacheData, "") || cacheData == null) {
-            return cacheReload();
-        }
-        return cacheData;
+        return pharmacyService.list();
     }
 
     @RequestMapping("select/{pharmacyId}")
@@ -42,7 +37,6 @@ public class PharmacyController {
     @RequestMapping("update")
     public boolean updatePharmacyById(@RequestBody Pharmacy pharmacy) {
         if (pharmacyService.updateById(pharmacy)) {
-            cacheReload();
             return true;
         }
         return false;
@@ -51,7 +45,6 @@ public class PharmacyController {
     @RequestMapping("remove")
     public boolean deletePharmacyById(@RequestBody Pharmacy pharmacy) {
         if (pharmacyService.removeById(pharmacy.getPharmacyId())) {
-            cacheReload();
             return true;
         }
         return false;
@@ -60,16 +53,8 @@ public class PharmacyController {
     @RequestMapping("insert")
     public boolean insertPharmacy(@RequestBody Pharmacy pharmacy) {
         if (pharmacyService.save(pharmacy)) {
-            cacheReload();
             return true;
         }
         return false;
-    }
-
-
-    public Object cacheReload() {
-        List<Pharmacy> pharmacyList = pharmacyService.list();
-        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(pharmacyList).toString(), FullConfig.timeout, TimeUnit.SECONDS);
-        return pharmacyList;
     }
 }

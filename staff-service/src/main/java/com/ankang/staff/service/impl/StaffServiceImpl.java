@@ -7,6 +7,7 @@ import com.ankang.staff.service.StaffService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -30,8 +31,8 @@ public class StaffServiceImpl extends ServiceImpl<StaffMapper, Staff> implements
 
     @AutowireRedis(operation = "remove")
     @Override
-    public boolean removeById(Staff entity) {
-        return super.removeById(entity);
+    public boolean removeById(Serializable id) {
+        return super.removeById(id);
     }
 
     @AutowireRedis(operation = "insert")

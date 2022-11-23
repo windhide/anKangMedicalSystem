@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
 @RequestMapping("staff")
 public class StaffController {
 
-    String redisKey = "staff";
     @Autowired
     StringRedisTemplate stringRedisTemplate;
     @Autowired
@@ -43,11 +42,10 @@ public class StaffController {
 
     @RequestMapping("select/list")
     public Object queryStaffForList() {
-        Object cacheData = stringRedisTemplate.opsForValue().get(redisKey);
-        if (Objects.equals(cacheData, "") || cacheData == null) {
-            return cacheReload();
-        }
-        return cacheData;
+        pharmacyAndAuthorityInit();
+        List<Staff> staffList = staffService.list();
+        staffList.replaceAll(this::pharmacyAndAuthorityInit);
+        return staffList;
     }
 
     @RequestMapping("select/{staffId}")
@@ -58,13 +56,13 @@ public class StaffController {
 
     @RequestMapping("staffLogin")
     public Staff queryStaffByLogin(@RequestBody Staff staff){
+        System.out.println(staff);
         return staffService.getOne(new QueryWrapper<>(staff));
     }
 
     @RequestMapping("update")
     public boolean updateStaffById(@RequestBody Staff staff) {
         if (staffService.updateById(staff)) {
-            cacheReload();
             return true;
         }
         return false;
@@ -73,7 +71,6 @@ public class StaffController {
     @RequestMapping("remove")
     public boolean deleteStaffById(@RequestBody Staff staff) {
         if (staffService.removeById(staff.getStaffId())) {
-            cacheReload();
             return true;
         }
         return false;
@@ -82,19 +79,11 @@ public class StaffController {
     @RequestMapping("insert")
     public boolean insertStaff(@RequestBody Staff staff) {
         if (staffService.save(staff)) {
-            cacheReload();
             return true;
         }
         return false;
     }
 
-    public Object cacheReload() {
-        List<Staff> staffList = staffService.list();
-        pharmacyAndAuthorityInit();
-        staffList.replaceAll(this::pharmacyAndAuthorityInit);
-        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(staffList).toString(), FullConfig.timeOut, TimeUnit.SECONDS);
-        return staffList;
-    }
 
     /**
      * 加载药店和权限的Map

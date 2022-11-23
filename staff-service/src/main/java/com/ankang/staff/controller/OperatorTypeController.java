@@ -27,11 +27,7 @@ public class OperatorTypeController {
 
     @RequestMapping("select/list")
     public Object queryOperatorTypeForList() {
-        Object cacheData = stringRedisTemplate.opsForValue().get(redisKey);
-        if (Objects.equals(cacheData, "") || cacheData == null) {
-            return cacheReload();
-        }
-        return cacheData;
+        return operatorTypeService.list();
     }
 
     @RequestMapping("select/{operatorTypeId}")
@@ -42,7 +38,6 @@ public class OperatorTypeController {
     @RequestMapping("update")
     public boolean updateOperatorTypeById(@RequestBody OperatorType operatorType) {
         if (operatorTypeService.updateById(operatorType)) {
-            cacheReload();
             return true;
         }
         return false;
@@ -51,7 +46,6 @@ public class OperatorTypeController {
     @RequestMapping("remove")
     public boolean deleteOperatorTypeById(@RequestBody OperatorType operatorType) {
         if (operatorTypeService.removeById(operatorType.getOperatorTypeId())) {
-            cacheReload();
             return true;
         }
         return false;
@@ -60,15 +54,8 @@ public class OperatorTypeController {
     @RequestMapping("insert")
     public boolean insertOperatorType(@RequestBody OperatorType operatorType) {
         if (operatorTypeService.save(operatorType)) {
-            cacheReload();
             return true;
         }
         return false;
-    }
-
-    public Object cacheReload() {
-        List<OperatorType> operatorTypeList = operatorTypeService.list();
-        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(operatorTypeList).toString(), FullConfig.timeout, TimeUnit.SECONDS);
-        return operatorTypeList;
     }
 }

@@ -43,11 +43,10 @@ public class SymptomController {
     @RequestMapping("select/list")
 
     public Object querySymptomForList() {
-        Object cacheData = stringRedisTemplate.opsForValue().get(redisKey);
-        if (Objects.equals(cacheData, "") || cacheData == null) {
-            return cacheReload();
-        }
-        return cacheData;
+        List<Symptom> symptomList = symptomService.list();
+        userAndStaffInit();
+        symptomList.replaceAll(this::userAndStaffInit);
+        return symptomList;
     }
 
     @RequestMapping("select/{symptomId}")
@@ -70,7 +69,6 @@ public class SymptomController {
     @RequestMapping("update")
     public boolean updateSymptomById(@RequestBody Symptom symptom) {
         if (symptomService.updateById(symptom)) {
-            cacheReload();
             return true;
         }
         return false;
@@ -79,7 +77,6 @@ public class SymptomController {
     @RequestMapping("remove")
     public boolean deleteSymptomById(@RequestBody Symptom symptom) {
         if (symptomService.removeById(symptom.getSymptomId())) {
-            cacheReload();
             return true;
         }
         return false;
@@ -88,18 +85,9 @@ public class SymptomController {
     @RequestMapping("insert")
     public boolean insertSymptom(@RequestBody Symptom symptom) {
         if (symptomService.save(symptom)) {
-            cacheReload();
             return true;
         }
         return false;
-    }
-
-    public Object cacheReload() {
-        List<Symptom> symptomList = symptomService.list();
-        userAndStaffInit();
-        symptomList.replaceAll(this::userAndStaffInit);
-        stringRedisTemplate.opsForValue().set(redisKey, JSON.toJSON(symptomList).toString(), FullConfig.timeout, TimeUnit.SECONDS);
-        return symptomList;
     }
 
     /**

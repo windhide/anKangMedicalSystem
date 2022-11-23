@@ -46,21 +46,20 @@ public class RedisAspect {
 
         String proceed = "";
 
-        switch (operation) {
-            case "select":
-                if (Boolean.FALSE.equals(stringRedisTemplate.hasKey(useFunctionKey))) {
-                    log.info("redis中没有Key是 -----> [{}]的数据", useFunctionKey);
-                    proceed = JSON.toJSONString(proceedingJoinPoint.proceed());
-                    stringRedisTemplate.opsForValue().set(useFunctionKey, String.valueOf(proceed), FullConfig.timeOut, FullConfig.timeUnit);
-                    return JSON.parseArray(proceed, targetClass);
-                }
-                break;
-            default:
-                Boolean changeProceed = (boolean) proceedingJoinPoint.proceed();
-                if (changeProceed) {
-                    stringRedisTemplate.delete(signature.getDeclaringType().getSimpleName() + "-list");
-                }
-                return changeProceed;
+        if("select".equals(operation)){
+            if (Boolean.FALSE.equals(stringRedisTemplate.hasKey(useFunctionKey))) {
+                log.info("redis中没有Key是 -----> [{}]的数据", useFunctionKey);
+                proceed = JSON.toJSONString(proceedingJoinPoint.proceed());
+                stringRedisTemplate.opsForValue().set(useFunctionKey, String.valueOf(proceed), FullConfig.timeout, FullConfig.timeUnit);
+                return JSON.parseArray(proceed, targetClass);
+            }
+        }else{
+            System.out.println("operation+++++" + operation);
+            Boolean changeProceed = (boolean) proceedingJoinPoint.proceed();
+            if (changeProceed) {
+                stringRedisTemplate.delete(signature.getDeclaringType().getSimpleName() + "-list");
+            }
+            return changeProceed;
         }
         return JSON.parseArray(stringRedisTemplate.opsForValue().get(useFunctionKey), targetClass);
     }
