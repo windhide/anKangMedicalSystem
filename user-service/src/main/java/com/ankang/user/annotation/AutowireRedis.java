@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 @Documented
 @Target({ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-//test push
+//test push 2
 public @interface AutowireRedis {
     String operation() default "select";
 
