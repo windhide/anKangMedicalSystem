@@ -25,6 +25,7 @@ docker run --name nacos -d -p 8848:8848 --privileged=true --restart=always -e JV
 
 ```shell
 docker pull mysql
+docker exec -it mysql /bin/bash
 ```
 
 ```shell
